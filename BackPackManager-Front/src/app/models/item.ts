@@ -6,4 +6,5 @@ interface Item {
   size: SizeEnum;
   location: Item;
   items: Item[];
+  priority: PriorityEnum[];
 }
