@@ -2,15 +2,17 @@ interface SimpleItem {
   name: string;
   description: string;
   image: any;
-  weight: number;
-  size: SizeEnum;
+//   weight: number;
+//   size: SizeEnum;
   location: StorageItem;
   priority: PriorityEnum[];
+  orderNo: Number;
+  //   isPinned:boolean;
 }
 
 interface StorageItem extends SimpleItem {
   items: SimpleItem[];
-  capacity: SizeEnum;
+  //   capacity: SizeEnum;
   locationWhenNotused: StorageItem;
 }
 
