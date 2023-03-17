@@ -1,1 +1,11 @@
-<p>cargo-item works!</p>
+<div class="card m-2">
+    <div class="card-header">
+        <img src="http://placekitten.com/g/30/30" alt="">
+        <div class="title px-3">{{cargo.name | uppercase }}</div>
+    </div>
+    <div cdkDropList [cdkDropListData]="cargo.items" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
+            <app-simple-item [item]="item"></app-simple-item>
+        </div>
+    </div>
+</div>

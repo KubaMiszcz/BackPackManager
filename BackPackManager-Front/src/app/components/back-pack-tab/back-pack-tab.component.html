@@ -1,62 +1,49 @@
 <div cdkDropListGroup class="row d-flex">
+
     <div class="col-lg-4">
-        <div class="card m-4">
+        <div class="card m-2">
             <div class="card-header">
-                <h2>Backpacks</h2>
+                <h2 class="title">{{'Backpacks' | uppercase}}</h2>
             </div>
             <div *ngFor="let cargo of cargos">
-                <div class="card m-2">
-                    <div class="card-header">
-                        <img src="http://placekitten.com/g/30/30" alt="">
-                        {{cargo.name}}
-                    </div>
-                    <div cdkDropList [cdkDropListData]="cargo.items" class="example-list"
-                        (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
-                            <app-simple-item [name]="item.name"></app-simple-item>
-                        </div>
-                    </div>
-                </div>
+                <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <!-- <div class="col-lg-4">
+        <div class="carddd m-4">
+            <app-cargo-item [cargo]="looseItems" (itemDropped)="drop($event)"></app-cargo-item>
+        </div>
+    </div> -->
+
+
+    <div class="col-lg-4">
+        <div class="card m-2">
+            <div class="card-header">
+                <h2 class="title">{{'Loose Items' | uppercase}}</h2>
+            </div>
+            <div *ngFor="let items of looseItems">
+                <app-cargo-item [cargo]="items" (itemDropped)="drop($event)"></app-cargo-item>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <div class="card m-4">
-            <div class="card-header">
-                <h2>Items</h2>
-            </div>
-            <div class="card example-contasiner m-2">
-                <div cdkDropList [cdkDropListData]="looseItems" class="example-list"
-                    (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of looseItems" cdkDrag>
-                        <app-simple-item [name]="item.name"></app-simple-item>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-    </div>
+
 
     <div class="col-lg-4">
-        <div class="card m-4">
+        <div class="card m-2">
             <div class="card-header">
-                <h2>Shelves</h2>
+                <h2 class="title">{{'Shelves' | uppercase}}</h2>
             </div>
             <div *ngFor="let shelve of shelves">
-                <div class="card m-2">
-                    <div class="card-header">
-                        <img src="http://placekitten.com/g/30/30" alt="">
-                        {{shelve.name}}
-                    </div>
-                    <div cdkDropList [cdkDropListData]="shelve.items" class="example-list"
-                        (cdkDropListDropped)="drop2($event)">
-                        <div class="example-box" *ngFor="let item of shelve.items" cdkDrag>
-                            <app-simple-item [name]="item.name"></app-simple-item>
-                        </div>
-                    </div>
-                </div>
+                <app-cargo-item [cargo]="shelve" (itemDropped)="drop($event)"></app-cargo-item>
             </div>
         </div>
     </div>
+
+
 </div>

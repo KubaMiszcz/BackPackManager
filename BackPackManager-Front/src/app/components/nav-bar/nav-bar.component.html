@@ -13,10 +13,7 @@
                         <a class="nav-link active" [routerLink]="'backpack-tab'" aria-current="page" >BackPack</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " [routerLink]="'cargo-tree-tab'" aria-current="page" >Cargo Tree</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link active" [routerLink]="'cargo-tree-tab'" aria-current="page" >Cargo Tree</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -36,7 +33,7 @@
                         <a class="nav-link disabled">Disabled</a>
                     </li>
                     <li>
-                        <button type="button" class="btn btn-primary" (click)="saveData.emit()">Save</button>
+                        <button type="button" class="btn btn-primary mx-2" (click)="saveData.emit()">Save</button>
                     </li>
                     <li>
                         <button type="button" class="btn btn-primary" (click)="loadData.emit()">Load</button>

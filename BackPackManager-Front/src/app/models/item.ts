@@ -1,4 +1,5 @@
-export interface SimpleItem {
+
+export interface ISimpleItem {
   name: string;
   // description: string;
   // image: any;
@@ -10,11 +11,21 @@ export interface SimpleItem {
   //   isPinned:boolean;
 }
 
-export interface CargoItem extends SimpleItem {
-  items: SimpleItem[];
+export class SimpleItem implements ISimpleItem{
+  name: string='';
+}
+
+export interface ICargoItem extends ISimpleItem {
+  items: ISimpleItem[];
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;
 }
+
+export class CargoItem implements ICargoItem {
+  name: string = '';
+  items: ISimpleItem[] = [];
+}
+
 
 // export interface StorageItem extends SimpleItem {
 //   items: SimpleItem[];
@@ -22,7 +33,7 @@ export interface CargoItem extends SimpleItem {
 //   // locationWhenNotused: StorageItem;
 // }
 
-export interface ToDoItem {
+export interface IToDoItem {
   name: string;
 }
   

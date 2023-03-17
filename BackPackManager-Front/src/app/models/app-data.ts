@@ -1,7 +1,7 @@
-import { CargoItem as CargoItem, SimpleItem } from './item';
+import { ICargoItem as ICargoItem, ISimpleItem } from './item';
 export interface AppData {
-  cargos: CargoItem[];
-  looseItems: SimpleItem[];
-  longStorageItems: CargoItem[];
+  cargos: ICargoItem[];
+  looseItems: ICargoItem[];
+  longStorageItems: ICargoItem[];
 }
 

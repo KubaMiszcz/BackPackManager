@@ -1,3 +1,4 @@
+import { ISimpleItem, SimpleItem } from './../../models/item';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -6,5 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./simple-item.component.scss'],
 })
 export class SimpleItemComponent {
-  @Input() name = '';
+  @Input() item: ISimpleItem = new SimpleItem();
+
+  constructor() {}
 }

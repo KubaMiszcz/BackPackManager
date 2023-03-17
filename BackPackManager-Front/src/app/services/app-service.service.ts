@@ -1,5 +1,5 @@
 import { AppData } from './../models/app-data';
-import { SimpleItem, CargoItem } from './../models/item';
+import { ISimpleItem, ICargoItem } from './../models/item';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -33,25 +33,50 @@ export class AppService {
   }
 }
 
-const DEFAULT_LOOSEITEMS: SimpleItem[] = [
+const DEFAULT_LOOSEITEMS: ICargoItem[] = [
   {
-    name: 'nozyk',
+    name: 'Primary Loose Items',
+    items: [
+      {
+        name: 'nozyk',
+      },
+      {
+        name: 'zapalniczka',
+      },
+      {
+        name: 'lyzka',
+      },
+      {
+        name: 'widelec',
+      },
+      {
+        name: 'latarka',
+      },
+    ],
   },
   {
-    name: 'zapalniczka',
-  },
-  {
-    name: 'lyzka',
-  },
-  {
-    name: 'widelec',
-  },
-  {
-    name: 'latarka',
+    name: 'Secondary Loose Items',
+    items: [
+      {
+        name: 'nozyk',
+      },
+      {
+        name: 'zapalniczka',
+      },
+      {
+        name: 'lyzka',
+      },
+      {
+        name: 'widelec',
+      },
+      {
+        name: 'latarka',
+      },
+    ],
   },
 ];
 
-const DEFAULT_CARGOS: CargoItem[] = [
+const DEFAULT_CARGOS: ICargoItem[] = [
   {
     name: 'PTcargo',
     items: [
@@ -73,7 +98,7 @@ const DEFAULT_CARGOS: CargoItem[] = [
   },
 ];
 
-const DEFAULT_SHELVES: CargoItem[] = [
+const DEFAULT_SHELVES: ICargoItem[] = [
   {
     name: 'pudlo',
     items: [
