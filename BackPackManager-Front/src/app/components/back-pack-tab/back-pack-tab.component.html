@@ -1,0 +1,107 @@
+<div cdkDropListGroup>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            <h2>Backpacks</h2>
+        </div>
+        <div *ngFor="let cargo of cargos">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    {{cargo.name}}
+                </div>
+                <div cdkDropList [cdkDropListData]="cargo.items" class="example-list"
+                    (cdkDropListDropped)="drop2($event)">
+                    <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>{{item.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            <h2>Loose Items</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            <h2>Shelves</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+<div>=======</div>
+
+
+
+
+
+
+
+
+
+
+<div cdkDropListGroup>
+    <div class="example-container">
+        <h2>Backpacks</h2>
+        <div *ngFor="let cargo of cargos">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    {{cargo.name}}
+                </div>
+                <div cdkDropList [cdkDropListData]="cargo.items" class="example-list"
+                    (cdkDropListDropped)="drop2($event)">
+                    <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>{{item.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="example-container">
+        <h2>Backpacks</h2>
+        <div cdkDropList [cdkDropListData]="cargos" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of cargos" cdkDrag>{{item.name}}</div>
+        </div>
+    </div> -->
+
+    <div class="example-container">
+        <h2>Items</h2>
+        <div cdkDropList [cdkDropListData]="simpleItems" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of simpleItems" cdkDrag>
+                <app-simple-item [name]="item.name"></app-simple-item>
+            </div>
+        </div>
+    </div>
+</div>

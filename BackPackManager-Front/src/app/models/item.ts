@@ -10,11 +10,17 @@ export interface SimpleItem {
   //   isPinned:boolean;
 }
 
-export interface StorageItem extends SimpleItem {
+export interface CargoItem extends SimpleItem {
   items: SimpleItem[];
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;
 }
+
+// export interface StorageItem extends SimpleItem {
+//   items: SimpleItem[];
+//   //   capacity: SizeEnum;
+//   // locationWhenNotused: StorageItem;
+// }
 
 export interface ToDoItem {
   name: string;
