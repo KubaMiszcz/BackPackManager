@@ -9,13 +9,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'BackPackManager';
 
-  /**
-   *
-   */
-  constructor(private appService:AppService) {
-    
-  }
+  constructor(private appService: AppService) {}
+
   saveData() {
- this.appService.saveData();
+    this.appService.saveData();
+  }
+
+  loadData() {
+    this.appService.loadData();
   }
 }

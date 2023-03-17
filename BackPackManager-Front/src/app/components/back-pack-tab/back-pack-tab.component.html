@@ -27,9 +27,9 @@
                 <h2>Items</h2>
             </div>
             <div class="card example-contasiner m-2">
-                <div cdkDropList [cdkDropListData]="simpleItems" class="example-list"
+                <div cdkDropList [cdkDropListData]="looseItems" class="example-list"
                     (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of simpleItems" cdkDrag>
+                    <div class="example-box" *ngFor="let item of looseItems" cdkDrag>
                         <app-simple-item [name]="item.name"></app-simple-item>
                     </div>
                 </div>

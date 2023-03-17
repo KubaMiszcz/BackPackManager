@@ -7,38 +7,33 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AppService {
-  cargos = cargos;
-  subject = new BehaviorSubject(0);
-  looseItems = looseItems;
-  shelves = shelves;
+  cargosBS = new BehaviorSubject(DEFAULT_CARGOS);
+  looseItemsBS = new BehaviorSubject(DEFAULT_LOOSEITEMS);
+  shelvesBS = new BehaviorSubject(DEFAULT_SHELVES);
 
   constructor() {}
 
   saveData() {
     let appData: AppData = {
-      cargos: cargos,
-      looseItems: looseItems,
-      longStorageItems: shelves,
+      cargos: this.cargosBS.value,
+      looseItems: this.looseItemsBS.value,
+      longStorageItems: this.shelvesBS.value,
     };
     localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
   }
 
   loadData() {
-    let appData: AppData = {
-      cargos: cargos,
-      looseItems: looseItems,
-      longStorageItems: shelves,
-    };
     let data: AppData = JSON.parse(
       localStorage.getItem('BackPackManagerData') ?? ''
     );
-    this.cargos = data.cargos;
-    this.looseItems = data.looseItems;
-    this.shelves = data.longStorageItems;
+
+    this.cargosBS.next(data.cargos);
+    this.looseItemsBS.next(data.looseItems);
+    this.shelvesBS.next(data.longStorageItems);
   }
 }
 
-const looseItems: SimpleItem[] = [
+const DEFAULT_LOOSEITEMS: SimpleItem[] = [
   {
     name: 'nozyk',
   },
@@ -56,7 +51,7 @@ const looseItems: SimpleItem[] = [
   },
 ];
 
-const cargos: CargoItem[] = [
+const DEFAULT_CARGOS: CargoItem[] = [
   {
     name: 'PTcargo',
     items: [
@@ -78,7 +73,7 @@ const cargos: CargoItem[] = [
   },
 ];
 
-const shelves: CargoItem[] = [
+const DEFAULT_SHELVES: CargoItem[] = [
   {
     name: 'pudlo',
     items: [

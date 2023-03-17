@@ -3,6 +3,7 @@ import { CargoItem } from '../../models/item';
 import { Component, Input, OnInit } from '@angular/core';
 import { SimpleItem } from '../../models/item';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -11,15 +12,15 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   styleUrls: ['./back-pack-tab.component.scss'],
 })
 export class BackPackTabComponent implements OnInit {
-  @Input() cargos: CargoItem[] = [];
-  @Input() simpleItems: SimpleItem[] = [];
-  @Input() shelves: CargoItem[] = [];
+  cargos: CargoItem[] = [];
+  looseItems: SimpleItem[] = [];
+  shelves: CargoItem[] = [];
 
   constructor(private appService: AppService) {}
   ngOnInit(): void {
-    this.cargos = this.appService.cargos;
-    this.simpleItems = this.appService.looseItems;
-    this.shelves = this.appService.shelves;
+    this.appService.cargosBS.subscribe((data) => (this.cargos = data));
+    this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
+    this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
   }
 
   drop2(event: CdkDragDrop<SimpleItem[]>) {
