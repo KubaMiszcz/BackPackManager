@@ -1,25 +1,23 @@
-interface SimpleItem {
+export interface SimpleItem {
   name: string;
-  description: string;
-  image: any;
+  // description: string;
+  // image: any;
 //   weight: number;
 //   size: SizeEnum;
-  location: StorageItem;
-  priority: PriorityEnum[];
-  orderNo: Number;
+  // location: StorageItem;
+  // priority: PriorityEnum[];
+  // orderNo: Number;
   //   isPinned:boolean;
 }
 
-interface StorageItem extends SimpleItem {
+export interface StorageItem extends SimpleItem {
   items: SimpleItem[];
   //   capacity: SizeEnum;
-  locationWhenNotused: StorageItem;
+  // locationWhenNotused: StorageItem;
 }
 
-interface ToDoItem {
+export interface ToDoItem {
   name: string;
 }
   
 
-//generate tree
-//generate checklist
