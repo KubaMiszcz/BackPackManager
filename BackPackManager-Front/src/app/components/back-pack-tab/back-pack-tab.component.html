@@ -3,7 +3,7 @@
     <div class="col-lg-4">
         <div class="card m-2">
             <div class="card-header">
-                <h2 class="title">{{'Backpacks' | uppercase}}</h2>
+                <h2 class="title">{{'Backpacks' | uppercase}} </h2>
             </div>
             <div *ngFor="let cargo of cargos">
                 <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>

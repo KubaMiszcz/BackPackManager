@@ -11,6 +11,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class CargoItemComponent {
   @Input() cargo: ICargoItem = new CargoItem();
   @Output() itemDropped = new EventEmitter();
+  isCollapsed = false;
 
   constructor() {}
 
