@@ -13,11 +13,13 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 export class BackPackTabComponent implements OnInit {
   @Input() cargos: CargoItem[] = [];
   @Input() simpleItems: SimpleItem[] = [];
+  @Input() shelves: CargoItem[] = [];
 
   constructor(private appService: AppService) {}
   ngOnInit(): void {
     this.cargos = this.appService.cargos;
     this.simpleItems = this.appService.looseItems;
+    this.shelves = this.appService.shelves;
   }
 
   drop2(event: CdkDragDrop<SimpleItem[]>) {
@@ -37,7 +39,7 @@ export class BackPackTabComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<SimpleItem[]>) {
+  drop(event: CdkDragDrop<SimpleItem[]> | CdkDragDrop<CargoItem[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
