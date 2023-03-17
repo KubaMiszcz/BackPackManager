@@ -9,6 +9,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { CargoItemComponent } from './components/cargo-item/cargo-item.component';
 import { SimpleItemComponent } from './components/simple-item/simple-item.component';
+import { CargoTreeTabComponent } from './components/cargo-tree-tab/cargo-tree-tab.component';
 
 
 
@@ -18,7 +19,8 @@ import { SimpleItemComponent } from './components/simple-item/simple-item.compon
     BackPackTabComponent,
     NavBarComponent,
     CargoItemComponent,
-    SimpleItemComponent
+    SimpleItemComponent,
+    CargoTreeTabComponent
   ],
   imports: [
     BrowserModule,
