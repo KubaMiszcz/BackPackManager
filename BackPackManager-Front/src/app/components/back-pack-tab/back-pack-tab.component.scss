@@ -1,19 +1,26 @@
 .card {
   border-color: #575044;
   border-width: 2px;
- 
-  .card-header{
+
+  .card-header {
     display: flex;
     justify-content: left;
     align-items: left;
     background-color: #575044;
-    
-    .title{
-        font-weight: bold;
-        font-size: 1.8em;
-        color: antiquewhite;
+
+    .title {
+      font-weight: bold;
+      font-size: 1.8em;
+      color: antiquewhite;
     }
-}
+  }
+
+  .tab{
+    overflow-y: scroll;
+    height: 100%;
+    max-height: 40em;
+    min-height: 40em;
+  }
 }
 
 .example-container {

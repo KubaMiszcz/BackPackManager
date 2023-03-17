@@ -1,18 +1,20 @@
 <div cdkDropListGroup class="row d-flex">
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 tab">
         <div class="card m-2">
             <div class="card-header">
                 <h2 class="title">{{'Backpacks' | uppercase}} </h2>
             </div>
-            <div *ngFor="let cargo of cargos">
-                <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
+            <div class="card-body tab">
+                <div *ngFor="let cargo of cargos">
+                    <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
+                </div>
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
     <!-- <div class="col-lg-4">
         <div class="carddd m-4">
             <app-cargo-item [cargo]="looseItems" (itemDropped)="drop($event)"></app-cargo-item>
@@ -20,13 +22,15 @@
     </div> -->
 
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 tab">
         <div class="card m-2">
             <div class="card-header">
                 <h2 class="title">{{'Loose Items' | uppercase}}</h2>
             </div>
-            <div *ngFor="let items of looseItems">
-                <app-cargo-item [cargo]="items" (itemDropped)="drop($event)"></app-cargo-item>
+            <div class="card-body tab">
+                <div *ngFor="let items of looseItems">
+                    <app-cargo-item [cargo]="items" (itemDropped)="drop($event)"></app-cargo-item>
+                </div>
             </div>
         </div>
     </div>
@@ -39,8 +43,10 @@
             <div class="card-header">
                 <h2 class="title">{{'Shelves' | uppercase}}</h2>
             </div>
-            <div *ngFor="let shelve of shelves">
-                <app-cargo-item [cargo]="shelve" (itemDropped)="drop($event)"></app-cargo-item>
+            <div class="card-body tab">
+                <div *ngFor="let shelve of shelves">
+                    <app-cargo-item [cargo]="shelve" (itemDropped)="drop($event)"></app-cargo-item>
+                </div>
             </div>
         </div>
     </div>

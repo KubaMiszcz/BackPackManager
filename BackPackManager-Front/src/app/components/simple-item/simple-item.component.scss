@@ -1,3 +1,8 @@
-img{
-    padding-right: 3px;
+.item {
+    display: flex;
+    align-items: center;
+
+    img {
+        padding-right: 3px;
+    }
 }
