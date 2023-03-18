@@ -1,18 +1,22 @@
+type Nullable<T> = T | undefined | null;
 
 export interface ISimpleItem {
   name: string;
+  parentCargo: Nullable<ISimpleItem>;
   // description: string;
   // image: any;
-//   weight: number;
-//   size: SizeEnum;
+  //   weight: number;
+  //   size: SizeEnum;
   // location: StorageItem;
   // priority: PriorityEnum[];
   // orderNo: Number;
   //   isPinned:boolean;
 }
 
-export class SimpleItem implements ISimpleItem{
-  name: string='';
+export class SimpleItem implements ISimpleItem {
+  name: string = '';
+  parentCargo = null;
+  // parentCargo: SimpleItem = undefined;
 }
 
 export interface ICargoItem extends ISimpleItem {
@@ -26,7 +30,6 @@ export class CargoItem implements ICargoItem {
   items: ISimpleItem[] = [];
 }
 
-
 // export interface StorageItem extends SimpleItem {
 //   items: SimpleItem[];
 //   //   capacity: SizeEnum;
@@ -36,5 +39,3 @@ export class CargoItem implements ICargoItem {
 export interface IToDoItem {
   name: string;
 }
-  
-

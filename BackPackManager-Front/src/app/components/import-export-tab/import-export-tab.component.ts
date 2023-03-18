@@ -2,8 +2,7 @@ import { ISimpleItem } from 'src/app/models/item';
 import { ICargoItem } from './../../models/item';
 import { AppService } from 'src/app/services/app-service.service';
 import { Component, OnInit } from '@angular/core';
-import * as _ from "lodash";
-
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-import-export-tab',
@@ -16,6 +15,7 @@ export class ImportExportTabComponent implements OnInit {
   shelves: ICargoItem[] = [];
 
   itemsInput: string = '';
+  cargosInput: string = '';
 
   constructor(private appService: AppService) {}
 
@@ -27,18 +27,37 @@ export class ImportExportTabComponent implements OnInit {
 
   importItems() {
     let importedItems: ISimpleItem[] = [];
-    this.itemsInput.split('\n')
-    .filter((s) => s.length > 0)
-    .forEach((i) =>
+
+    this.prepareList(this.itemsInput).forEach((i) =>
       importedItems.push({
         name: i,
       })
     );
 
     let existingItems = this.appService.looseItemsBS.value;
-    let newItemsList = [...existingItems[0].items,...importedItems];
+    let newItemsList = [...existingItems[0].items, ...importedItems];
     //todo handle with duplicates in all cargos
-    existingItems[0].items = _.uniqBy(newItemsList, 'name');
+    existingItems[0].items = _.sortBy(_.uniqBy(newItemsList, 'name'), 'name');
     this.appService.looseItemsBS.next(existingItems);
+  }
+
+  importCargos() {
+    let importedCargos: ICargoItem[] = [];
+    this.prepareList(this.cargosInput).forEach((i) =>
+      importedCargos.push({
+        name: i,
+        items: [],
+      })
+    );
+
+    // let existingItems = this.appService.looseItemsBS.value;
+    // let newItemsList = [...existingItems[0].items,...importedItems];
+    // //todo handle with duplicates in all cargos
+    // existingItems[0].items = _.uniqBy(newItemsList, 'name');
+    // this.appService.looseItemsBS.next(existingItems);
+  }
+
+  prepareList(list: string) {
+    return _.uniq(this.itemsInput.split('\n')).filter((s) => s.length > 0);
   }
 }
