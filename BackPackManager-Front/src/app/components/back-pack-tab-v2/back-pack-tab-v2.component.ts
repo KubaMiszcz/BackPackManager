@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component } from '@angular/core';
 import { ICargoItem, ISimpleItem } from 'src/app/models/item';
 import { AppService } from 'src/app/services/app-service.service';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-back-pack-tab-v2',
@@ -32,5 +33,8 @@ export class BackPackTabV2Component {
         event.currentIndex
       );
     }
+
+    console.log(event);
+    
   }
 }
