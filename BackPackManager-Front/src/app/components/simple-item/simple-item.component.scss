@@ -1,8 +1,30 @@
 .item {
-    display: flex;
-    align-items: center;
+    max-width: fit-content;
+    min-width: 17em;
 
-    img {
-        padding-right: 3px;
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        img {
+            padding-right: 3px;
+        }
+
+        .icon{
+            font-size: 1em;
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
     }
 }

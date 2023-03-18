@@ -1,6 +1,6 @@
 .cargo-item {
     max-width: fit-content;
-    min-width: 20%;
+    min-width: 25%;
 
     .card-header {
         display: flex;
@@ -8,6 +8,8 @@
         align-items: center;
         background-color: #575044;
         color: antiquewhite;
+        height: 1.5em;
+        font-size: 1.2em;
 
         .title {
             display: flex;
@@ -28,16 +30,14 @@
     }
 
     .example-box {
-        padding: 5px 5px;
+        padding: 0px 4px;
         border-bottom: solid 1px #ccc;
         color: rgba(0, 0, 0, 0.87);
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
         box-sizing: border-box;
         cursor: move;
         background: white;
-        font-size: 14px;
+        font-size: 1em;
+        align-items: center;
     }
 }

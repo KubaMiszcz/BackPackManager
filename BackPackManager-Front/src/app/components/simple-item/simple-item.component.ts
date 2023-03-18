@@ -10,4 +10,8 @@ export class SimpleItemComponent {
   @Input() item: ISimpleItem = new SimpleItem();
 
   constructor() {}
+
+  alert(value:string){
+    alert(value);
+  }
 }
