@@ -10,6 +10,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { CargoItemComponent } from './components/cargo-item/cargo-item.component';
 import { SimpleItemComponent } from './components/simple-item/simple-item.component';
 import { CargoTreeTabComponent } from './components/cargo-tree-tab/cargo-tree-tab.component';
+import { BackPackTabV2Component } from './components/back-pack-tab-v2/back-pack-tab-v2.component';
+import { ImportExportTabComponent } from './components/import-export-tab/import-export-tab.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,11 +23,14 @@ import { CargoTreeTabComponent } from './components/cargo-tree-tab/cargo-tree-ta
     NavBarComponent,
     CargoItemComponent,
     SimpleItemComponent,
-    CargoTreeTabComponent
+    CargoTreeTabComponent,
+    BackPackTabV2Component,
+    ImportExportTabComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
     DragDropModule,
   ],

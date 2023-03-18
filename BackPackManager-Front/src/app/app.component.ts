@@ -18,4 +18,8 @@ export class AppComponent {
   loadData() {
     this.appService.loadData();
   }
+
+  reInitData() {
+    this.appService.reInitData();
+  }
 }

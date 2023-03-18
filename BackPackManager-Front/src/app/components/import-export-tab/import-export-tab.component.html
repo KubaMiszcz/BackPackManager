@@ -1,0 +1,39 @@
+<p>import-export-tab works!</p>
+<div class="row">
+    <div class="col input-group">
+        <span class="input-group-text">import items</span>
+        <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
+        <!-- <span class="input-group-text">.00</span> -->
+        <button type="button" class="btn btn-primary" (click)="importItems()">Import</button>
+    </div>
+    
+    <div class="col input-group">
+        <span class="input-group-text">import cargos</span>
+        <textarea class="form-control" aria-label="With textarea" rows="5"></textarea>
+        <button type="button" class="btn btn-primary">Import</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Items
+            </div>
+            <ul class="list-group list-group-flush">
+                <li *ngFor="let item of looseItems[0].items" class="list-group-item">{{item.name}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Cargos
+            </div>
+            <ul class="list-group list-group-flush">
+                <li *ngFor="let item of cargos" class="list-group-item">{{item.name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

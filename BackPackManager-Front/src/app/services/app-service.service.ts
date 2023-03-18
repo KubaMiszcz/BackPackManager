@@ -8,13 +8,13 @@ import { APP_DATA } from './appData.json';
   providedIn: 'root',
 })
 export class AppService {
-  cargosBS = new BehaviorSubject(APP_DATA.cargos);
-  looseItemsBS = new BehaviorSubject(APP_DATA.looseItems);
-  shelvesBS = new BehaviorSubject(APP_DATA.longStorageItems);
+  cargosBS = new BehaviorSubject<ICargoItem[]>([]);
+  looseItemsBS = new BehaviorSubject<ICargoItem[]>([]);
+  shelvesBS = new BehaviorSubject<ICargoItem[]>([]);
 
   constructor() {
-    let appData = APP_DATA;
-    localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
+    // let appData = APP_DATA;
+    // localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
     this.loadData();
   }
 
@@ -28,13 +28,27 @@ export class AppService {
   }
 
   loadData() {
-    let data: AppData = JSON.parse(
-      localStorage.getItem('BackPackManagerData') ?? ''
-    );
+    let data = localStorage.getItem('BackPackManagerData');
+    if (data !== null && data?.length > 0) {
+      let appData: AppData = JSON.parse(data);
 
-    this.cargosBS.next(data.cargos);
-    this.looseItemsBS.next(data.looseItems);
-    this.shelvesBS.next(data.longStorageItems);
+      this.cargosBS.next(appData.cargos);
+      this.looseItemsBS.next(appData.looseItems);
+      this.shelvesBS.next(appData.longStorageItems);
+    }
+    else{
+      this.reInitData();
+    }
+  }
+
+  reInitData() {
+    this.cargosBS.next([]);
+    this.looseItemsBS.next([
+      { name: 'Primary Loose Items', items: [] },
+      { name: 'Secondary Loose Items', items: [] },
+    ]);
+    this.shelvesBS.next([]);
+    this.saveData();
   }
 }
 
@@ -375,4 +389,3 @@ export class AppService {
 //     items: [],
 //   },
 // ];
-
