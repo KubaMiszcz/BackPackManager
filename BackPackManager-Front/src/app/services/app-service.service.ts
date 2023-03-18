@@ -44,8 +44,7 @@ export class AppService {
   reInitData() {
     this.cargosBS.next([]);
     this.looseItemsBS.next([
-      { name: 'Primary Loose Items', items: [] },
-      { name: 'Secondary Loose Items', items: [] },
+      { name: 'Loose Items', items: [] },
     ]);
     this.shelvesBS.next([]);
     this.saveData();

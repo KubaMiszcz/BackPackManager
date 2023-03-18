@@ -1,1 +1,5 @@
-<p>back-pack-tab-v2 works!</p>
+<div cdkDropListGroup>
+    <div *ngFor="let cargo of cargos">
+        <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
+    </div>
+</div>

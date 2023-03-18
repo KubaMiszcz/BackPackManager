@@ -27,7 +27,6 @@ export class ImportExportTabComponent implements OnInit {
 
   importItems() {
     let importedItems: ISimpleItem[] = [];
-
     this.prepareList(this.itemsInput).forEach((i) =>
       importedItems.push({
         name: i,
@@ -37,27 +36,32 @@ export class ImportExportTabComponent implements OnInit {
     let existingItems = this.appService.looseItemsBS.value;
     let newItemsList = [...existingItems[0].items, ...importedItems];
     //todo handle with duplicates in all cargos
+    // let existingItems = this.appService.getallitems();
     existingItems[0].items = _.sortBy(_.uniqBy(newItemsList, 'name'), 'name');
     this.appService.looseItemsBS.next(existingItems);
+    console.log(existingItems);
   }
 
   importCargos() {
     let importedCargos: ICargoItem[] = [];
     this.prepareList(this.cargosInput).forEach((i) =>
       importedCargos.push({
-        name: i,
+        name: i.toUpperCase(),
         items: [],
       })
     );
 
-    // let existingItems = this.appService.looseItemsBS.value;
-    // let newItemsList = [...existingItems[0].items,...importedItems];
-    // //todo handle with duplicates in all cargos
-    // existingItems[0].items = _.uniqBy(newItemsList, 'name');
-    // this.appService.looseItemsBS.next(existingItems);
+    let existingCargos = this.appService.cargosBS.value;
+    let newCargosList = [...existingCargos, ...importedCargos];
+    //todo handle with duplicates in all cargos
+    // let existingItems = this.appService.getallitems();
+    existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
+    this.appService.cargosBS.next(existingCargos);
+    console.log(existingCargos);
+    
   }
 
   prepareList(list: string) {
-    return _.uniq(this.itemsInput.split('\n')).filter((s) => s.length > 0);
+    return _.uniq(list.split('\n')).filter((s) => s.length > 0);
   }
 }

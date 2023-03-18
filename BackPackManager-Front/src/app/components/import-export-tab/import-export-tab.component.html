@@ -1,18 +1,20 @@
-<p>import-export-tab works!</p>
 <div class="row">
     <div class="col input-group">
         <span class="input-group-text">import items</span>
         <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
-        <!-- <span class="input-group-text">.00</span> -->
-        <button type="button" class="btn btn-primary" (click)="importItems()">Import</button>
+        <button type="button" class="btn btn-primary" (click)="importItems()">Import Items</button>
     </div>
     
     <div class="col input-group">
         <span class="input-group-text">import cargos</span>
-        <textarea class="form-control" aria-label="With textarea" rows="5"></textarea>
-        <button type="button" class="btn btn-primary">Import</button>
+        <textarea [(ngModel)]="cargosInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
+        <button type="button" class="btn btn-primary" (click)="importCargos()">Import Cargos</button>
     </div>
 </div>
+
+
+
+
 
 <div class="row">
     <div class="col">

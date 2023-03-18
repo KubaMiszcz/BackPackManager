@@ -2,7 +2,7 @@ type Nullable<T> = T | undefined | null;
 
 export interface ISimpleItem {
   name: string;
-  parentCargo: Nullable<ISimpleItem>;
+  // parentCargo: Nullable<ISimpleItem>;
   // description: string;
   // image: any;
   //   weight: number;
@@ -15,7 +15,7 @@ export interface ISimpleItem {
 
 export class SimpleItem implements ISimpleItem {
   name: string = '';
-  parentCargo = null;
+  // parentCargo = null;
   // parentCargo: SimpleItem = undefined;
 }
 
