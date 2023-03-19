@@ -1,4 +1,3 @@
-import { APP_DEFAULTS } from './../../services/app-service.service';
 import { CargoItem, ISimpleItem, Nullable } from 'src/app/models/item';
 import { ICargoItem } from './../../models/item';
 import { AppService } from 'src/app/services/app-service.service';
@@ -27,7 +26,7 @@ export class ImportExportTabComponent implements OnInit {
     let itemsNamesList = this.prepareList(this.itemsInput);
     this.appService.importItemsFromList(itemsNamesList);
   }
-  
+
   importCargos() {
     let cargosNamesList = this.prepareList(this.cargosInput);
     let importedCargos: ICargoItem[] = [];
@@ -47,13 +46,25 @@ export class ImportExportTabComponent implements OnInit {
   }
 
   importCargosAsItems(cargosNamesList: string[]) {
-    let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase()));
+    let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase() + '📦'));
     this.appService.importItemsFromList(list);
   }
 
   prepareList(list: string) {
-    return _.uniq(list.split('\n')).filter((s) => s.length > 0);
+    return _.uniq(list.split('\n'))
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
   }
 
+  moveItemToThrash(event: ISimpleItem) {
+    this.appService.moveItemToThrash(event);
+  }
 
+  moveCargoToThrash(event: ICargoItem) {
+    this.appService.moveCargoToThrash(event);
+  }
+
+  isCargoItem(name:string){
+    return this.appService.isCargoItemByName(name);
+  }
 }

@@ -4,7 +4,7 @@
         <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
         <button type="button" class="btn btn-primary" (click)="importItems()">Import Items</button>
     </div>
-    
+
     <div class="col input-group">
         <span class="input-group-text">import cargos</span>
         <textarea [(ngModel)]="cargosInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
@@ -20,15 +20,17 @@
     <div class="col">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-                Items
+                All Items
             </div>
             <ul class="list-group list-group-flush">
-                <li *ngFor="let item of cargos[0].items" class="list-group-item">
-                    <div>
-                        {{item.name}}
-
-                    </div>
-                </li>
+                <div *ngFor="let cargo of cargos">
+                    <li *ngFor="let item of cargo.items" class="list-group-item">
+                        <div class="item">
+                            <span>{{item.name}}</span>
+                            <i *ngIf="!isCargoItem(item.name)" class="fa fa-trash red" aria-hidden="true" (click)="moveItemToThrash(item)"></i>
+                        </div>
+                    </li>
+                </div>
             </ul>
         </div>
     </div>
@@ -36,10 +38,18 @@
     <div class="col">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-                Cargos
+                All Cargos
             </div>
             <ul class="list-group list-group-flush">
-                <li *ngFor="let item of cargos" class="list-group-item">{{item.name}}</li>
+                <li *ngFor="let item of cargos" class="list-group-item">
+                    <div class="item">
+                        <div>
+                            <span>{{item.name}}</span>
+                            <span class="badge rounded-pill text-bg-secondary ms-1">{{item.items.length}}</span>
+                        </div>
+                        <i class="fa fa-trash red" aria-hidden="true" (click)="moveCargoToThrash(item)"></i>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

@@ -1,5 +1,9 @@
 import { AppData } from './../models/app-data';
 
+export const APP_DEFAULTS = {
+  DEFAULT_CARGO_NAME: '!Loose Items',
+};
+
 export const APP_DATA: AppData = {
   cargos: [],
   // looseItems: [
@@ -49,3 +53,5 @@ export const APP_DATA: AppData = {
   // ],
   // longStorageItems: [],
 };
+
+

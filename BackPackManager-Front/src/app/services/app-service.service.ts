@@ -2,9 +2,8 @@ import { AppData } from './../models/app-data';
 import { ISimpleItem, ICargoItem, CargoItem } from './../models/item';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { APP_DATA } from './appData.json';
-import * as _ from "lodash";
-
+import { APP_DATA, APP_DEFAULTS } from './appData.json';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -40,23 +39,41 @@ export class AppService {
 
   importItemsFromList(itemsList: string[]) {
     let importedItems: ISimpleItem[] = [];
-    itemsList.forEach((i) =>
+    itemsList.forEach((name) =>
       importedItems.push({
-        name: i,
+        name: name,
       })
     );
 
     let allCargos = this.cargosBS.value;
-    let looseItemsCargo =
-      allCargos.find((c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME) ??
-      new CargoItem();
+    let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
     let newLooseItems = [...looseItemsCargo?.items, ...importedItems];
     //todo handle with duplicates in all cargos
     looseItemsCargo.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
     this.cargosBS.next(allCargos);
   }
-}
 
-export const APP_DEFAULTS = {
-  DEFAULT_CARGO_NAME: '!Loose Items',
-};
+  moveItemToThrash(item: ISimpleItem) {
+    this.cargosBS.value.forEach((c) => {
+      _.remove(c.items, item);
+    });
+  }
+
+  moveCargoToThrash(cargo: ICargoItem) {
+    let cargoToRemove = this.cargosBS.value.find((c) => c.name === cargo.name);
+    let defaultCargo = this.getDefaultCargo();
+    let bb = _.concat(defaultCargo?.items, cargoToRemove?.items);
+
+    let aa = _.remove(this.cargosBS.value, cargoToRemove);
+  }
+
+  getDefaultCargo() {
+    return this.cargosBS.value.find(
+      (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+    );
+  }
+
+  isCargoItemByName(name: string) {
+    return name.startsWith('📦') && name.endsWith('📦');
+  }
+}
