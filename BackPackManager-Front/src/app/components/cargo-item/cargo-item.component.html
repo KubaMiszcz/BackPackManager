@@ -1,4 +1,6 @@
-<div class="card cargo-item m-2">
+<div class="card cargo-item m-2" cdkDrag (cdkDragEnded)="dragEnd($event)"
+    [cdkDragFreeDragPosition]="dragPosition">
+    <!-- [cdkDragFreeDragPosition]="pos" -->
     <div class="card-header">
         <i *ngIf="isCollapsed" class="fa fa-chevron-circle-right" aria-hidden="true"
             (click)="isCollapsed=!isCollapsed"></i>

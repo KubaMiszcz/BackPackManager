@@ -1,3 +1,5 @@
+import { Point } from '@angular/cdk/drag-drop';
+
 export type Nullable<T> = T | undefined | null;
 
 export interface ISimpleItem {
@@ -21,6 +23,7 @@ export class SimpleItem implements ISimpleItem {
 
 export interface ICargoItem extends ISimpleItem {
   items: ISimpleItem[];
+  dragPosition?: Point;
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;
 }
@@ -28,6 +31,7 @@ export interface ICargoItem extends ISimpleItem {
 export class CargoItem implements ICargoItem {
   name: string = '';
   items: ISimpleItem[] = [];
+  dragPosition: Point = { x: 0, y: 0 };
 }
 
 // export interface StorageItem extends SimpleItem {

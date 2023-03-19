@@ -1,7 +1,33 @@
+<!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)"> -->
+<div class="example-boundary">
+    <div cdkDropListGroup class="grid">
+        <app-cargo-item *ngFor="let cargo  of cargos" [cargo]="cargo" (itemDropped)="transferItem($event)"
+             cdkDragBoundary=".example-boundary"></app-cargo-item>
+    </div>
+</div>
+<!-- </div> -->
+
+<!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div cdkDropListGroup class="grid">
+        <app-cargo-item *ngFor="let cargo  of cargos" [cargo]="cargo" (itemDropped)="transferItem($event)"
+            cdkDrag></app-cargo-item>
+    </div>
+</div> -->
+
+
+
+
+
+
+<!-- 
+
 <div cdkDropListGroup class="grid">
     <app-cargo-item *ngFor="let cargo  of cargos" [cargo]="cargo" (itemDropped)="transferItem($event)"></app-cargo-item>
+</div> -->
 
-    <!-- <div class="example-container">
+
+
+<!-- <div class="example-container">
         <h2>Available items</h2>
 
         <div cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
@@ -27,7 +53,6 @@
             <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
         </div>
     </div> -->
-</div>
 
 
 

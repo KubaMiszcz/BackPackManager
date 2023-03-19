@@ -1,9 +1,10 @@
 import {
   CdkDragDrop,
+  CdkDragEnd,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ICargoItem, ISimpleItem } from 'src/app/models/item';
 import { AppService } from 'src/app/services/app-service.service';
 import * as _ from 'lodash';
@@ -22,19 +23,23 @@ export class BackPackTabV2Component {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<ICargoItem[]>) {
+    moveItemInArray(this.cargos, event.previousIndex, event.currentIndex);
   }
 
   transferItem(event: CdkDragDrop<ISimpleItem[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
   }
