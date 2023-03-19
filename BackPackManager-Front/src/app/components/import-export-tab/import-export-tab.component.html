@@ -23,7 +23,12 @@
                 Items
             </div>
             <ul class="list-group list-group-flush">
-                <li *ngFor="let item of cargos[0].items" class="list-group-item">{{item.name}}</li>
+                <li *ngFor="let item of cargos[0].items" class="list-group-item">
+                    <div>
+                        {{item.name}}
+
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

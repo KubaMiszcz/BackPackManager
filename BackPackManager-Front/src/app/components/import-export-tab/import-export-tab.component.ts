@@ -1,8 +1,10 @@
-import { ISimpleItem } from 'src/app/models/item';
+import { APP_DEFAULTS } from './../../services/app-service.service';
+import { CargoItem, ISimpleItem, Nullable } from 'src/app/models/item';
 import { ICargoItem } from './../../models/item';
 import { AppService } from 'src/app/services/app-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { join } from 'lodash';
 
 @Component({
   selector: 'app-import-export-tab',
@@ -22,25 +24,14 @@ export class ImportExportTabComponent implements OnInit {
   }
 
   importItems() {
-    let importedItems: ISimpleItem[] = [];
-    this.prepareList(this.itemsInput).forEach((i) =>
-      importedItems.push({
-        name: i,
-      })
-    );
-
-    let allCargos = this.appService.cargosBS.value;
-    let looseItems = allCargos[0];
-    let newLooseItems = [...looseItems.items, ...importedItems];
-    //todo handle with duplicates in all cargos
-    looseItems.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
-    allCargos[0] = looseItems;
-    this.appService.cargosBS.next(allCargos);
+    let itemsNamesList = this.prepareList(this.itemsInput);
+    this.appService.importItemsFromList(itemsNamesList);
   }
-
+  
   importCargos() {
+    let cargosNamesList = this.prepareList(this.cargosInput);
     let importedCargos: ICargoItem[] = [];
-    this.prepareList(this.cargosInput).forEach((i) =>
+    cargosNamesList.forEach((i) =>
       importedCargos.push({
         name: i.toUpperCase(),
         items: [],
@@ -49,14 +40,20 @@ export class ImportExportTabComponent implements OnInit {
 
     let existingCargos = this.appService.cargosBS.value;
     let newCargosList = [...existingCargos, ...importedCargos];
-    //todo handle with duplicates in all cargos
     existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
     this.appService.cargosBS.next(existingCargos);
-    console.log(existingCargos);
-    
+
+    this.importCargosAsItems(cargosNamesList);
+  }
+
+  importCargosAsItems(cargosNamesList: string[]) {
+    let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase()));
+    this.appService.importItemsFromList(list);
   }
 
   prepareList(list: string) {
     return _.uniq(list.split('\n')).filter((s) => s.length > 0);
   }
+
+
 }
