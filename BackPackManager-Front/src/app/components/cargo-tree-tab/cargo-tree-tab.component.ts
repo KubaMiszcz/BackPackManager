@@ -17,6 +17,6 @@ export class CargoTreeTabComponent {
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
     // this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
+    // this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
   }
 }

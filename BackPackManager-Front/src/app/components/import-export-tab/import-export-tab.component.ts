@@ -21,8 +21,8 @@ export class ImportExportTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
-    this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
+    // this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
+    // this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
   }
 
   importItems() {
@@ -33,13 +33,13 @@ export class ImportExportTabComponent implements OnInit {
       })
     );
 
-    let existingItems = this.appService.looseItemsBS.value;
-    let newItemsList = [...existingItems[0].items, ...importedItems];
+    let allCargos = this.appService.cargosBS.value;
+    let looseItems = allCargos[0];
+    let newLooseItems = [...looseItems.items, ...importedItems];
     //todo handle with duplicates in all cargos
-    // let existingItems = this.appService.getallitems();
-    existingItems[0].items = _.sortBy(_.uniqBy(newItemsList, 'name'), 'name');
-    this.appService.looseItemsBS.next(existingItems);
-    console.log(existingItems);
+    looseItems.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
+    allCargos[0] = looseItems;
+    this.appService.cargosBS.next(allCargos);
   }
 
   importCargos() {
