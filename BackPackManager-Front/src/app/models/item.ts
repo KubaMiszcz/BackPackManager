@@ -43,3 +43,8 @@ export class CargoItem implements ICargoItem {
 export interface IToDoItem {
   name: string;
 }
+
+export class PointXY implements Point {
+  x: number = 0;
+  y: number = 0;
+}

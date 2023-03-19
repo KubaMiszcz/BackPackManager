@@ -1,5 +1,6 @@
+import { Point } from '@angular/cdk/drag-drop';
 import { AppData } from './../models/app-data';
-import { ISimpleItem, ICargoItem, CargoItem } from './../models/item';
+import { ISimpleItem, ICargoItem, CargoItem, PointXY } from './../models/item';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { APP_DATA, APP_DEFAULTS } from './appData.json';
@@ -23,13 +24,24 @@ export class AppService {
   }
 
   loadData() {
-    let data = localStorage.getItem('BackPackManagerData');
-    if (data !== null && data?.length > 0) {
-      let appData: AppData = JSON.parse(data);
+    let appData = this.getAppDataFromLocalStorage();
+
+    if (appData) {
       this.cargosBS.next(appData.cargos);
     } else {
       this.reInitData();
     }
+  }
+
+  getAppDataFromLocalStorage() {
+    let data = localStorage.getItem('BackPackManagerData');
+
+    if (data !== null && data?.length > 0) {
+      let appData: AppData = JSON.parse(data);
+      return appData;
+    }
+
+    return null;
   }
 
   reInitData() {
@@ -61,8 +73,12 @@ export class AppService {
     this.updateForViews();
   }
 
-  updateForViews() {
-    this.cargosBS.next(this.cargosBS.value);
+  updateForViews(value?: ICargoItem[]) {
+    if (value) {
+      this.cargosBS.next(value);
+    } else {
+      this.cargosBS.next(this.cargosBS.value);
+    }
   }
 
   moveCargoToThrash(cargo: ICargoItem) {
@@ -86,17 +102,12 @@ export class AppService {
     });
   }
 
-  findItem(name: string): ISimpleItem {
-    let item: ISimpleItem;
+  findItem(name: string): ISimpleItem | null {
     this.cargosBS.value.forEach((c) => {
-      let found = c.items.find((i) => i.name === name);
-      if (found) {
-        item = found;
-        return;
-      }
+      return c.items.find((i) => i.name === name);
     });
 
-    return item;
+    return null;
   }
 
   getDefaultCargo(): ICargoItem {
@@ -119,5 +130,17 @@ export class AppService {
     this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
 
     return list;
+  }
+
+  savePositions() {
+    throw new Error('Method not implemented.');
+  }
+
+  resetPositions() {
+    let appData = this.getAppDataFromLocalStorage();
+    appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
+    console.log('ss');
+
+    this.updateForViews(appData?.cargos);
   }
 }

@@ -4,7 +4,6 @@ import { AppService } from 'src/app/services/app-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
-
 @Component({
   selector: 'app-import-export-tab',
   templateUrl: './import-export-tab.component.html',
@@ -20,17 +19,15 @@ export class ImportExportTabComponent implements OnInit {
   constructor(private appService: AppService) {}
 
   ngOnInit(): void {
-    this.appService.cargosBS.subscribe(
-      (data) => {
-        this.cargos = _.sortBy(data, 'name');
-        this.items = _.sortBy(
-          this.appService
-            .getAllItems()
-            .filter((i) => !this.appService.isCargoItemByName(i.name)),
-          'name'
-        );
-      }
-    );
+    this.appService.cargosBS.subscribe((data) => {
+      this.cargos = _.sortBy(data, 'name');
+      this.items = _.sortBy(
+        this.appService
+          .getAllItems()
+          .filter((i) => !this.appService.isCargoItemByName(i.name)),
+        'name'
+      );
+    });
   }
 
   importItems() {
