@@ -62,18 +62,56 @@ export class AppService {
   moveCargoToThrash(cargo: ICargoItem) {
     let cargoToRemove = this.cargosBS.value.find((c) => c.name === cargo.name);
     let defaultCargo = this.getDefaultCargo();
-    let bb = _.concat(defaultCargo?.items, cargoToRemove?.items);
 
-    let aa = _.remove(this.cargosBS.value, cargoToRemove);
+    if (cargoToRemove === defaultCargo) {
+      alert('Cant remove default cargo');
+      return;
+    }
+
+    defaultCargo.items = defaultCargo?.items.concat(cargoToRemove?.items ?? []);
+    _.remove(this.cargosBS.value, cargoToRemove);
+    this.moveItemToThrashByName(cargo.name);
+    this.cargosBS.next(this.cargosBS.value);
   }
 
-  getDefaultCargo() {
-    return this.cargosBS.value.find(
-      (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+  moveItemToThrashByName(name: string) {
+    this.cargosBS.value.forEach((c) => {
+      _.remove(c.items, (item) => item.name === '📦' + name + '📦');
+    });
+  }
+
+  findItem(name: string): ISimpleItem {
+    let item: ISimpleItem;
+    this.cargosBS.value.forEach((c) => {
+      let found = c.items.find((i) => i.name === name);
+      if (found) {
+        item = found;
+        return;
+      }
+    });
+
+    return item;
+  }
+
+  getDefaultCargo(): ICargoItem {
+    return (
+      this.cargosBS.value.find(
+        (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+      ) ?? {
+        name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
+        items: [],
+      }
     );
   }
 
   isCargoItemByName(name: string) {
     return name.startsWith('📦') && name.endsWith('📦');
+  }
+
+  getAllItems(): ISimpleItem[] {
+    let list: ISimpleItem[] = [];
+    this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
+
+    return list;
   }
 }

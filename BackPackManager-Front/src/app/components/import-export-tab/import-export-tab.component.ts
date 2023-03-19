@@ -3,7 +3,7 @@ import { ICargoItem } from './../../models/item';
 import { AppService } from 'src/app/services/app-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { join } from 'lodash';
+
 
 @Component({
   selector: 'app-import-export-tab',
@@ -12,6 +12,7 @@ import { join } from 'lodash';
 })
 export class ImportExportTabComponent implements OnInit {
   cargos: ICargoItem[] = [];
+  items: ISimpleItem[] = [];
 
   itemsInput: string = '';
   cargosInput: string = '';
@@ -19,7 +20,12 @@ export class ImportExportTabComponent implements OnInit {
   constructor(private appService: AppService) {}
 
   ngOnInit(): void {
-    this.appService.cargosBS.subscribe((data) => (this.cargos = data));
+    this.appService.cargosBS.subscribe(
+      (data) => {
+        this.cargos = _.sortBy(data, 'name');
+        this.items = _.sortBy(this.appService.getAllItems(), 'name');
+      }
+    );
   }
 
   importItems() {
@@ -64,7 +70,7 @@ export class ImportExportTabComponent implements OnInit {
     this.appService.moveCargoToThrash(event);
   }
 
-  isCargoItem(name:string){
+  isCargoItem(name: string) {
     return this.appService.isCargoItemByName(name);
   }
 }
