@@ -9,8 +9,6 @@ import { APP_DATA } from './appData.json';
 })
 export class AppService {
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
-  // looseItemsBS = new BehaviorSubject<ICargoItem[]>([]);
-  // shelvesBS = new BehaviorSubject<ICargoItem[]>([]);
 
   constructor() {
     // let appData = APP_DATA;
@@ -19,11 +17,7 @@ export class AppService {
   }
 
   saveData() {
-    let appData: AppData = {
-      cargos: this.cargosBS.value,
-      // looseItems: this.looseItemsBS.value,
-      // longStorageItems: this.shelvesBS.value,
-    };
+    let appData: AppData = { cargos: this.cargosBS.value };
     localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
   }
 
@@ -33,8 +27,6 @@ export class AppService {
       let appData: AppData = JSON.parse(data);
 
       this.cargosBS.next(appData.cargos);
-      // this.looseItemsBS.next(appData.looseItems);
-      // this.shelvesBS.next(appData.longStorageItems);
     }
     else{
       this.reInitData();
@@ -42,14 +34,15 @@ export class AppService {
   }
 
   reInitData() {
-    // this.cargosBS.next([]);
     this.cargosBS.next([
-      { name: 'Loose Items', items: [] },
+      { name: '!Loose Items', items: [] },
     ]);
-    // this.shelvesBS.next([]);
     this.saveData();
   }
 }
+
+
+
 
 // const DEFAULT_LOOSEITEMS: ICargoItem[] = [
 //   {

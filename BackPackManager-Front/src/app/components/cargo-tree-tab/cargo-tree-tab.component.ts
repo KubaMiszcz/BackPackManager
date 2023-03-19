@@ -9,14 +9,10 @@ import { AppService } from 'src/app/services/app-service.service';
 })
 export class CargoTreeTabComponent {
   cargos: ICargoItem[] = [];
-  // looseItems: CargoItem;
-  shelves: ICargoItem[] = [];
 
   constructor(private appService: AppService) {}
   
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
-    // this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    // this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
   }
 }

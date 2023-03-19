@@ -11,8 +11,6 @@ import * as _ from 'lodash';
 })
 export class ImportExportTabComponent implements OnInit {
   cargos: ICargoItem[] = [];
-  looseItems: ICargoItem[] = [];
-  shelves: ICargoItem[] = [];
 
   itemsInput: string = '';
   cargosInput: string = '';
@@ -21,8 +19,6 @@ export class ImportExportTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
-    // this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    // this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
   }
 
   importItems() {
@@ -54,7 +50,6 @@ export class ImportExportTabComponent implements OnInit {
     let existingCargos = this.appService.cargosBS.value;
     let newCargosList = [...existingCargos, ...importedCargos];
     //todo handle with duplicates in all cargos
-    // let existingItems = this.appService.getallitems();
     existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
     this.appService.cargosBS.next(existingCargos);
     console.log(existingCargos);
