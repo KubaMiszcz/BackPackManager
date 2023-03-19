@@ -19,7 +19,7 @@ export class CargoItemComponent implements OnInit{
     this.cargo.items=_.sortBy(this.cargo.items,'name');
   }
 
-  drop(event: CdkDragDrop<ISimpleItem[]> | CdkDragDrop<ICargoItem[]>) {
+  drop(event: CdkDragDrop<ISimpleItem[]>) {
     this.itemDropped.emit(event);
     this.cargo.items=_.sortBy(this.cargo.items,'name');
   }

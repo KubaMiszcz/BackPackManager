@@ -1,10 +1,13 @@
 <div class="card cargo-item m-2">
-    <div class="card-header"   >
-        <i *ngIf="isCollapsed" class="fa fa-chevron-circle-right" aria-hidden="true" (click)="isCollapsed=!isCollapsed"></i>
-        <i *ngIf="!isCollapsed" class="fa fa-chevron-circle-down" aria-hidden="true" (click)="isCollapsed=!isCollapsed"></i>
+    <div class="card-header">
+        <i *ngIf="isCollapsed" class="fa fa-chevron-circle-right" aria-hidden="true"
+            (click)="isCollapsed=!isCollapsed"></i>
+        <i *ngIf="!isCollapsed" class="fa fa-chevron-circle-down" aria-hidden="true"
+            (click)="isCollapsed=!isCollapsed"></i>
         <div class="title px-3">{{cargo.name | uppercase }}</div>
     </div>
-    <div *ngIf="!isCollapsed" cdkDropListSortingDisabled cdkDropList [cdkDropListData]="cargo.items" class="example-list" (cdkDropListDropped)="drop($event)">
+    <div *ngIf="!isCollapsed" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="cargo.items"
+        class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
             <app-simple-item [item]="item"></app-simple-item>
         </div>

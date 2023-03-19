@@ -1,7 +1,97 @@
-<div cdkDropListGroup class="d-flex flex-wrap grid">
-    <div *ngFor="let cargo of cargos">
-        <div cdkDrag >
-            <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
+<div cdkDropListGroup class="grid">
+    <app-cargo-item *ngFor="let cargo  of cargos" [cargo]="cargo" (itemDropped)="transferItem($event)"></app-cargo-item>
+
+    <!-- <div class="example-container">
+        <h2>Available items</h2>
+
+        <div cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+        </div>
+    </div>
+    
+    
+    <div class="example-container">
+        <h2>Available items</h2>
+
+        <div cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+        </div>
+    </div>
+
+    <div class="example-container">
+        <h2>Shopping basket</h2>
+
+        <div cdkDropList [cdkDropListData]="basket" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
+        </div>
+    </div> -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="">
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="card example-box" *ngFor="let movie of movies" cdkDrag>
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title">{{movie}}</h4>
+              </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div cdkDropList>
+<div cdkDropListGroup>
+    <div cdkDropList class="example-list d-flex flex-wrap grid" (cdkDropListDropped)="droppp($event, cargos)">
+        <div *ngFor="let cargo of cargos" cdkDrag>
+                <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)" cdkDrag></app-cargo-item>
         </div>
     </div>
 </div>
+</div> -->
+
+<!-- <div cdkDropList class="example-list d-flex flex-wrap grid" (cdkDropListDropped)="droppp($event, cargos)">
+    <div class="example-box " *ngFor="let cargo of cargos" cdkDrag>
+       <div class="card">
+        <img class="card-img-top" src="holder.js/10x18/" alt="">
+        <div class="card-body">
+            <h4 class="card-title">{{cargo.name}}</h4>
+            <p class="card-text">Text</p>
+        </div>
+       </div>
+    </div>
+</div> -->
+
+<!-- <div cdkDropList class="example-list" (cdkDropListDropped)="droppp($event)">
+    <div class="example-box d-flex flex-wrap grid" *ngFor="let cargo of cargos" cdkDrag>
+        {{cargo.name}}    
+    </div>
+</div> -->
+
+<!-- 
+
+<div cdkDropListGroup>
+    <div class="d-flex flex-wrap grid">
+        <div *ngFor="let cargo of cargos" cdkDropList>
+            <div cdkDrag>
+                <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
+            </div>
+        </div>
+    </div>
+</div>  -->
