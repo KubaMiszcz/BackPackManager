@@ -4,7 +4,7 @@
         <i *ngIf="!isCollapsed" class="fa fa-chevron-circle-down" aria-hidden="true" (click)="isCollapsed=!isCollapsed"></i>
         <div class="title px-3">{{cargo.name | uppercase }}</div>
     </div>
-    <div *ngIf="!isCollapsed" cdkDropList [cdkDropListData]="cargo.items" class="example-list" (cdkDropListDropped)="drop($event)">
+    <div *ngIf="!isCollapsed" cdkDropListSortingDisabled cdkDropList [cdkDropListData]="cargo.items" class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
             <app-simple-item [item]="item"></app-simple-item>
         </div>

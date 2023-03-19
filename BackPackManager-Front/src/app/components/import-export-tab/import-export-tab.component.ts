@@ -23,7 +23,12 @@ export class ImportExportTabComponent implements OnInit {
     this.appService.cargosBS.subscribe(
       (data) => {
         this.cargos = _.sortBy(data, 'name');
-        this.items = _.sortBy(this.appService.getAllItems(), 'name');
+        this.items = _.sortBy(
+          this.appService
+            .getAllItems()
+            .filter((i) => !this.appService.isCargoItemByName(i.name)),
+          'name'
+        );
       }
     );
   }

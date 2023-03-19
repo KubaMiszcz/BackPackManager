@@ -57,6 +57,12 @@ export class AppService {
     this.cargosBS.value.forEach((c) => {
       _.remove(c.items, item);
     });
+
+    this.updateForViews();
+  }
+
+  updateForViews() {
+    this.cargosBS.next(this.cargosBS.value);
   }
 
   moveCargoToThrash(cargo: ICargoItem) {
@@ -71,7 +77,7 @@ export class AppService {
     defaultCargo.items = defaultCargo?.items.concat(cargoToRemove?.items ?? []);
     _.remove(this.cargosBS.value, cargoToRemove);
     this.moveItemToThrashByName(cargo.name);
-    this.cargosBS.next(this.cargosBS.value);
+    this.updateForViews();
   }
 
   moveItemToThrashByName(name: string) {
