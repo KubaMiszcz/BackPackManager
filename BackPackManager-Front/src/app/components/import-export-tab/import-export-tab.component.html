@@ -27,6 +27,7 @@
                     <li *ngFor="let item of cargo.items" class="list-group-item">
                         <div class="item">
                             <span>{{item.name}}</span>
+                            <i class="fas fa-edit    "></i>
                             <i *ngIf="!isCargoItem(item.name)" class="fa fa-trash red" aria-hidden="true" (click)="moveItemToThrash(item)"></i>
                         </div>
                     </li>
