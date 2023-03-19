@@ -51,11 +51,14 @@ export class AppService {
 
   importItemsFromList(itemsList: string[]) {
     let importedItems: ISimpleItem[] = [];
-    itemsList.forEach((name) =>
-      importedItems.push({
-        name: name,
-      })
-    );
+    let allNames = this.getAllNames();
+    itemsList.forEach((name) => {
+      if (!allNames.find(i => i.toLowerCase() === name.toLowerCase())) {
+        importedItems.push({
+          name: name,
+        });
+      }
+    });
 
     let allCargos = this.cargosBS.value;
     let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
@@ -132,8 +135,19 @@ export class AppService {
     return list;
   }
 
+  getAllNames(){
+    let itemNames = this.getAllItems().map((i) => i.name);
+    let cargoNames = this.cargosBS.value.map((i) => i.name);
+    return itemNames.concat(cargoNames);
+  }
+
   savePositions() {
     throw new Error('Method not implemented.');
+    // let appData = this.getAppDataFromLocalStorage();
+    // appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
+    // console.log('ss');
+
+    // this.updateForViews(appData?.cargos);
   }
 
   resetPositions() {

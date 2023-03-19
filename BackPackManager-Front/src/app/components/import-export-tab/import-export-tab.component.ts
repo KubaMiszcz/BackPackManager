@@ -38,12 +38,14 @@ export class ImportExportTabComponent implements OnInit {
   importCargos() {
     let cargosNamesList = this.prepareList(this.cargosInput);
     let importedCargos: ICargoItem[] = [];
-    cargosNamesList.forEach((i) =>
-      importedCargos.push({
-        name: i.toUpperCase(),
-        items: [],
-      })
-    );
+    cargosNamesList.forEach((name) => {
+      if (!this.appService.getAllNames().find((i) => i.toLowerCase() === name.toLowerCase())) {
+        importedCargos.push({
+          name: name.toUpperCase(),
+          items: [],
+        });
+      }
+    });
 
     let existingCargos = this.appService.cargosBS.value;
     let newCargosList = [...existingCargos, ...importedCargos];
