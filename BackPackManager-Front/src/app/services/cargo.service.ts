@@ -38,7 +38,9 @@ export class CargoService {
       items: [],
     });
 
-    this.itemService.addNewItem(name, null, true);
+    this.appService
+      .getDefaultCargo()
+      .items.push(this.itemService.createNewItem(name, true));
   }
 
   moveCargoToThrash(cargo: ICargoItem) {

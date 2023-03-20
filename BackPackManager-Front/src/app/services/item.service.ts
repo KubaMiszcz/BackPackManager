@@ -17,34 +17,39 @@ export class ItemService {
   ) {}
 
   importItemsFromString(
-    itemsInput: string,
-    destinationCargo: ICargoItem = null
+    itemsInput: string[],
+    destinationCargoName: string = null
   ) {
-    let list = itemsInput.split('\n');
-    list = this.helperService.prepareNamesList(list);
+    let list = this.helperService.prepareNamesList(itemsInput);
+
+    let destinationCargo = this.getDestinationCargo(destinationCargoName);
+
+    if (!destinationCargo) {
+      return;
+    }
 
     list.forEach((name) => {
       if (this.appService.isNameUnique(name)) {
-        this.addNewItem(name, destinationCargo);
+        destinationCargo.items.push(this.createNewItem(name));
       }
     });
 
     this.appService.refreshCargosBS();
   }
 
-  addNewItem(
-    name: string,
-    destinationCargo: ICargoItem = null,
-    isCargo: boolean = null
-  ) {
-    if (!destinationCargo) {
-      destinationCargo = this.appService.getDefaultCargo();
+  getDestinationCargo(destinationCargoName: string): ICargoItem {
+    if (!destinationCargoName) {
+      return this.appService.getDefaultCargo();
     }
 
-    destinationCargo.items.push({
+    return this.appService.findCargoByName(destinationCargoName);
+  }
+
+  createNewItem(name: string, isCargo: boolean = null): ISimpleItem {
+    return {
       name: !!isCargo ? name.toUpperCase() : name,
       isCargo: isCargo,
-    });
+    };
   }
 
   moveItemToThrash(item: ISimpleItem) {
@@ -74,5 +79,4 @@ export class ItemService {
   getSortedItems(itemsList: ISimpleItem[]): ISimpleItem[] {
     return _.sortBy(_.sortBy(itemsList, 'name'), 'isCargo');
   }
-  
 }

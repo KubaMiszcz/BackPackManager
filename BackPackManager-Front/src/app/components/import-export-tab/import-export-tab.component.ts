@@ -1,3 +1,4 @@
+import { HelperService } from './../../services/helper.service';
 import { CargoService } from './../../services/cargo.service';
 import { CargoItem, ISimpleItem, Nullable } from 'src/app/models/item.model';
 import { ICargoItem } from '../../models/item.model';
@@ -21,7 +22,8 @@ export class ImportExportTabComponent implements OnInit {
   constructor(
     private appService: AppService,
     private cargoService: CargoService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private helperService: HelperService
   ) {}
 
   ngOnInit(): void {
@@ -39,11 +41,17 @@ export class ImportExportTabComponent implements OnInit {
   }
 
   importItems() {
-    this.itemService.importItemsFromString(this.itemsInput);
+    this.itemService.importItemsFromString(this.itemsInput.split('\n'));
     this.itemsInput = '';
   }
 
-  batchImportItems() {}
+  batchImportItems() {
+    let list = this.helperService.prepareNamesList(this.itemsInput.split('\n'));
+    let destinationCargoName = list.shift();
+    this.cargoService.importCargosFromString(destinationCargoName);
+    this.itemService.importItemsFromString(list, destinationCargoName);
+    this.itemsInput = '';
+  }
 
   importCargos() {
     this.cargoService.importCargosFromString(this.cargosInput);

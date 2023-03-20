@@ -10,7 +10,9 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
-  
+  addNewCargo(destinationCargoName: string) {
+    throw new Error('Method not implemented.');
+  }
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
   isDeletionsEnabledBS = new BehaviorSubject<boolean>(false);
 
@@ -103,7 +105,11 @@ export class AppService {
   }
 
   toggleDeletions() {
-    this.isDeletionsEnabledBS.next(!this.isDeletionsEnabledBS.value)
+    this.isDeletionsEnabledBS.next(!this.isDeletionsEnabledBS.value);
+  }
+
+  findCargoByName(cargoName: string): ICargoItem {
+    return this.cargosBS.value.find((c) => c.name.toLowerCase() === cargoName.toLowerCase());
   }
 
   //////////////////////////////////////////
@@ -197,10 +203,6 @@ export class AppService {
   //   });
 
   //   return null;
-  // }
-
-  // findCargoByName(cargoName: string): ICargoItem | undefined {
-  //   return this.cargosBS.value.find((c) => c.name === cargoName);
   // }
 
   // isCargoItemByName(name: string) {
