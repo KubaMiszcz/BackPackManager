@@ -10,7 +10,7 @@
     </div>
     <div *ngIf="!isCollapsed" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="cargo.items"
         class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
+        <div class="example-box" *ngFor="let item of cargoItems" cdkDrag>
             <app-simple-item [item]="item"></app-simple-item>
         </div>
     </div>

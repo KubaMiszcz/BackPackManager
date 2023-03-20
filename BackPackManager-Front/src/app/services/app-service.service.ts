@@ -10,7 +10,6 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
-  
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
   itemsBS = new BehaviorSubject<ISimpleItem[]>([]);
 
@@ -77,7 +76,16 @@ export class AppService {
     return !this.getAllNames().some((n) => n.toLowerCase() === name.toLowerCase());
     }
   
-
+    getDefaultCargo(): ICargoItem {
+      return (
+        this.cargosBS.value.find(
+          (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+        ) ?? {
+          name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
+          items: [],
+        }
+      );
+    }
 
   //////////////////////////////////////////
   //////////////////////////////////////////

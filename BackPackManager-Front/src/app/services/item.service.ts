@@ -1,3 +1,4 @@
+import { CargoService } from './cargo.service';
 import { ICargoItem, SimpleItem } from './../models/item';
 import { AppService } from 'src/app/services/app-service.service';
 import { HelperService } from './helper.service';
@@ -22,21 +23,31 @@ export class ItemService {
     );
   }
 
-  importItemsFromString(itemsInput: string) {
+  importItemsFromString(
+    itemsInput: string,
+    destinationCargo: ICargoItem = null
+  ) {
     let list = itemsInput.split('\n');
     list = this.helperService.prepareNamesList(list);
 
     list.forEach((name) => {
       if (this.appService.isNameUnique(name)) {
-        this.addNewItem(name);
+        this.addNewItem(name, destinationCargo);
       }
     });
 
     this.appService.refreshItemsBS();
   }
 
-  addNewItem(name: string) {
-    this.appService.itemsBS.value.push({ name: name });
+  addNewItem(name: string, destinationCargo: ICargoItem = null) {
+    if (!destinationCargo) {
+      destinationCargo = this.appService.getDefaultCargo();
+    }
+
+    this.appService.itemsBS.value.push({
+      name: name,
+      parentCargo: destinationCargo,
+    });
   }
 
   moveItemToThrash(item: ISimpleItem) {

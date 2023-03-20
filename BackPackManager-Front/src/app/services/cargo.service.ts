@@ -39,7 +39,7 @@ export class CargoService {
     this.appService.refreshCargosBS();
   }
 
- private addNewCargo(name: string) {
+  private addNewCargo(name: string) {
     this.appService.cargosBS.value.push({ name: name.toUpperCase() });
   }
 
@@ -57,15 +57,7 @@ export class CargoService {
     this.appService.refreshCargosBS();
   }
 
-  private getDefaultCargo(): ICargoItem {
-    return (
-      this.appService.cargosBS.value.find(
-        (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
-      ) ?? {
-        name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
-        items: [],
-      }
-    );
+  getDefaultCargo(): ICargoItem {
+    return this.appService.getDefaultCargo();
   }
 }
-
