@@ -2,10 +2,12 @@ import { AppData } from './../models/app-data';
 
 export const APP_DEFAULTS = {
   DEFAULT_CARGO_NAME: '!Loose Items',
+  BACKPACKMANAGER_APPDATA: 'BackPackManagerData',
 };
 
 export const APP_DATA: AppData = {
   cargos: [],
+  items: [],
   // looseItems: [
   //   {
   //     name: 'posegreguj',

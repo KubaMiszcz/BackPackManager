@@ -10,8 +10,8 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
-  
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
+  itemsBS = new BehaviorSubject<ISimpleItem[]>([]);
 
   constructor() {
     // let appData = APP_DATA;
@@ -20,8 +20,14 @@ export class AppService {
   }
 
   saveData() {
-    let appData: AppData = { cargos: this.cargosBS.value };
-    localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
+    let appData: AppData = {
+      cargos: this.cargosBS.value,
+      items: this.itemsBS.value,
+    };
+    localStorage.setItem(
+      APP_DEFAULTS.BACKPACKMANAGER_APPDATA,
+      JSON.stringify(appData)
+    );
   }
 
   loadData() {
@@ -29,13 +35,14 @@ export class AppService {
 
     if (appData) {
       this.cargosBS.next(appData.cargos);
+      this.itemsBS.next(appData.items);
     } else {
       this.reInitData();
     }
   }
 
-  getAppDataFromLocalStorage() {
-    let data = localStorage.getItem('BackPackManagerData');
+  private getAppDataFromLocalStorage() {
+    let data = localStorage.getItem(APP_DEFAULTS.BACKPACKMANAGER_APPDATA);
 
     if (data !== null && data?.length > 0) {
       let appData: AppData = JSON.parse(data);
@@ -47,8 +54,39 @@ export class AppService {
 
   reInitData() {
     this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
+    this.itemsBS.next([]);
     this.saveData();
   }
+
+  refreshItemsBS() {
+    this.itemsBS.next(this.itemsBS.value);
+  }
+
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
 
   importItemsFromList(itemsNamesList: string[], fromCargo?: boolean) {
     console.log('s');
@@ -62,7 +100,7 @@ export class AppService {
         destinationCargo = cargo;
       } else {
         this.importCargos([cargoName]);
-        destinationCargo = this.findCargo(cargoName);
+        destinationCargo = this.findCargoByName(cargoName);
       }
     } else {
       destinationCargo = this.getDefaultCargo();
@@ -140,7 +178,7 @@ export class AppService {
     return null;
   }
 
-  findCargo(cargoName: string): ICargoItem | undefined {
+  findCargoByName(cargoName: string): ICargoItem | undefined {
     return this.cargosBS.value.find((c) => c.name === cargoName);
   }
 
@@ -217,6 +255,10 @@ export class AppService {
     this.importItemsFromList(list);
   }
 
+  togglePinItem(item: ISimpleItem) {
+    item.isPinned = !item.isPinned;
+  }
+
   getSortedItems(cargoItems: ISimpleItem[]): ISimpleItem[] {
     let cargos = _.sortBy(
       cargoItems.filter((i) => this.isCargoItemByName(i.name)),
@@ -229,7 +271,4 @@ export class AppService {
 
     return [...cargos, ...items];
   }
-
-  togglePinItem(item: ISimpleItem) {
-    item.isPinned = !item.isPinned;
-  }}
+}
