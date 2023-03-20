@@ -27,7 +27,7 @@ export class SimpleItem implements ISimpleItem {
 
 
 export interface ICargoItem extends ISimpleItem {
-  items?: ISimpleItem[];
+  // items?: ISimpleItem[];
   dragPosition?: PointXY;
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;

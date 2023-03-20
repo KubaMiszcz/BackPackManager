@@ -41,5 +41,7 @@ export class BackPackTabComponent {
         event.currentIndex
       );
     }
+
+   console.log(event.container.data);
   }
 }
