@@ -1,23 +1,27 @@
-.item{
+.item {
     height: 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.import-btn{
+.import-btn {
     width: 5em;
 }
 
-.vv{
+.hidden {
+    color: transparent;
+}
+
+.vv {
     font-size: 1em;
     height: 1.5em;
 }
 
-.pinned{
+.pinned {
     font-weight: 600;
 }
 
-.red{
+.red {
     color: red;
 }

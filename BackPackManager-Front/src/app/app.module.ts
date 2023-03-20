@@ -12,6 +12,7 @@ import { CargoTreeTabComponent } from './components/cargo-tree-tab/cargo-tree-ta
 import { BackPackTabComponent } from './components/back-pack-tab/back-pack-tab.component';
 import { ImportExportTabComponent } from './components/import-export-tab/import-export-tab.component';
 import { FormsModule } from '@angular/forms';
+import { HelpTabComponent } from './components/help-tab/help-tab.component';
 
 
 
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     SimpleItemComponent,
     CargoTreeTabComponent,
     BackPackTabComponent,
-    ImportExportTabComponent
+    ImportExportTabComponent,
+    HelpTabComponent
   ],
   imports: [
     BrowserModule,

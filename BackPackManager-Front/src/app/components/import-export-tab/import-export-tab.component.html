@@ -4,11 +4,12 @@
             <div class="col input-group">
                 <span class="input-group-text">import items</span>
                 <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
-            <button type="button" class="btn btn-primary import-btn" (click)="batchImportItems()">Batch Import Items</button>
-            <button type="button" class="btn btn-primary import-btn"  (click)="importItems()">Import Items</button>
+                <button type="button" class="btn btn-primary import-btn" (click)="batchImportItems()">Batch Import
+                    Items</button>
+                <button type="button" class="btn btn-primary import-btn" (click)="importItems()">Import Items</button>
             </div>
         </div>
-    
+
         <div class="col">
             <div class="col input-group">
                 <span class="input-group-text">import cargos</span>
@@ -17,33 +18,38 @@
             </div>
         </div>
     </div>
-    
-    
-    
-    
-    
+
+
+
+
+
     <div class="row">
         <div class="col">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-header">
                     All Items
                 </div>
-                <div *ngFor="let item of items">
-                    <div class="input-group input-group-sm d-flex align-items-center">
-                        <div style="width: 1.5em;" class="me-1">
-                            <span *ngIf="item.isCargo" >📦</span>
+                <div class="d-flex flex-wrap justify-content-between">
+                    <div *ngFor="let item of items" style="width: 45%;">
+                        <div class="input-group input-group-sm d-flesx align-items-center">
+                            <button  class="btn btn-outline-primary" type="button" (click)="togglePinItem(item)">
+                                <span [ngClass]="{'hidden' : !item.isCargo}">📦</span>
+                            </button>                                
+                            <!-- </div> -->
+                            <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
+                                class="form-control" placeholder="name" aria-label="name">
+                            <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)">
+                                📌</button>
+                            <button class="btn btn-outline-danger" type="button" (click)="moveItemToThrash(item)">
+                                🗑️</button>
                         </div>
-                        <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}" class="form-control" placeholder="name"
-                            aria-label="name">
-                        <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)"> 📌</button>
-                        <button class="btn btn-outline-danger" type="button" (click)="moveItemToThrash(item)"> 🗑️</button>
                     </div>
                 </div>
             </div>
         </div>
-    
+
         <div class="col">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-header">
                     All Cargos
                 </div>
@@ -61,4 +67,4 @@
             </div>
         </div>
     </div>
-</div >
+</div>
