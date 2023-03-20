@@ -32,8 +32,9 @@ export class CargoItemComponent implements OnInit {
   }
   
   drop(event: CdkDragDrop<ISimpleItem[]>) {
+    console.log(event);
     this.itemDropped.emit(event);
-    this.cargoItems = this.getSortedItems();
+    // this.cargoItems = this.getSortedItems();
   }
 
   dragEnd($event: CdkDragEnd) {

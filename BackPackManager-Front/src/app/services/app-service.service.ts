@@ -53,7 +53,7 @@ export class AppService {
   }
 
   reInitData() {
-    this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
+    // this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
     this.itemsBS.next([]);
     this.saveData();
   }
@@ -82,7 +82,7 @@ export class AppService {
           (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
         ) ?? {
           name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
-          items: [],
+          // items: [],
         }
       );
     }
@@ -146,8 +146,8 @@ export class AppService {
 
     // let allCargos = this.cargosBS.value;
     // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
-    let newItems = [...destinationCargo?.items, ...importedItems];
-    destinationCargo.items = _.sortBy(_.uniqBy(newItems, 'name'), 'name');
+    // let newItems = [...destinationCargo?.items, ...importedItems];
+    // destinationCargo.items = _.sortBy(_.uniqBy(newItems, 'name'), 'name');
     // this.cargosBS.next(allCargos);
     this.updateForViews();
 
@@ -172,13 +172,13 @@ export class AppService {
 
   moveItemToThrashByName(name: string) {
     this.cargosBS.value.forEach((c) => {
-      _.remove(c.items, (item) => item.name === '📦' + name + '📦');
+      // _.remove(c.items, (item) => item.name === '📦' + name + '📦');
     });
   }
 
   findItem(name: string): ISimpleItem | null {
     this.cargosBS.value.forEach((c) => {
-      return c.items.find((i) => i.name === name);
+      // return c.items.find((i) => i.name === name);
     });
 
     return null;
@@ -196,7 +196,7 @@ export class AppService {
 
   getAllItems(): ISimpleItem[] {
     let list: ISimpleItem[] = [];
-    this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
+    // this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
 
     return list;
   }
@@ -229,7 +229,7 @@ export class AppService {
       ) {
         importedCargos.push({
           name: name.toUpperCase(),
-          items: [],
+          // items: [],
         });
       }
     });

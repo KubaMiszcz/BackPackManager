@@ -1,3 +1,4 @@
+import { CargoService } from './../../services/cargo.service';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -16,15 +17,14 @@ import * as _ from 'lodash';
 export class BackPackTabComponent {
   cargos: ICargoItem[] = [];
 
-  constructor(private appService: AppService) {}
+  constructor(
+    private appService: AppService,
+    private cargoService: CargoService
+  ) {}
 
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
   }
-
-  // drop(event: CdkDragDrop<ICargoItem[]>) {
-  //   moveItemInArray(this.cargos, event.previousIndex, event.currentIndex);
-  // }
 
   transferItem(event: CdkDragDrop<ISimpleItem[]>) {
     if (event.previousContainer === event.container) {
@@ -42,6 +42,9 @@ export class BackPackTabComponent {
       );
     }
 
-   console.log(event.container.data);
+    // event.
+
+    //  console.log(event.previousContainer);
+    //  console.log(event.container);
   }
 }

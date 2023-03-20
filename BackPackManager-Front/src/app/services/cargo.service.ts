@@ -12,6 +12,7 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class CargoService {
+  
   constructor(
     private appService: AppService,
     private itemService: ItemService,
@@ -60,4 +61,10 @@ export class CargoService {
   getDefaultCargo(): ICargoItem {
     return this.appService.getDefaultCargo();
   }
+
+  findCargoByName(name: string): ICargoItem {
+   return this.appService.cargosBS.value.find((c) => c.name === name);
+  }
+
+  
 }
