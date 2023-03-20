@@ -70,4 +70,9 @@ export class ItemService {
     );
     return itemsList;
   }
+
+  getSortedItems(itemsList: ISimpleItem[]): ISimpleItem[] {
+    return _.sortBy(_.sortBy(itemsList, 'name'), 'isCargo');
+  }
+  
 }

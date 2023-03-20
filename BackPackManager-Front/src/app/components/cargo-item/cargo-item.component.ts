@@ -44,8 +44,8 @@ export class CargoItemComponent implements OnInit {
     this.cargo.dragPosition = $event.source.getFreeDragPosition();
   }
 
-  private getSortedItems(): ISimpleItem[] {
-    return _.sortBy(this.cargo.items, 'name');
+  getSortedItems(): ISimpleItem[] {
+    return this.itemService.getSortedItems(this.cargo.items);
   }
 
   moveItemToThrash(event: ISimpleItem) {

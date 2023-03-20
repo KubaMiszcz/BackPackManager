@@ -31,6 +31,8 @@ export class ImportExportTabComponent implements OnInit {
         _.sortBy(this.itemService.getAllItems(), 'name'),
         'isCargo'
       );
+
+      this.items = this.itemService.getSortedItems(this.itemService.getAllItems());
     });
   }
 
