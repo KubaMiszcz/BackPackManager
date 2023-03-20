@@ -27,7 +27,10 @@ export class ImportExportTabComponent implements OnInit {
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => {
       this.cargos = _.sortBy(data, 'name');
-      this.items = _.sortBy(this.itemService.getAllItems(), 'name');
+      this.items = _.sortBy(
+        _.sortBy(this.itemService.getAllItems(), 'name'),
+        'isCargo'
+      );
     });
   }
 
@@ -50,7 +53,7 @@ export class ImportExportTabComponent implements OnInit {
   }
 
   togglePinItem(event: ISimpleItem) {
-    this.appService.togglePinItem(event);
+    this.itemService.togglePinItem(event);
   }
 
   //////////////////////////////

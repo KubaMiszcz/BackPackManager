@@ -37,6 +37,8 @@ export class CargoService {
       name: name.toUpperCase(),
       items: [],
     });
+
+    this.itemService.addNewItem(name, null, true);
   }
 
   moveCargoToThrash(cargo: ICargoItem) {

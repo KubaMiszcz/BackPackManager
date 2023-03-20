@@ -32,18 +32,23 @@ export class ItemService {
     this.appService.refreshCargosBS();
   }
 
-  addNewItem(name: string, destinationCargo: ICargoItem = null) {
+  addNewItem(
+    name: string,
+    destinationCargo: ICargoItem = null,
+    isCargo: boolean = null
+  ) {
     if (!destinationCargo) {
       destinationCargo = this.appService.getDefaultCargo();
     }
 
     destinationCargo.items.push({
-      name: name,
+      name: !!isCargo ? name.toUpperCase() : name,
+      isCargo: isCargo,
     });
   }
 
   moveItemToThrash(item: ISimpleItem) {
-    let cargo = this.findParentCargo(item)
+    let cargo = this.findParentCargo(item);
     _.remove(cargo.items, item);
     this.appService.refreshCargosBS();
   }
@@ -53,7 +58,7 @@ export class ItemService {
       c.items.some((i) => i.name === item.name)
     );
   }
-  
+
   togglePinItem(item: ISimpleItem) {
     item.isPinned = !item.isPinned;
   }

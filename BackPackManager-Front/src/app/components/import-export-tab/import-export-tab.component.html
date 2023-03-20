@@ -27,7 +27,10 @@
                 All Items
             </div>
             <div *ngFor="let item of items">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm d-flex align-items-center">
+                    <div style="width: 1.5em;" class="me-1">
+                        <span *ngIf="item.isCargo" >📦</span>
+                    </div>
                     <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}" class="form-control" placeholder="name"
                         aria-label="name">
                     <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)"> 📌</button>

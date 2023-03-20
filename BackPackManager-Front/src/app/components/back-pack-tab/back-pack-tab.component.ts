@@ -30,11 +30,11 @@ export class BackPackTabComponent {
 
   transferItem(event: CdkDragDrop<ISimpleItem[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      // moveItemInArray(
+      //   event.container.data,
+      //   event.previousIndex,
+      //   event.currentIndex
+      // );
     } else {
       transferArrayItem(
         event.previousContainer.data,
