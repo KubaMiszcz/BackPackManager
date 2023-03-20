@@ -10,6 +10,7 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
+  
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
 
   constructor() {
@@ -49,23 +50,49 @@ export class AppService {
     this.saveData();
   }
 
-  importItemsFromList(itemsList: string[]) {
+  importItemsFromList(itemsNamesList: string[], fromCargo?: boolean) {
+    console.log('s');
+
+    let destinationCargo: ICargoItem;
+    if (fromCargo) {
+      let cargoName = itemsNamesList[0];
+      itemsNamesList.shift();
+      let cargo = this.cargosBS.value.find((c) => c.name === cargoName);
+      if (cargo) {
+        destinationCargo = cargo;
+      } else {
+        this.importCargos([cargoName]);
+        destinationCargo = this.findCargo(cargoName);
+      }
+    } else {
+      destinationCargo = this.getDefaultCargo();
+    }
+
     let importedItems: ISimpleItem[] = [];
     let allNames = this.getAllNames();
-    itemsList.forEach((name) => {
-      if (!allNames.find(i => i.toLowerCase() === name.toLowerCase())) {
+    itemsNamesList.forEach((name) => {
+      if (
+        name !== '' &&
+        !allNames.find((i) => i.toLowerCase() === name.toLowerCase())
+      ) {
         importedItems.push({
           name: name,
         });
       }
     });
 
-    let allCargos = this.cargosBS.value;
-    let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
-    let newLooseItems = [...looseItemsCargo?.items, ...importedItems];
-    //todo handle with duplicates in all cargos
-    looseItemsCargo.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
-    this.cargosBS.next(allCargos);
+    // let allCargos = this.cargosBS.value;
+    // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
+    let newItems = [...destinationCargo?.items, ...importedItems];
+    destinationCargo.items = _.sortBy(_.uniqBy(newItems, 'name'), 'name');
+    // this.cargosBS.next(allCargos);
+    this.updateForViews();
+
+    // let allCargos = this.cargosBS.value;
+    // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
+    // let newLooseItems = [...looseItemsCargo?.items, ...importedItems];
+    // looseItemsCargo.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
+    // this.cargosBS.next(allCargos);
   }
 
   moveItemToThrash(item: ISimpleItem) {
@@ -113,6 +140,10 @@ export class AppService {
     return null;
   }
 
+  findCargo(cargoName: string): ICargoItem | undefined {
+    return this.cargosBS.value.find((c) => c.name === cargoName);
+  }
+
   getDefaultCargo(): ICargoItem {
     return (
       this.cargosBS.value.find(
@@ -135,7 +166,7 @@ export class AppService {
     return list;
   }
 
-  getAllNames(){
+  getAllNames() {
     let itemNames = this.getAllItems().map((i) => i.name);
     let cargoNames = this.cargosBS.value.map((i) => i.name);
     return itemNames.concat(cargoNames);
@@ -157,4 +188,48 @@ export class AppService {
 
     this.updateForViews(appData?.cargos);
   }
-}
+
+  importCargos(cargosNamesList: string[]) {
+    let importedCargos: ICargoItem[] = [];
+
+    cargosNamesList.forEach((name) => {
+      if (
+        name !== '' &&
+        !this.getAllNames().find((i) => i.toLowerCase() === name.toLowerCase())
+      ) {
+        importedCargos.push({
+          name: name.toUpperCase(),
+          items: [],
+        });
+      }
+    });
+
+    let existingCargos = this.cargosBS.value;
+    let newCargosList = [...existingCargos, ...importedCargos];
+    existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
+    this.cargosBS.next(existingCargos);
+
+    this.importCargosAsItems(cargosNamesList);
+  }
+
+  importCargosAsItems(cargosNamesList: string[]) {
+    let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase() + '📦'));
+    this.importItemsFromList(list);
+  }
+
+  getSortedItems(cargoItems: ISimpleItem[]): ISimpleItem[] {
+    let cargos = _.sortBy(
+      cargoItems.filter((i) => this.isCargoItemByName(i.name)),
+      'name'
+    );
+    let items = _.sortBy(
+      cargoItems.filter((i) => !this.isCargoItemByName(i.name)),
+      'name'
+    );
+
+    return [...cargos, ...items];
+  }
+
+  togglePinItem(item: ISimpleItem) {
+    item.isPinned = !item.isPinned;
+  }}

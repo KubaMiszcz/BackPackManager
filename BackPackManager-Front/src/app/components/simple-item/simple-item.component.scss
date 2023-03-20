@@ -1,19 +1,25 @@
 .item {
     max-width: fit-content;
-    min-width: 16em;
+    min-width: 15rem;
 
     .content {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        width: 15rem;
 
         img {
             padding-right: 3px;
         }
 
         .icon {
-            font-size: 1em;
+            font-size: 1rem;
 
+        }
+
+
+        .pinned {
+            font-weight: 600;
         }
 
         .orange {

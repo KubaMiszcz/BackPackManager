@@ -15,6 +15,8 @@ export class ImportExportTabComponent implements OnInit {
 
   itemsInput: string = '';
   cargosInput: string = '';
+  cargoName: string = '';
+  fromCargo: boolean = false;
 
   constructor(private appService: AppService) {}
 
@@ -32,32 +34,18 @@ export class ImportExportTabComponent implements OnInit {
 
   importItems() {
     let itemsNamesList = this.prepareList(this.itemsInput);
-    this.appService.importItemsFromList(itemsNamesList);
+    this.appService.importItemsFromList(itemsNamesList, this.fromCargo);
+    this.fromCargo = false;
+    this.itemsInput = '';
   }
 
-  importCargos() {
-    let cargosNamesList = this.prepareList(this.cargosInput);
-    let importedCargos: ICargoItem[] = [];
-    cargosNamesList.forEach((name) => {
-      if (!this.appService.getAllNames().find((i) => i.toLowerCase() === name.toLowerCase())) {
-        importedCargos.push({
-          name: name.toUpperCase(),
-          items: [],
-        });
-      }
-    });
+  importCargos(cargosNamesList?: string[]) {
+    if (!cargosNamesList) {
+      cargosNamesList = this.prepareList(this.cargosInput);
+    }
 
-    let existingCargos = this.appService.cargosBS.value;
-    let newCargosList = [...existingCargos, ...importedCargos];
-    existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
-    this.appService.cargosBS.next(existingCargos);
-
-    this.importCargosAsItems(cargosNamesList);
-  }
-
-  importCargosAsItems(cargosNamesList: string[]) {
-    let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase() + '📦'));
-    this.appService.importItemsFromList(list);
+    this.appService.importCargos(cargosNamesList);
+    this.cargosInput = '';
   }
 
   prepareList(list: string) {
@@ -72,6 +60,10 @@ export class ImportExportTabComponent implements OnInit {
 
   moveCargoToThrash(event: ICargoItem) {
     this.appService.moveCargoToThrash(event);
+  }
+  
+  togglePinItem(event: ISimpleItem) {
+    this.appService.togglePinItem(event);
   }
 
   isCargoItem(name: string) {

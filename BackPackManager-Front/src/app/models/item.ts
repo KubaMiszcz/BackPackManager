@@ -4,6 +4,7 @@ export type Nullable<T> = T | undefined | null;
 
 export interface ISimpleItem {
   name: string;
+  isPinned?: boolean;
   // parentCargo: Nullable<ISimpleItem>;
   // description: string;
   // image: any;

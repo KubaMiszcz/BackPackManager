@@ -1,3 +1,4 @@
+import { AppService } from 'src/app/services/app-service.service';
 import { CargoItem } from 'src/app/models/item';
 import { ICargoItem, ISimpleItem } from './../../models/item';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
@@ -15,18 +16,18 @@ export class CargoItemComponent implements OnInit {
   isCollapsed = false;
   dragPosition: Point;
 
-  constructor() {
-    this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
-  }
-  
-  ngOnInit(): void {
-    this.cargo.items = _.sortBy(this.cargo.items, 'name');
+  constructor(private appService: AppService) {
     this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
   }
 
+  ngOnInit(): void {
+    this.cargo.items = this.appService.getSortedItems(this.cargo.items);
+    this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
+  }
+  
   drop(event: CdkDragDrop<ISimpleItem[]>) {
     this.itemDropped.emit(event);
-    this.cargo.items = _.sortBy(this.cargo.items, 'name');
+    this.cargo.items = this.appService.getSortedItems(this.cargo.items);
   }
 
   dragEnd($event: CdkDragEnd) {

@@ -1,14 +1,28 @@
 <div class="row">
-    <div class="col input-group">
-        <span class="input-group-text">import items</span>
-        <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
-        <button type="button" class="btn btn-primary" (click)="importItems()">Import Items</button>
+    <div class="col">
+        <!-- <div class="col input-group">
+            <span class="input-group-text">Cargo Name</span>
+            <input type="text" [(ngModel)]="cargoName" class="form-control" placeholder="Cargo Name" aria-label="name">
+        </div> -->
+        <div class="col input-group">
+            <span class="input-group-text">import items</span>
+            <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
+            <span class="input-group-text d-flex flex-column" >
+                <label class="form-check-label" for="flexSwitchCheckDefault">from<br> cargo</label>
+                <div class="form-check form-switch">
+                    <input [(ngModel)]="fromCargo" class="form-check-input" style="scale: 1.5" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  </div>
+            </span >
+            <button type="button" class="btn btn-primary" (click)="importItems()">Import Items</button>
+        </div>
     </div>
 
-    <div class="col input-group">
-        <span class="input-group-text">import cargos</span>
-        <textarea [(ngModel)]="cargosInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
-        <button type="button" class="btn btn-primary" (click)="importCargos()">Import Cargos</button>
+    <div class="col">
+        <div class="col input-group">
+            <span class="input-group-text">import cargos</span>
+            <textarea [(ngModel)]="cargosInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
+            <button type="button" class="btn btn-primary" (click)="importCargos()">Import Cargos</button>
+        </div>
     </div>
 </div>
 
@@ -23,18 +37,21 @@
                 All Items
             </div>
             <div *ngFor="let item of items">
-                <div  class="input-group input-group-sm">
-                    <input type="text" [(ngModel)]="item.name" class="form-control" placeholder="name" aria-label="name">
+                <div class="input-group input-group-sm">
+                    <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}" class="form-control" placeholder="name"
+                        aria-label="name">
+                    <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)"> 📌</button>
                     <button class="btn btn-outline-danger" type="button" (click)="moveItemToThrash(item)"> 🗑️</button>
                 </div>
             </div>
 
-            <div *ngFor="let item of items">
+            <!-- <div *ngFor="let item of items">
                 <div *ngIf="isCargoItem(item.name)" class="input-group input-group-sm">
-                    <input type="text" [(ngModel)]="item.name" class="form-control" placeholder="name" aria-label="name">
+                    <input type="text" [(ngModel)]="item.name" class="form-control" placeholder="name"
+                        aria-label="name">
                     <button class="btn btn-outline-danger" type="button" (click)="moveItemToThrash(item)"> 🗑️</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -44,12 +61,14 @@
                 All Cargos
             </div>
             <div *ngFor="let cargo of cargos">
-                <div  class="input-group input-group-sm">
-                    <input type="text" [(ngModel)]="cargo.name" class="form-control " placeholder="name" aria-label="name">
+                <div class="input-group input-group-sm">
+                    <input type="text" [(ngModel)]="cargo.name" class="form-control " placeholder="name"
+                        aria-label="name">
                     <span class="input-group-text">
                         <span class="badge text-bg-secondary ms-1">{{cargo.items.length}}</span>
                     </span>
-                    <button class="btn btn-outline-danger" type="button" (click)="moveCargoToThrash(cargo)"> 🗑️</button>
+                    <button class="btn btn-outline-danger" type="button" (click)="moveCargoToThrash(cargo)">
+                        🗑️</button>
                 </div>
             </div>
         </div>
