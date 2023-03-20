@@ -3,9 +3,12 @@
         <div class=" left me-auto">
             <i class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
             <div class="card-text" [ngClass]="{'pinned' : item.isPinned}">
-                <span *ngIf="item.isCargo">📦</span>
-                {{item.name}}
-                <span *ngIf="item.isCargo">📦</span>
+                <div *ngIf="item.isCargo">
+                    <span>📦{{item.name | uppercase}}📦</span>
+                </div>
+                <div *ngIf="!item.isCargo">
+                    {{item.name}}
+                </div>
             </div>
         </div>
         <div class=" right">
