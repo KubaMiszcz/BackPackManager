@@ -62,6 +62,19 @@ export class AppService {
     this.itemsBS.next(this.itemsBS.value);
   }
 
+  // moveItemToThrash(item: ISimpleItem) {
+  //   this.cargosBS.value.forEach((c) => {
+  //     _.remove(c.items, item);
+  //   });
+
+  //   this.updateForViews();
+  // }
+
+  moveItemToThrash(item: ISimpleItem) {
+    _.remove(this.itemsBS.value, item);
+    this.refreshItemsBS();
+  }
+
   //////////////////////////////////////////
   //////////////////////////////////////////
   //////////////////////////////////////////
@@ -133,13 +146,7 @@ export class AppService {
     // this.cargosBS.next(allCargos);
   }
 
-  moveItemToThrash(item: ISimpleItem) {
-    this.cargosBS.value.forEach((c) => {
-      _.remove(c.items, item);
-    });
 
-    this.updateForViews();
-  }
 
   updateForViews(value?: ICargoItem[]) {
     if (value) {
