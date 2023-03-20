@@ -47,9 +47,27 @@ export class ImportExportTabComponent implements OnInit {
 
   batchImportItems() {
     let list = this.helperService.prepareNamesList(this.itemsInput.split('\n'));
-    let destinationCargoName = list.shift();
-    this.cargoService.importCargosFromString(destinationCargoName);
-    this.itemService.importItemsFromString(list, destinationCargoName);
+    let cargos: string[][] = [];
+    let cargo: string[] = [];
+    cargo.push(list.shift().slice(1));
+
+    list.forEach((n) => {
+      if (n.startsWith('>')) {
+        cargos.push(cargo);
+        cargo = [];
+        n = n.slice(1);
+      }
+      cargo.push(n);
+    });
+
+    cargos.push(cargo);
+
+    cargos.forEach((c) => {
+      let destinationCargoName = c.shift();
+      this.cargoService.importCargosFromString(destinationCargoName);
+      this.itemService.importItemsFromString(c, destinationCargoName);
+    });
+
     this.itemsInput = '';
   }
 
