@@ -32,7 +32,9 @@ export class ImportExportTabComponent implements OnInit {
         'isCargo'
       );
 
-      this.items = this.itemService.getSortedItems(this.itemService.getAllItems());
+      this.items = this.itemService.getSortedItems(
+        this.itemService.getAllItems()
+      );
     });
   }
 
@@ -40,6 +42,8 @@ export class ImportExportTabComponent implements OnInit {
     this.itemService.importItemsFromString(this.itemsInput);
     this.itemsInput = '';
   }
+
+  batchImportItems() {}
 
   importCargos() {
     this.cargoService.importCargosFromString(this.cargosInput);
@@ -75,8 +79,6 @@ export class ImportExportTabComponent implements OnInit {
   //////////////////////////////
   //////////////////////////////
   //////////////////////////////
-
-
 
   // isCargoItem(name: string) {
   //   return this.appService.isCargoItemByName(name);
