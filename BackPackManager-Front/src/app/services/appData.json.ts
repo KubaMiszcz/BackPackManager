@@ -1,7 +1,7 @@
 import { AppData } from './../models/app-data';
 
 export const APP_DEFAULTS = {
-  DEFAULT_CARGO_NAME: '!Loose Items',
+  DEFAULT_CARGO_NAME: '!LOOSE ITEMS',
   BACKPACKMANAGER_APPDATA: 'BackPackManagerData',
 };
 

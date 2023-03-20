@@ -27,7 +27,7 @@ export class SimpleItem implements ISimpleItem {
 
 
 export interface ICargoItem extends ISimpleItem {
-  items: ISimpleItem[];
+  items?: ISimpleItem[];
   dragPosition?: PointXY;
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;
@@ -35,7 +35,7 @@ export interface ICargoItem extends ISimpleItem {
 
 export class CargoItem implements ICargoItem {
   name: string = '';
-  items: ISimpleItem[] = [];
+  // items: ISimpleItem[] = [];
   dragPosition?: PointXY = { x: 0, y: 0 };
 }
 

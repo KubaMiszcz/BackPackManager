@@ -10,6 +10,7 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
+  
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
   itemsBS = new BehaviorSubject<ISimpleItem[]>([]);
 
@@ -61,19 +62,22 @@ export class AppService {
   refreshItemsBS() {
     this.itemsBS.next(this.itemsBS.value);
   }
-
-  // moveItemToThrash(item: ISimpleItem) {
-  //   this.cargosBS.value.forEach((c) => {
-  //     _.remove(c.items, item);
-  //   });
-
-  //   this.updateForViews();
-  // }
-
-  moveItemToThrash(item: ISimpleItem) {
-    _.remove(this.itemsBS.value, item);
-    this.refreshItemsBS();
+  
+  refreshCargosBS() {
+    this.cargosBS.next(this.cargosBS.value);
   }
+
+  getAllNames() {
+    let itemNames = this.itemsBS.value.map((i) => i.name);
+    let cargoNames = this.cargosBS.value.map((i) => i.name);
+    return [...itemNames, ...cargoNames];
+  }
+
+  isNameUnique(name: string) {
+    return !this.getAllNames().some((n) => n.toLowerCase() === name.toLowerCase());
+    }
+  
+
 
   //////////////////////////////////////////
   //////////////////////////////////////////
@@ -116,7 +120,7 @@ export class AppService {
         destinationCargo = this.findCargoByName(cargoName);
       }
     } else {
-      destinationCargo = this.getDefaultCargo();
+      // destinationCargo = this.getDefaultCargo();
     }
 
     let importedItems: ISimpleItem[] = [];
@@ -156,20 +160,7 @@ export class AppService {
     }
   }
 
-  moveCargoToThrash(cargo: ICargoItem) {
-    let cargoToRemove = this.cargosBS.value.find((c) => c.name === cargo.name);
-    let defaultCargo = this.getDefaultCargo();
 
-    if (cargoToRemove === defaultCargo) {
-      alert('Cant remove default cargo');
-      return;
-    }
-
-    defaultCargo.items = defaultCargo?.items.concat(cargoToRemove?.items ?? []);
-    _.remove(this.cargosBS.value, cargoToRemove);
-    this.moveItemToThrashByName(cargo.name);
-    this.updateForViews();
-  }
 
   moveItemToThrashByName(name: string) {
     this.cargosBS.value.forEach((c) => {
@@ -189,16 +180,7 @@ export class AppService {
     return this.cargosBS.value.find((c) => c.name === cargoName);
   }
 
-  getDefaultCargo(): ICargoItem {
-    return (
-      this.cargosBS.value.find(
-        (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
-      ) ?? {
-        name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
-        items: [],
-      }
-    );
-  }
+
 
   isCargoItemByName(name: string) {
     return name.startsWith('📦') && name.endsWith('📦');
@@ -211,12 +193,7 @@ export class AppService {
     return list;
   }
 
-  getAllNames() {
-    let itemNames = this.getAllItems().map((i) => i.name);
-    let cargoNames = this.cargosBS.value.map((i) => i.name);
-    return itemNames.concat(cargoNames);
-  }
-
+  
   savePositions() {
     throw new Error('Method not implemented.');
     // let appData = this.getAppDataFromLocalStorage();

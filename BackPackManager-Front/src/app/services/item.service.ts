@@ -14,9 +14,8 @@ export class ItemService {
     private helperService: HelperService,
     private appService: AppService
   ) {}
-  
-  
-  getItemsForCargo(cargo: ICargoItem) {
+
+  getItemsForCargo(cargo: ICargoItem): ISimpleItem[] {
     return (
       this.appService.itemsBS.value?.filter((i) => i.parentCargo === cargo) ??
       []
@@ -26,31 +25,26 @@ export class ItemService {
   importItemsFromString(itemsInput: string) {
     let list = itemsInput.split('\n');
     list = this.helperService.prepareNamesList(list);
-    let allItems = this.appService.itemsBS.value;
 
     list.forEach((name) => {
-      if (!allItems.some((i) => i.name === name)) {
-        allItems.push({ name: name });
+      if (this.appService.isNameUnique(name)) {
+        this.addNewItem(name);
       }
     });
 
     this.appService.refreshItemsBS();
   }
 
+  addNewItem(name: string) {
+    this.appService.itemsBS.value.push({ name: name });
+  }
+
+  moveItemToThrash(item: ISimpleItem) {
+    _.remove(this.appService.itemsBS.value, item);
+    this.appService.refreshItemsBS();
+  }
+
   togglePinItem(item: ISimpleItem) {
     item.isPinned = !item.isPinned;
   }
-
-  // getSortedItems(cargoItems: ISimpleItem[]): ISimpleItem[] {
-  //   let cargos = _.sortBy(
-  //     cargoItems.filter((i) => this.isCargoItemByName(i.name)),
-  //     'name'
-  //   );
-  //   let items = _.sortBy(
-  //     cargoItems.filter((i) => !this.isCargoItemByName(i.name)),
-  //     'name'
-  //   );
-
-  //   return [...cargos, ...items];
-  // }
 }

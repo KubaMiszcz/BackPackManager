@@ -41,10 +41,13 @@ export class ImportExportTabComponent implements OnInit {
   }
 
   importItems() {
-    console.log(this.itemsInput);
-    
     this.itemService.importItemsFromString(this.itemsInput);
-    // this.itemsInput = '';
+    this.itemsInput = '';
+  }
+
+  importCargos() {
+    this.cargoService.importCargosFromString(this.cargosInput);
+    this.itemsInput = '';
   }
 
 
@@ -58,32 +61,31 @@ export class ImportExportTabComponent implements OnInit {
 
 
 
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
+//////////////////////////////
 
-
-
-
-
-  importCargos(cargosNamesList?: string[]) {
-    if (!cargosNamesList) {
-      cargosNamesList = this.prepareList(this.cargosInput);
-    }
-
-    this.appService.importCargos(cargosNamesList);
-    this.cargosInput = '';
-  }
-
-  prepareList(list: string) { //depr
-    return _.uniq(list.split('\n'))
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
-  }
 
   moveItemToThrash(event: ISimpleItem) {
-    this.appService.moveItemToThrash(event);
+    this.itemService.moveItemToThrash(event);
   }
 
   moveCargoToThrash(event: ICargoItem) {
-    this.appService.moveCargoToThrash(event);
+    this.cargoService.moveCargoToThrash(event);
   }
 
   togglePinItem(event: ISimpleItem) {
