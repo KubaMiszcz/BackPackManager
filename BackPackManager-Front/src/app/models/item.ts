@@ -5,7 +5,7 @@ export type Nullable<T> = T | undefined | null;
 export interface ISimpleItem {
   name: string;
   isPinned?: boolean;
-  parentCargo?: ISimpleItem;
+  // parentCargo?: ISimpleItem;
   // parentCargo?: Nullable<ISimpleItem>;
   // description: string;
   // image: any;
@@ -27,7 +27,7 @@ export class SimpleItem implements ISimpleItem {
 
 
 export interface ICargoItem extends ISimpleItem {
-  // items?: ISimpleItem[];
+  items: ISimpleItem[];
   dragPosition?: PointXY;
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;
@@ -35,6 +35,8 @@ export interface ICargoItem extends ISimpleItem {
 
 export class CargoItem implements ICargoItem {
   name: string = '';
+  items: ISimpleItem[];
+  isPinned?: boolean;
   // items: ISimpleItem[] = [];
   dragPosition?: PointXY = { x: 0, y: 0 };
 }

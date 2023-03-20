@@ -11,7 +11,6 @@ import * as _ from 'lodash';
 })
 export class AppService {
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
-  itemsBS = new BehaviorSubject<ISimpleItem[]>([]);
 
   constructor() {
     // let appData = APP_DATA;
@@ -20,10 +19,7 @@ export class AppService {
   }
 
   saveData() {
-    let appData: AppData = {
-      cargos: this.cargosBS.value,
-      items: this.itemsBS.value,
-    };
+    let appData: AppData = { cargos: this.cargosBS.value };
     localStorage.setItem(
       APP_DEFAULTS.BACKPACKMANAGER_APPDATA,
       JSON.stringify(appData)
@@ -35,7 +31,6 @@ export class AppService {
 
     if (appData) {
       this.cargosBS.next(appData.cargos);
-      this.itemsBS.next(appData.items);
     } else {
       this.reInitData();
     }
@@ -53,39 +48,40 @@ export class AppService {
   }
 
   reInitData() {
-    // this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
-    this.itemsBS.next([]);
+    this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
     this.saveData();
   }
 
-  refreshItemsBS() {
-    this.itemsBS.next(this.itemsBS.value);
-  }
-  
   refreshCargosBS() {
     this.cargosBS.next(this.cargosBS.value);
   }
 
   getAllNames() {
-    let itemNames = this.itemsBS.value.map((i) => i.name);
-    let cargoNames = this.cargosBS.value.map((i) => i.name);
-    return [...itemNames, ...cargoNames];
+    let allNames: string[] = [];
+    this.cargosBS.value.forEach((c) => {
+      allNames.push(c.name);
+      c.items.forEach((i) => allNames.push(i.name));
+    });
+
+    return allNames;
   }
 
   isNameUnique(name: string) {
-    return !this.getAllNames().some((n) => n.toLowerCase() === name.toLowerCase());
-    }
-  
-    getDefaultCargo(): ICargoItem {
-      return (
-        this.cargosBS.value.find(
-          (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
-        ) ?? {
-          name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
-          // items: [],
-        }
-      );
-    }
+    return !this.getAllNames().some(
+      (n) => n.toLowerCase() === name.toLowerCase()
+    );
+  }
+
+  getDefaultCargo(): ICargoItem {
+    return (
+      this.cargosBS.value.find(
+        (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+      ) ?? {
+        name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
+        items: [],
+      }
+    );
+  }
 
   //////////////////////////////////////////
   //////////////////////////////////////////
@@ -158,8 +154,6 @@ export class AppService {
     // this.cargosBS.next(allCargos);
   }
 
-
-
   updateForViews(value?: ICargoItem[]) {
     if (value) {
       this.cargosBS.next(value);
@@ -167,8 +161,6 @@ export class AppService {
       this.cargosBS.next(this.cargosBS.value);
     }
   }
-
-
 
   moveItemToThrashByName(name: string) {
     this.cargosBS.value.forEach((c) => {
@@ -188,8 +180,6 @@ export class AppService {
     return this.cargosBS.value.find((c) => c.name === cargoName);
   }
 
-
-
   isCargoItemByName(name: string) {
     return name.startsWith('📦') && name.endsWith('📦');
   }
@@ -201,7 +191,6 @@ export class AppService {
     return list;
   }
 
-  
   savePositions() {
     throw new Error('Method not implemented.');
     // let appData = this.getAppDataFromLocalStorage();
@@ -229,7 +218,7 @@ export class AppService {
       ) {
         importedCargos.push({
           name: name.toUpperCase(),
-          // items: [],
+          items: [],
         });
       }
     });

@@ -7,7 +7,6 @@ export const APP_DEFAULTS = {
 
 export const APP_DATA: AppData = {
   cargos: [],
-  items: [],
   // looseItems: [
   //   {
   //     name: 'posegreguj',

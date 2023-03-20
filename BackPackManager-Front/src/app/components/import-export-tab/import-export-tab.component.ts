@@ -17,8 +17,6 @@ export class ImportExportTabComponent implements OnInit {
 
   itemsInput: string = '';
   cargosInput: string = '';
-  cargoName: string = '';
-  fromCargo: boolean = false; //DEPR
 
   constructor(
     private appService: AppService,
@@ -29,25 +27,21 @@ export class ImportExportTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.cargosBS.subscribe(
-      (data) => (this.cargos = _.sortBy(data, 'name'))
+      (data) => {this.cargos = _.sortBy(data, 'name');
+      this.items = this.itemService.getAllItems();
+    }
+      
     );
-    this.appService.itemsBS.subscribe(
-      (data) => (this.items = _.sortBy(data, 'name'))
-    );
-  }
-
-  getNumberOfCargoItems(cargo:ICargoItem){
-    return this.cargoService.getNumberOfCargoItems(cargo);
   }
 
   importItems() {
     this.itemService.importItemsFromString(this.itemsInput);
-    this.itemsInput = '';
+    // this.itemsInput = '';
   }
 
   importCargos() {
     this.cargoService.importCargosFromString(this.cargosInput);
-    this.itemsInput = '';
+    // this.itemsInput = '';
   }
 
 

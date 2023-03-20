@@ -19,14 +19,6 @@ export class CargoService {
     private helperService: HelperService
   ) {}
 
-  getNumberOfCargoItems(cargo: ICargoItem) {
-    this.getItemsForCargo(cargo)?.length;
-  }
-
-  getItemsForCargo(cargo: ICargoItem) {
-    return this.itemService.getItemsForCargo(cargo);
-  }
-
   importCargosFromString(cargosInput: string) {
     let list = cargosInput.split('\n');
     list = this.helperService.prepareNamesList(list);
@@ -41,21 +33,24 @@ export class CargoService {
   }
 
   private addNewCargo(name: string) {
-    this.appService.cargosBS.value.push({ name: name.toUpperCase() });
+    this.appService.cargosBS.value.push({
+      name: name.toUpperCase(),
+      items: [],
+    });
   }
 
   moveCargoToThrash(cargo: ICargoItem) {
-    let defaultCargo = this.getDefaultCargo();
-    if (cargo === defaultCargo) {
-      alert('Cant remove default cargo');
-      return;
-    }
+    // let defaultCargo = this.getDefaultCargo();
+    // if (cargo === defaultCargo) {
+    //   alert('Cant remove default cargo');
+    //   return;
+    // }
 
-    let items = this.getItemsForCargo(cargo);
-    items.forEach((i) => (i.parentCargo = defaultCargo));
+    // let items = this.getItemsForCargo(cargo);
+    // items.forEach((i) => (i.parentCargo = defaultCargo));
 
-    _.remove(this.appService.cargosBS.value, cargo);
-    this.appService.refreshCargosBS();
+    // _.remove(this.appService.cargosBS.value, cargo);
+    // this.appService.refreshCargosBS();
   }
 
   getDefaultCargo(): ICargoItem {

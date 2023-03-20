@@ -16,13 +16,6 @@ export class ItemService {
     private appService: AppService
   ) {}
 
-  getItemsForCargo(cargo: ICargoItem): ISimpleItem[] {
-    return (
-      this.appService.itemsBS.value?.filter((i) => i.parentCargo === cargo) ??
-      []
-    );
-  }
-
   importItemsFromString(
     itemsInput: string,
     destinationCargo: ICargoItem = null
@@ -36,7 +29,7 @@ export class ItemService {
       }
     });
 
-    this.appService.refreshItemsBS();
+    this.appService.refreshCargosBS();
   }
 
   addNewItem(name: string, destinationCargo: ICargoItem = null) {
@@ -44,18 +37,25 @@ export class ItemService {
       destinationCargo = this.appService.getDefaultCargo();
     }
 
-    this.appService.itemsBS.value.push({
+    destinationCargo.items.push({
       name: name,
-      parentCargo: destinationCargo,
     });
   }
 
   moveItemToThrash(item: ISimpleItem) {
-    _.remove(this.appService.itemsBS.value, item);
-    this.appService.refreshItemsBS();
+    // _.remove(this.appService.itemsBS.value, item);
+    // this.appService.refreshItemsBS();
   }
 
   togglePinItem(item: ISimpleItem) {
     item.isPinned = !item.isPinned;
+  }
+
+  getAllItems(): ISimpleItem[] {
+    let itemsList: ISimpleItem[] = [];
+    this.appService.cargosBS.value.forEach(
+      (c) => (itemsList = [...itemsList, ...c.items])
+    );
+    return itemsList;
   }
 }

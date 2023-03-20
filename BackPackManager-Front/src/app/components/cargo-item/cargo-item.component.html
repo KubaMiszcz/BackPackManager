@@ -8,9 +8,9 @@
             (click)="isCollapsed=!isCollapsed"></i>
         <div class="title px-3">{{cargo.name | uppercase }}</div>
     </div>
-    <div *ngIf="!isCollapsed" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="cargoItems"
+    <div *ngIf="!isCollapsed" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="cargo.items"
         class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of cargoItems" cdkDrag>
+        <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
             <app-simple-item [item]="item"></app-simple-item>
         </div>
     </div>

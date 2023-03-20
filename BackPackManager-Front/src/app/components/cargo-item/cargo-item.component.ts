@@ -42,6 +42,6 @@ export class CargoItemComponent implements OnInit {
   }
 
   private getSortedItems(): ISimpleItem[] {
-    return _.sortBy(this.cargoService.getItemsForCargo(this.cargo), 'name');
+    return null ;//_.sortBy(this.cargoService.getItemsForCargo(this.cargo), 'name');
   }
 }

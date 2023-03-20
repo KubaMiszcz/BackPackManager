@@ -41,10 +41,5 @@ export class BackPackTabComponent {
         event.currentIndex
       );
     }
-
-    // event.
-
-    //  console.log(event.previousContainer);
-    //  console.log(event.container);
   }
 }
