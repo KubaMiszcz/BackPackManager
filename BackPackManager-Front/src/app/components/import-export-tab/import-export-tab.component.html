@@ -32,9 +32,9 @@
                 <div class="d-flex flex-wrap justify-content-between">
                     <div *ngFor="let item of items" style="width: 45%;">
                         <div class="input-group input-group-sm d-flesx align-items-center">
-                            <button  class="btn btn-outline-primary" type="button" (click)="togglePinItem(item)">
+                            <button class="btn btn-outline-primary" type="button" (click)="togglePinItem(item)">
                                 <span [ngClass]="{'hidden' : !item.isCargo}">📦</span>
-                            </button>                                
+                            </button>
                             <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
                                 class="form-control" placeholder="name" aria-label="name">
                             <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)">
@@ -52,15 +52,17 @@
                 <div class="card-header">
                     All Cargos
                 </div>
-                <div *ngFor="let cargo of cargos">
-                    <div class="input-group input-group-sm">
-                        <input type="text" [(ngModel)]="cargo.name" class="form-control " placeholder="name"
-                            aria-label="name">
-                        <span class="input-group-text">
-                            <span class="badge text-bg-secondary ms-1">{{cargo.items?.length}}</span>
-                        </span>
-                        <button class="btn btn-outline-danger" type="button" (click)="moveCargoToThrash(cargo)">
-                            🗑️</button>
+                <div class="d-flex flex-wrap justify-content-between">
+                    <div *ngFor="let cargo of cargos" style="width: 45%;">
+                        <div class="input-group input-group-sm">
+                            <input type="text" [(ngModel)]="cargo.name" class="form-control " placeholder="name"
+                                aria-label="name">
+                            <span class="input-group-text">
+                                <span class="badge text-bg-secondary ms-1">{{cargo.items?.length}}</span>
+                            </span>
+                            <button class="btn btn-outline-danger" type="button" (click)="moveCargoToThrash(cargo)">
+                                🗑️</button>
+                        </div>
                     </div>
                 </div>
             </div>
