@@ -43,10 +43,17 @@ export class ItemService {
   }
 
   moveItemToThrash(item: ISimpleItem) {
-    // _.remove(this.appService.itemsBS.value, item);
-    // this.appService.refreshItemsBS();
+    let cargo = this.findParentCargo(item)
+    _.remove(cargo.items, item);
+    this.appService.refreshCargosBS();
   }
 
+  findParentCargo(item: ISimpleItem) {
+    return this.appService.cargosBS.value.find((c) =>
+      c.items.some((i) => i.name === item.name)
+    );
+  }
+  
   togglePinItem(item: ISimpleItem) {
     item.isPinned = !item.isPinned;
   }

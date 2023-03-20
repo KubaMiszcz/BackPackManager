@@ -1,11 +1,11 @@
-<div class="card cargo-item m-2" cdkDrag (cdkDragEnded)="dragEnd($event)"
-    [cdkDragFreeDragPosition]="dragPosition">
+<div class="card cargo-item m-2" cdkDrag (cdkDragEnded)="dragEnd($event)" [cdkDragFreeDragPosition]="dragPosition">
     <!-- [cdkDragFreeDragPosition]="pos" -->
     <div class="card-header">
         <i *ngIf="isCollapsed" class="fa fa-chevron-circle-right" aria-hidden="true"
             (click)="isCollapsed=!isCollapsed"></i>
         <i *ngIf="!isCollapsed" class="fa fa-chevron-circle-down" aria-hidden="true"
             (click)="isCollapsed=!isCollapsed"></i>
+        <span *ngIf="isCollapsed" class="badge text-bg-secondary ms-1">{{cargo.items?.length}}</span>
         <div class="title px-3">{{cargo.name | uppercase }}</div>
     </div>
     <div *ngIf="!isCollapsed" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="cargo.items"

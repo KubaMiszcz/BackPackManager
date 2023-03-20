@@ -40,26 +40,24 @@ export class CargoService {
   }
 
   moveCargoToThrash(cargo: ICargoItem) {
-    // let defaultCargo = this.getDefaultCargo();
-    // if (cargo === defaultCargo) {
-    //   alert('Cant remove default cargo');
-    //   return;
-    // }
+    let defaultCargo = this.getDefaultCargo();
+    if (cargo === defaultCargo) {
+      alert('Cant remove default cargo');
+      return;
+    }
 
-    // let items = this.getItemsForCargo(cargo);
-    // items.forEach((i) => (i.parentCargo = defaultCargo));
-
-    // _.remove(this.appService.cargosBS.value, cargo);
-    // this.appService.refreshCargosBS();
+    defaultCargo.items = [...defaultCargo.items, ...cargo.items];
+    _.remove(this.appService.cargosBS.value, cargo);
+    this.appService.refreshCargosBS();
   }
 
   getDefaultCargo(): ICargoItem {
     return this.appService.getDefaultCargo();
   }
 
-  findCargoByName(name: string): ICargoItem {
-   return this.appService.cargosBS.value.find((c) => c.name === name);
-  }
+  // findCargoByName(name: string): ICargoItem {
+  //  return this.appService.cargosBS.value.find((c) => c.name === name);
+  // }
 
   
 }

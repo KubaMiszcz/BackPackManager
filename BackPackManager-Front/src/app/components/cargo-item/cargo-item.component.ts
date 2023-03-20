@@ -14,7 +14,6 @@ import * as _ from 'lodash';
 })
 export class CargoItemComponent implements OnInit {
   @Input() cargo: ICargoItem = new CargoItem();
-  cargoItems: ISimpleItem[] = [];
   @Output() itemDropped = new EventEmitter();
   isCollapsed = false;
   dragPosition: Point;
@@ -27,14 +26,13 @@ export class CargoItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargoItems = this.getSortedItems();
+    this.cargo.items = this.getSortedItems();
     this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
   }
-  
+
   drop(event: CdkDragDrop<ISimpleItem[]>) {
-    console.log(event);
     this.itemDropped.emit(event);
-    // this.cargoItems = this.getSortedItems();
+    this.cargo.items = this.getSortedItems();
   }
 
   dragEnd($event: CdkDragEnd) {
@@ -42,6 +40,6 @@ export class CargoItemComponent implements OnInit {
   }
 
   private getSortedItems(): ISimpleItem[] {
-    return null ;//_.sortBy(this.cargoService.getItemsForCargo(this.cargo), 'name');
+    return _.sortBy(this.cargo.items, 'name');
   }
 }

@@ -23,7 +23,9 @@ export class BackPackTabComponent {
   ) {}
 
   ngOnInit(): void {
-    this.appService.cargosBS.subscribe((data) => (this.cargos = data));
+    this.appService.cargosBS.subscribe(
+      (data) => (this.cargos = _.sortBy(data, 'name'))
+    );
   }
 
   transferItem(event: CdkDragDrop<ISimpleItem[]>) {
