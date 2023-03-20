@@ -1,9 +1,9 @@
 import { CargoService } from './cargo.service';
-import { ICargoItem, SimpleItem } from './../models/item';
+import { ICargoItem, SimpleItem } from '../models/item.model';
 import { AppService } from 'src/app/services/app-service.service';
 import { HelperService } from './helper.service';
 import { Injectable } from '@angular/core';
-import { ISimpleItem } from '../models/item';
+import { ISimpleItem } from '../models/item.model';
 import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 

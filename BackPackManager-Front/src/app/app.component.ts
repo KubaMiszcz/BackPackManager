@@ -22,12 +22,16 @@ export class AppComponent {
   reInitData() {
     this.appService.reInitData();
   }
-  
+
   resetPositions() {
     this.appService.resetPositions();
   }
-  
+
   savePositions() {
     this.appService.savePositions();
+  }
+
+  toggleDeletions() {
+    this.appService.toggleDeletions();
   }
 }

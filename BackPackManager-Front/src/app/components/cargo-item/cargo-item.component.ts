@@ -1,8 +1,8 @@
 import { ItemService } from 'src/app/services/item.service';
 import { CargoService } from './../../services/cargo.service';
 import { AppService } from 'src/app/services/app-service.service';
-import { CargoItem } from 'src/app/models/item';
-import { ICargoItem, ISimpleItem } from './../../models/item';
+import { CargoItem } from 'src/app/models/item.model';
+import { ICargoItem, ISimpleItem } from '../../models/item.model';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CdkDragDrop, CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import * as _ from 'lodash';
@@ -15,12 +15,14 @@ import * as _ from 'lodash';
 export class CargoItemComponent implements OnInit {
   @Input() cargo: ICargoItem = new CargoItem();
   @Output() itemDropped = new EventEmitter();
+  isDeletionsEnabled = false;
   isCollapsed = false;
   dragPosition: Point;
 
   constructor(
     private appService: AppService,
-    private cargoService: CargoService
+    private cargoService: CargoService,
+    private itemService: ItemService
   ) {
     this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
   }
@@ -28,6 +30,9 @@ export class CargoItemComponent implements OnInit {
   ngOnInit(): void {
     this.cargo.items = this.getSortedItems();
     this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
+    this.appService.isDeletionsEnabledBS.subscribe(
+      (data) => (this.isDeletionsEnabled = data)
+    );
   }
 
   drop(event: CdkDragDrop<ISimpleItem[]>) {
@@ -41,5 +46,9 @@ export class CargoItemComponent implements OnInit {
 
   private getSortedItems(): ISimpleItem[] {
     return _.sortBy(this.cargo.items, 'name');
+  }
+
+  moveItemToThrash(event: ISimpleItem) {
+    this.itemService.moveItemToThrash(event);
   }
 }

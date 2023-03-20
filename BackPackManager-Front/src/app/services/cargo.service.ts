@@ -1,8 +1,8 @@
-import { ISimpleItem } from 'src/app/models/item';
+import { ISimpleItem } from 'src/app/models/item.model';
 import { HelperService } from './helper.service';
 import { ItemService } from 'src/app/services/item.service';
 import { Injectable } from '@angular/core';
-import { ICargoItem } from '../models/item';
+import { ICargoItem } from '../models/item.model';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from './app-service.service';
 import { APP_DEFAULTS } from './appData.json';

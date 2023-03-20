@@ -1,6 +1,6 @@
 import { Point } from '@angular/cdk/drag-drop';
-import { AppData } from './../models/app-data';
-import { ISimpleItem, ICargoItem, CargoItem, PointXY } from './../models/item';
+import { AppData } from '../models/app-data.model';
+import { ISimpleItem, ICargoItem, CargoItem, PointXY } from '../models/item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { APP_DATA, APP_DEFAULTS } from './appData.json';
@@ -10,7 +10,9 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
+  
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
+  isDeletionsEnabledBS = new BehaviorSubject<boolean>(false);
 
   constructor() {
     // let appData = APP_DATA;
@@ -83,6 +85,27 @@ export class AppService {
     );
   }
 
+  resetPositions() {
+    let appData = this.getAppDataFromLocalStorage();
+    appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
+    console.log('ss');
+
+    this.refreshCargosBS();
+  }
+
+  savePositions() {
+    throw new Error('Method not implemented.');
+    // let appData = this.getAppDataFromLocalStorage();
+    // appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
+    // console.log('ss');
+
+    // this.updateForViews(appData?.cargos);
+  }
+
+  toggleDeletions() {
+    this.isDeletionsEnabledBS.next(!this.isDeletionsEnabledBS.value)
+  }
+
   //////////////////////////////////////////
   //////////////////////////////////////////
   //////////////////////////////////////////
@@ -140,18 +163,18 @@ export class AppService {
   //     }
   //   });
 
-    // let allCargos = this.cargosBS.value;
-    // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
-    // let newItems = [...destinationCargo?.items, ...importedItems];
-    // destinationCargo.items = _.sortBy(_.uniqBy(newItems, 'name'), 'name');
-    // this.cargosBS.next(allCargos);
-    // this.updateForViews();
+  // let allCargos = this.cargosBS.value;
+  // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
+  // let newItems = [...destinationCargo?.items, ...importedItems];
+  // destinationCargo.items = _.sortBy(_.uniqBy(newItems, 'name'), 'name');
+  // this.cargosBS.next(allCargos);
+  // this.updateForViews();
 
-    // let allCargos = this.cargosBS.value;
-    // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
-    // let newLooseItems = [...looseItemsCargo?.items, ...importedItems];
-    // looseItemsCargo.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
-    // this.cargosBS.next(allCargos);
+  // let allCargos = this.cargosBS.value;
+  // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
+  // let newLooseItems = [...looseItemsCargo?.items, ...importedItems];
+  // looseItemsCargo.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
+  // this.cargosBS.next(allCargos);
   // }
 
   // updateForViews(value?: ICargoItem[]) {
@@ -176,37 +199,20 @@ export class AppService {
   //   return null;
   // }
 
-  findCargoByName(cargoName: string): ICargoItem | undefined {
-    return this.cargosBS.value.find((c) => c.name === cargoName);
-  }
+  // findCargoByName(cargoName: string): ICargoItem | undefined {
+  //   return this.cargosBS.value.find((c) => c.name === cargoName);
+  // }
 
-  isCargoItemByName(name: string) {
-    return name.startsWith('📦') && name.endsWith('📦');
-  }
+  // isCargoItemByName(name: string) {
+  //   return name.startsWith('📦') && name.endsWith('📦');
+  // }
 
-  getAllItems(): ISimpleItem[] {
-    let list: ISimpleItem[] = [];
-    // this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
+  // getAllItems(): ISimpleItem[] {
+  //   let list: ISimpleItem[] = [];
+  //   // this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
 
-    return list;
-  }
-
-  savePositions() {
-    throw new Error('Method not implemented.');
-    // let appData = this.getAppDataFromLocalStorage();
-    // appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
-    // console.log('ss');
-
-    // this.updateForViews(appData?.cargos);
-  }
-
-  resetPositions() {
-    let appData = this.getAppDataFromLocalStorage();
-    appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
-    console.log('ss');
-
-    this.refreshCargosBS();
-  }
+  //   return list;
+  // }
 
   // importCargos(cargosNamesList: string[]) {
   //   let importedCargos: ICargoItem[] = [];
@@ -235,8 +241,6 @@ export class AppService {
   //   let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase() + '📦'));
   //   this.importItemsFromList(list);
   // }
-
-  
 
   // getSortedItems(cargoItems: ISimpleItem[]): ISimpleItem[] {
   //   let cargos = _.sortBy(

@@ -1,4 +1,4 @@
-import { AppData } from './../models/app-data';
+import { AppData } from '../models/app-data.model';
 
 export const APP_DEFAULTS = {
   DEFAULT_CARGO_NAME: '!LOOSE ITEMS',

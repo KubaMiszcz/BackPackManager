@@ -1,6 +1,6 @@
 import { CargoService } from './../../services/cargo.service';
-import { CargoItem, ISimpleItem, Nullable } from 'src/app/models/item';
-import { ICargoItem } from './../../models/item';
+import { CargoItem, ISimpleItem, Nullable } from 'src/app/models/item.model';
+import { ICargoItem } from '../../models/item.model';
 import { AppService } from 'src/app/services/app-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';

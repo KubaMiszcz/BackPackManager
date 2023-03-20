@@ -1,12 +1,17 @@
-<div class="item">
-    <div class="content d-flesx">
+<div class="item" >
+    <div class="content d-flesx " >
         <div class=" left me-auto">
             <i class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
-            <p class="card-text" [ngClass]="{'pinned' : item.isPinned}">{{item.name}} </p>
+            <div class="card-text" [ngClass]="{'pinned' : item.isPinned}">
+                <span *ngIf="item.isCargo">📦</span>
+                {{item.name}}
+                <span *ngIf="item.isCargo">📦</span>
+            </div>
         </div>
         <div class=" right">
-            <i class="fa fa-thumb-tack me-2 icon" aria-hidden="true" (click)="alert('pin')"></i>
+            <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="alert('pin')"></i>
             <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i>
+            <i *ngIf="isDeletionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
         </div>
     </div>
 </div>

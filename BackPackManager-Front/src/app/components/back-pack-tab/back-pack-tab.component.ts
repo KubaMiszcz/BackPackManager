@@ -5,7 +5,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
-import { ICargoItem, ISimpleItem } from 'src/app/models/item';
+import { ICargoItem, ISimpleItem } from 'src/app/models/item.model';
 import { AppService } from 'src/app/services/app-service.service';
 import * as _ from 'lodash';
 
