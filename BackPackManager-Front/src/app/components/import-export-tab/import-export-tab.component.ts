@@ -35,7 +35,7 @@ export class ImportExportTabComponent implements OnInit {
   importItems() {
     let itemsNamesList = this.prepareList(this.itemsInput);
     this.appService.importItemsFromList(itemsNamesList, this.fromCargo);
-    this.fromCargo = false;
+    // this.fromCargo = false;
     this.itemsInput = '';
   }
 

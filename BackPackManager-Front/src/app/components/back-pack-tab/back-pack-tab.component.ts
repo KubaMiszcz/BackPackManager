@@ -1,31 +1,33 @@
-import { CargoItem } from 'src/app/models/item';
-import { AppService } from './../../services/app-service.service';
-import { ICargoItem } from '../../models/item';
-import { Component, Input, OnInit } from '@angular/core';
-import { ISimpleItem } from '../../models/item';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { BehaviorSubject } from 'rxjs';
-
+import {
+  CdkDragDrop,
+  CdkDragEnd,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ICargoItem, ISimpleItem } from 'src/app/models/item';
+import { AppService } from 'src/app/services/app-service.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-back-pack-tab',
   templateUrl: './back-pack-tab.component.html',
   styleUrls: ['./back-pack-tab.component.scss'],
 })
-export class BackPackTabComponent implements OnInit {
+export class BackPackTabComponent {
   cargos: ICargoItem[] = [];
-  looseItems: ICargoItem[] = [];
-  shelves: ICargoItem[] = [];
 
   constructor(private appService: AppService) {}
 
   ngOnInit(): void {
     this.appService.cargosBS.subscribe((data) => (this.cargos = data));
-    this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
   }
 
-  drop(event: CdkDragDrop<ISimpleItem[]> | CdkDragDrop<ICargoItem[]>) {
+  drop(event: CdkDragDrop<ICargoItem[]>) {
+    moveItemInArray(this.cargos, event.previousIndex, event.currentIndex);
+  }
+
+  transferItem(event: CdkDragDrop<ISimpleItem[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -41,5 +43,20 @@ export class BackPackTabComponent implements OnInit {
       );
     }
   }
-}
 
+  movies = [
+    'Episode I - The Phantom Menace',
+    'Episode II - Attack of the Clones',
+    'Episode III - Revenge of the Sith',
+    'Episode IV - A New Hope',
+    'Episode V - The Empire Strikes Back',
+    'Episode VI - Return of the Jedi',
+    'Episode VII - The Force Awakens',
+    'Episode VIII - The Last Jedi',
+    'Episode IX – The Rise of Skywalker',
+  ];
+
+  droppp(event: CdkDragDrop<ICargoItem[]>, list: any[]) {
+    moveItemInArray(list, event.previousIndex, event.currentIndex);
+  }
+}

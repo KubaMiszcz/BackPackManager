@@ -10,30 +10,37 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'backpack-tabV2'" aria-current="page" >BackPackV2</a>
+                        <a class="nav-link active" [routerLink]="'backpack-tab'" aria-current="page">BackPack</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'import-export-tab'" aria-current="page" >ImportExport</a>
+                        <a class="nav-link active" [routerLink]="'import-export-tab'"
+                            aria-current="page">ImportExport</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'cargo-tree-tab'" aria-current="page" >Cargo Tree</a>
+                        <a class="nav-link active" [routerLink]="'cargo-tree-tab'" aria-current="page">Cargo Tree</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-austo mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Options
                         </a>
                         <ul class="dropdown-menu">
-                            <li><div class="dropdown-item" (click)="savePositions.emit()">Save Positions</div></li>
-                            <li><div class="dropdown-item" (click)="resetPositions.emit()">Reset positions</div></li>
+                            <li>
+                                <div class="dropdown-item" (click)="savePositions.emit()">Save Positions</div>
+                            </li>
+                            <li>
+                                <div class="dropdown-item" (click)="resetPositions.emit()">Reset positions</div>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
                     </li>
                     <li>
                         <button type="button" class="btn btn-primary mx-2" (click)="saveData.emit()">Save</button>
