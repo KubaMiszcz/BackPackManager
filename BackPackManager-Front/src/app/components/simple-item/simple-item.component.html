@@ -1,20 +1,15 @@
-<div class="item" >
-    <div class="content d-flesx " >
-        <div class=" left me-auto">
-            <i class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
-            <div class="card-text" [ngClass]="{'pinned' : item.isPinned}">
-                <div *ngIf="item.isCargo">
-                    <span>📦{{item.name | uppercase}}📦</span>
-                </div>
-                <div *ngIf="!item.isCargo">
-                    {{item.name}}
-                </div>
-            </div>
-        </div>
-        <div class=" right">
-            <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="alert('pin')"></i>
-            <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i>
-            <i *ngIf="isEditionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
-        </div>
+<div class="item" [ngClass]="{'pinned' : item.isPinned}">
+    <div class="content">
+        <i class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
+        <span *ngIf="item.isCargo">📦</span>
+        <span *ngIf="!isEditionsEnabled ">{{item.name}}</span>
+        <input *ngIf="isEditionsEnabled" type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
+            class="input-name form-control form-control-sm" placeholder="name" aria-label="name">
+        <span *ngIf="item.isCargo">📦</span>
+    </div>
+    <div class="content">
+        <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="alert('pin')"></i>
+        <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i>
+        <i *ngIf="isEditionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
     </div>
 </div>
