@@ -14,7 +14,7 @@ export class AppService {
     throw new Error('Method not implemented.');
   }
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
-  isDeletionsEnabledBS = new BehaviorSubject<boolean>(false);
+  isEditionsEnabledBS = new BehaviorSubject<boolean>(false);
 
   constructor() {
     // let appData = APP_DATA;
@@ -104,8 +104,8 @@ export class AppService {
     // this.updateForViews(appData?.cargos);
   }
 
-  toggleDeletions() {
-    this.isDeletionsEnabledBS.next(!this.isDeletionsEnabledBS.value);
+  toggleEditions() {
+    this.isEditionsEnabledBS.next(!this.isEditionsEnabledBS.value);
   }
 
   findCargoByName(cargoName: string): ICargoItem {

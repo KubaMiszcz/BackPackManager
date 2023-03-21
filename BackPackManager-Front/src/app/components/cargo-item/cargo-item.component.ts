@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 export class CargoItemComponent implements OnInit {
   @Input() cargo: ICargoItem = new CargoItem();
   @Output() itemDropped = new EventEmitter();
-  isDeletionsEnabled = false;
+  isEditionsEnabled = false;
   isCollapsed = false;
   dragPosition: Point;
 
@@ -30,8 +30,8 @@ export class CargoItemComponent implements OnInit {
   ngOnInit(): void {
     this.cargo.items = this.getSortedItems();
     this.dragPosition = this.cargo.dragPosition ?? { x: 0, y: 0 };
-    this.appService.isDeletionsEnabledBS.subscribe(
-      (data) => (this.isDeletionsEnabled = data)
+    this.appService.isEditionsEnabledBS.subscribe(
+      (data) => (this.isEditionsEnabled = data)
     );
   }
 

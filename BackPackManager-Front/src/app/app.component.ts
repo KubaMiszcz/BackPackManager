@@ -31,7 +31,7 @@ export class AppComponent {
     this.appService.savePositions();
   }
 
-  toggleDeletions() {
-    this.appService.toggleDeletions();
+  toggleEditions() {
+    this.appService.toggleEditions();
   }
 }

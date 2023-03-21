@@ -9,7 +9,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class SimpleItemComponent {
   @Input() item: ISimpleItem = new SimpleItem();
-  @Input() isDeletionsEnabled = false;
+  @Input() isEditionsEnabled = false;
   @Output() itemDeleted = new EventEmitter();
 
   constructor(private appService: AppService) {}

@@ -12,7 +12,7 @@
         class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of getSortedItems()" cdkDrag [ngClass]="{'pinned' : item.isPinned}">
             <app-simple-item [item]="item"
-            [isDeletionsEnabled]="isDeletionsEnabled"
+            [isEditionsEnabled]="isEditionsEnabled"
             (itemDeleted)="moveItemToThrash(item)"></app-simple-item>
         </div>
     </div>

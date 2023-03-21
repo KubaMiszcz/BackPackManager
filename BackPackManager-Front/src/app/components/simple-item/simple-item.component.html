@@ -14,7 +14,7 @@
         <div class=" right">
             <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="alert('pin')"></i>
             <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i>
-            <i *ngIf="isDeletionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
+            <i *ngIf="isEditionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
         </div>
     </div>
 </div>

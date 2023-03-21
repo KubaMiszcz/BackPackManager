@@ -11,5 +11,5 @@ export class NavBarComponent {
   @Output() reInitData = new EventEmitter();
   @Output() resetPositions = new EventEmitter();
   @Output() savePositions = new EventEmitter();
-  @Output() toggleDeletions = new EventEmitter();
+  @Output() toggleEditions = new EventEmitter();
 }
