@@ -46,12 +46,12 @@ export class ImportExportTabComponent implements OnInit {
   }
 
   batchImportItems() {
-    let list = this.helperService.prepareNamesList(this.itemsInput.split('\n'));
+    let itemsList = this.helperService.prepareNamesList(this.itemsInput.split('\n'));
     let cargos: string[][] = [];
     let cargo: string[] = [];
-    cargo.push(list.shift().slice(1));
+    cargo.push(itemsList.shift().slice(1));
 
-    list.forEach((n) => {
+    itemsList.forEach((n) => {
       if (n.startsWith('>')) {
         cargos.push(cargo);
         cargo = [];

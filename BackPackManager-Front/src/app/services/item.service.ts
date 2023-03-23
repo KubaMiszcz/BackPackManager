@@ -20,7 +20,7 @@ export class ItemService {
     itemsInput: string[],
     destinationCargoName: string = null
   ) {
-    let list = this.helperService.prepareNamesList(itemsInput);
+    let itemsList = this.helperService.prepareNamesList(itemsInput);
 
     let destinationCargo = this.getDestinationCargo(destinationCargoName);
 
@@ -28,13 +28,29 @@ export class ItemService {
       return;
     }
 
-    list.forEach((name) => {
+    itemsList.forEach((name) => {
       if (this.appService.isNameUnique(name)) {
         destinationCargo.items.push(this.createNewItem(name));
+        return;
+      } else {
+        let cargo = this.findParentCargoByItemName(name);
+        if (cargo !== destinationCargo) {
+          this.transferItemsBetweenCargos(cargo, destinationCargo, name);
+        }
       }
     });
 
     this.appService.refreshCargosBS();
+  }
+
+  transferItemsBetweenCargos(
+    sourceCargo: ICargoItem,
+    destinationCargo: ICargoItem,
+    itemName: string
+  ) {
+    let item = _.find(sourceCargo.items, { name: itemName });
+    _.remove(sourceCargo.items, item);
+    destinationCargo.items.push(item);
   }
 
   getDestinationCargo(destinationCargoName: string): ICargoItem {
@@ -59,8 +75,12 @@ export class ItemService {
   }
 
   findParentCargo(item: ISimpleItem) {
+    return this.findParentCargoByItemName(item.name);
+  }
+
+  findParentCargoByItemName(name: string) {
     return this.appService.cargosBS.value.find((c) =>
-      c.items.some((i) => i.name === item.name)
+      c.items.some((i) => i.name === name)
     );
   }
 
