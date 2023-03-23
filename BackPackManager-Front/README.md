@@ -23,7 +23,8 @@ todolists
 //generate checklist
 
 
-
+ng build --base-href /dev/back-pack-manager/   
+ng deploy --base-href=https://kubamiszcz.github.io/BackPackManager/
 
 
 
