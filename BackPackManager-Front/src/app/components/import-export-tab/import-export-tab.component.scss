@@ -1,27 +1,37 @@
-.item {
-    height: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+// .item {
+//     height: 1em;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+// }
 
-.import-btn {
-    width: 5em;
-}
+.card{
+    border: solid 2px #575044;
 
-.hidden {
-    color: transparent;
-}
+    .card-header{
+font-size: 1.5rem;
+font-weight: 450;
+    }
+    
+    .import-btn {
+        width: 5em;
+    }
+    
+    .hidden {
+        color: transparent;
+    }
+    
+    .vv {
+        font-size: 1em;
+        height: 1.5em;
+    }
+    
+    .pinned {
+        font-weight: 600;
+    }
+    
+    .red {
+        color: red;
+    }
 
-.vv {
-    font-size: 1em;
-    height: 1.5em;
-}
-
-.pinned {
-    font-weight: 600;
-}
-
-.red {
-    color: red;
 }
