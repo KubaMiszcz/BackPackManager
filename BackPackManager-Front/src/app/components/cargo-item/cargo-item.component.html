@@ -1,11 +1,19 @@
-<div class="card cargo-item m-2">
-    <div class="card-header"   >
-        <i class="fa fa-chevron-right" aria-hidden="true" (click)="isCollapsed=!isCollapsed"></i>
+<div class="card cargo-item m-2" cdkDrag (cdkDragEnded)="dragEnd($event)" [cdkDragFreeDragPosition]="dragPosition">
+    <!-- [cdkDragFreeDragPosition]="pos" -->
+    <div class="card-header">
+        <i *ngIf="isCollapsed" class="fa fa-chevron-circle-right" aria-hidden="true"
+            (click)="isCollapsed=!isCollapsed"></i>
+        <i *ngIf="!isCollapsed" class="fa fa-chevron-circle-down" aria-hidden="true"
+            (click)="isCollapsed=!isCollapsed"></i>
+        <span *ngIf="isCollapsed" class="badge text-bg-secondary ms-1">{{cargo.items?.length}}</span>
         <div class="title px-3">{{cargo.name | uppercase }}</div>
     </div>
-    <div *ngIf="!isCollapsed" cdkDropList [cdkDropListData]="cargo.items" class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of cargo.items" cdkDrag>
-            <app-simple-item [item]="item"></app-simple-item>
+    <div *ngIf="!isCollapsed" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="cargo.items"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of getSortedItems()" cdkDrag [ngClass]="{'pinned' : item.isPinned}">
+            <app-simple-item [item]="item"
+            [isEditionsEnabled]="isEditionsEnabled"
+            (itemDeleted)="moveItemToThrash(item)"></app-simple-item>
         </div>
     </div>
 </div>

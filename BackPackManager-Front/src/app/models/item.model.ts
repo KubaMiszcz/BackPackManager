@@ -1,8 +1,13 @@
-type Nullable<T> = T | undefined | null;
+import { Point } from '@angular/cdk/drag-drop';
+
+export type Nullable<T> = T | undefined | null;
 
 export interface ISimpleItem {
   name: string;
-  // parentCargo: Nullable<ISimpleItem>;
+  isPinned?: boolean;
+  isCargo?: boolean;
+  // parentCargo?: ISimpleItem;
+  // parentCargo?: Nullable<ISimpleItem>;
   // description: string;
   // image: any;
   //   weight: number;
@@ -14,20 +19,23 @@ export interface ISimpleItem {
 }
 
 export class SimpleItem implements ISimpleItem {
-  name: string = '';
-  // parentCargo = null;
-  // parentCargo: SimpleItem = undefined;
+  name = '';
 }
+
+
+
 
 export interface ICargoItem extends ISimpleItem {
   items: ISimpleItem[];
+  dragPosition?: PointXY;
   //   capacity: SizeEnum;
   // locationWhenNotused: StorageItem;
 }
 
 export class CargoItem implements ICargoItem {
   name: string = '';
-  items: ISimpleItem[] = [];
+  items: ISimpleItem[];
+  dragPosition?: PointXY = { x: 0, y: 0 };
 }
 
 // export interface StorageItem extends SimpleItem {
@@ -38,4 +46,9 @@ export class CargoItem implements ICargoItem {
 
 export interface IToDoItem {
   name: string;
+}
+
+export class PointXY implements Point {
+  x: number = 0;
+  y: number = 0;
 }

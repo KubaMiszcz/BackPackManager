@@ -1,37 +1,40 @@
-import { CargoItem } from 'src/app/models/item';
-import { AppService } from './../../services/app-service.service';
-import { ICargoItem } from '../../models/item';
-import { Component, Input, OnInit } from '@angular/core';
-import { ISimpleItem } from '../../models/item';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { BehaviorSubject } from 'rxjs';
-
+import { CargoService } from './../../services/cargo.service';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { Component } from '@angular/core';
+import { ICargoItem, ISimpleItem } from 'src/app/models/item.model';
+import { AppService } from 'src/app/services/app-service.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-back-pack-tab',
   templateUrl: './back-pack-tab.component.html',
   styleUrls: ['./back-pack-tab.component.scss'],
 })
-export class BackPackTabComponent implements OnInit {
+export class BackPackTabComponent {
   cargos: ICargoItem[] = [];
-  looseItems: ICargoItem[] = [];
-  shelves: ICargoItem[] = [];
 
-  constructor(private appService: AppService) {}
+  constructor(
+    private appService: AppService,
+    private cargoService: CargoService
+  ) {}
 
   ngOnInit(): void {
-    this.appService.cargosBS.subscribe((data) => (this.cargos = data));
-    this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
+    this.appService.cargosBS.subscribe(
+      (data) => (this.cargos = _.sortBy(data, 'name'))
+    );
   }
 
-  drop(event: CdkDragDrop<ISimpleItem[]> | CdkDragDrop<ICargoItem[]>) {
+  transferItem(event: CdkDragDrop<ISimpleItem[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      // moveItemInArray(
+      //   event.container.data,
+      //   event.previousIndex,
+      //   event.currentIndex
+      // );
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -42,4 +45,3 @@ export class BackPackTabComponent implements OnInit {
     }
   }
 }
-

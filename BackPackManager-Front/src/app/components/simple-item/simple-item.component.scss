@@ -1,18 +1,43 @@
 .item {
+    display: flex;
+    align-items: center;
+    max-width: -moz-fit-content;
     max-width: fit-content;
-    min-width: 17em;
-
+    justify-content: space-between;
+    min-width: 15rem;
+    
     .content {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        
+        .input-name{
+            min-height: 1rem;
+            max-width: 8rem;
+            padding: 0px 0.25rem;
+            font-size: 0.75rem;
+            width: auto;
+        }
 
         img {
             padding-right: 3px;
         }
 
-        .icon{
-            font-size: 1em;
+        .icon {
+            font-size: 1rem;
+            margin-left: 0.25em;
+        }
+
+        // .pinned {
+        //     font-weight: 600;
+        //     background-color: orange;
+        // }
+
+        .orange {
+            color: orange;
+        }
+
+        .red {
+            color: red;
         }
 
         .left {

@@ -1,8 +1,11 @@
-import { ISimpleItem } from 'src/app/models/item';
-import { ICargoItem } from './../../models/item';
+import { HelperService } from './../../services/helper.service';
+import { CargoService } from './../../services/cargo.service';
+import { CargoItem, ISimpleItem, Nullable } from 'src/app/models/item.model';
+import { ICargoItem } from '../../models/item.model';
 import { AppService } from 'src/app/services/app-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { ItemService } from 'src/app/services/item.service';
 
 @Component({
   selector: 'app-import-export-tab',
@@ -11,57 +14,99 @@ import * as _ from 'lodash';
 })
 export class ImportExportTabComponent implements OnInit {
   cargos: ICargoItem[] = [];
-  looseItems: ICargoItem[] = [];
-  shelves: ICargoItem[] = [];
+  items: ISimpleItem[] = [];
 
   itemsInput: string = '';
   cargosInput: string = '';
 
-  constructor(private appService: AppService) {}
+  constructor(
+    private appService: AppService,
+    private cargoService: CargoService,
+    private itemService: ItemService,
+    private helperService: HelperService
+  ) {}
 
   ngOnInit(): void {
-    this.appService.cargosBS.subscribe((data) => (this.cargos = data));
-    // this.appService.looseItemsBS.subscribe((data) => (this.looseItems = data));
-    // this.appService.shelvesBS.subscribe((data) => (this.shelves = data));
+    this.appService.cargosBS.subscribe((data) => {
+      this.cargos = _.sortBy(data, 'name');
+      this.items = _.sortBy(
+        _.sortBy(this.itemService.getAllItems(), 'name'),
+        'isCargo'
+      );
+
+      this.items = this.itemService.getSortedItems(
+        this.itemService.getAllItems()
+      );
+    });
   }
 
   importItems() {
-    let importedItems: ISimpleItem[] = [];
-    this.prepareList(this.itemsInput).forEach((i) =>
-      importedItems.push({
-        name: i,
-      })
-    );
+    this.itemService.importItemsFromString(this.itemsInput.split('\n'));
+    this.itemsInput = '';
+  }
 
-    let allCargos = this.appService.cargosBS.value;
-    let looseItems = allCargos[0];
-    let newLooseItems = [...looseItems.items, ...importedItems];
-    //todo handle with duplicates in all cargos
-    looseItems.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
-    allCargos[0] = looseItems;
-    this.appService.cargosBS.next(allCargos);
+  batchImportItems() {
+    let itemsList = this.helperService.prepareNamesList(this.itemsInput.split('\n'));
+    let cargos: string[][] = [];
+    let cargo: string[] = [];
+    cargo.push(itemsList.shift().slice(1));
+
+    itemsList.forEach((n) => {
+      if (n.startsWith('>')) {
+        cargos.push(cargo);
+        cargo = [];
+        n = n.slice(1);
+      }
+      cargo.push(n);
+    });
+
+    cargos.push(cargo);
+
+    cargos.forEach((c) => {
+      let destinationCargoName = c.shift();
+      this.cargoService.importCargosFromString(destinationCargoName);
+      this.itemService.importItemsFromString(c, destinationCargoName);
+    });
+
+    this.itemsInput = '';
   }
 
   importCargos() {
-    let importedCargos: ICargoItem[] = [];
-    this.prepareList(this.cargosInput).forEach((i) =>
-      importedCargos.push({
-        name: i.toUpperCase(),
-        items: [],
-      })
-    );
-
-    let existingCargos = this.appService.cargosBS.value;
-    let newCargosList = [...existingCargos, ...importedCargos];
-    //todo handle with duplicates in all cargos
-    // let existingItems = this.appService.getallitems();
-    existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
-    this.appService.cargosBS.next(existingCargos);
-    console.log(existingCargos);
-    
+    this.cargoService.importCargosFromString(this.cargosInput);
+    this.itemsInput = '';
   }
 
-  prepareList(list: string) {
-    return _.uniq(list.split('\n')).filter((s) => s.length > 0);
+  moveItemToThrash(event: ISimpleItem) {
+    this.itemService.moveItemToThrash(event);
   }
+
+  moveCargoToThrash(event: ICargoItem) {
+    this.cargoService.moveCargoToThrash(event);
+  }
+
+  togglePinItem(event: ISimpleItem) {
+    this.itemService.togglePinItem(event);
+  }
+
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+  //////////////////////////////
+
+  // isCargoItem(name: string) {
+  //   return this.appService.isCargoItemByName(name);
+  // }
 }

@@ -1,6 +1,6 @@
 .cargo-item {
     max-width: fit-content;
-    min-width: 17em;
+    min-width: 15rem;
 
     .card-header {
         display: flex;
@@ -8,15 +8,16 @@
         align-items: center;
         background-color: #575044;
         color: antiquewhite;
-        height: 1.5em;
-        font-size: 1.2em;
+        height: -webkit-fill-available;
+        font-size: 1.2rem;
+        width: 16rem;
 
         .title {
             display: flex;
             align-items: center;
             font-weight: bold;
-            font-size: 1em;
-            height: 1em;
+            font-size: 1rem;
+            height: 1rem;
         }
     }
 
@@ -39,5 +40,10 @@
         background: white;
         font-size: 1em;
         align-items: center;
+    }
+
+    .pinned {
+        font-weight: 600;
+        background-color: orange;
     }
 }

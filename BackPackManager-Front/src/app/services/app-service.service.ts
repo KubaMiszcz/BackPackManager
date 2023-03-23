@@ -1,16 +1,20 @@
-import { AppData } from './../models/app-data';
-import { ISimpleItem, ICargoItem } from './../models/item';
+import { Point } from '@angular/cdk/drag-drop';
+import { AppData } from '../models/app-data.model';
+import { ISimpleItem, ICargoItem, CargoItem, PointXY } from '../models/item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { APP_DATA } from './appData.json';
+import { APP_DATA, APP_DEFAULTS } from './appData.json';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
+  addNewCargo(destinationCargoName: string) {
+    throw new Error('Method not implemented.');
+  }
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
-  // looseItemsBS = new BehaviorSubject<ICargoItem[]>([]);
-  // shelvesBS = new BehaviorSubject<ICargoItem[]>([]);
+  isEditionsEnabledBS = new BehaviorSubject<boolean>(false);
 
   constructor() {
     // let appData = APP_DATA;
@@ -19,372 +23,237 @@ export class AppService {
   }
 
   saveData() {
-    let appData: AppData = {
-      cargos: this.cargosBS.value,
-      // looseItems: this.looseItemsBS.value,
-      // longStorageItems: this.shelvesBS.value,
-    };
-    localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
+    let appData: AppData = { cargos: this.cargosBS.value };
+    localStorage.setItem(
+      APP_DEFAULTS.BACKPACKMANAGER_APPDATA,
+      JSON.stringify(appData)
+    );
   }
 
   loadData() {
-    let data = localStorage.getItem('BackPackManagerData');
-    if (data !== null && data?.length > 0) {
-      let appData: AppData = JSON.parse(data);
+    let appData = this.getAppDataFromLocalStorage();
 
+    if (appData) {
       this.cargosBS.next(appData.cargos);
-      // this.looseItemsBS.next(appData.looseItems);
-      // this.shelvesBS.next(appData.longStorageItems);
-    }
-    else{
+    } else {
       this.reInitData();
     }
   }
 
+  private getAppDataFromLocalStorage() {
+    let data = localStorage.getItem(APP_DEFAULTS.BACKPACKMANAGER_APPDATA);
+
+    if (data !== null && data?.length > 0) {
+      let appData: AppData = JSON.parse(data);
+      return appData;
+    }
+
+    return null;
+  }
+
   reInitData() {
-    // this.cargosBS.next([]);
-    this.cargosBS.next([
-      { name: 'Loose Items', items: [] },
-    ]);
-    // this.shelvesBS.next([]);
+    this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
     this.saveData();
   }
+
+  refreshCargosBS() {
+    this.cargosBS.next(this.cargosBS.value);
+  }
+
+  getAllNames() {
+    let allNames: string[] = [];
+    this.cargosBS.value.forEach((c) => {
+      allNames.push(c.name);
+      c.items.forEach((i) => allNames.push(i.name));
+    });
+
+    return allNames;
+  }
+
+  isNameUnique(name: string) {
+    return !this.getAllNames().some(
+      (n) => n.toLowerCase() === name.toLowerCase()
+    );
+  }
+
+  getDefaultCargo(): ICargoItem {
+    return (
+      this.cargosBS.value.find(
+        (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+      ) ?? {
+        name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
+        items: [],
+      }
+    );
+  }
+
+  resetPositions() {
+    let appData = this.getAppDataFromLocalStorage();
+    appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
+    console.log('ss');
+
+    this.refreshCargosBS();
+  }
+
+  savePositions() {
+    throw new Error('Method not implemented.');
+    // let appData = this.getAppDataFromLocalStorage();
+    // appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
+    // console.log('ss');
+
+    // this.updateForViews(appData?.cargos);
+  }
+
+  toggleEditions() {
+    this.isEditionsEnabledBS.next(!this.isEditionsEnabledBS.value);
+  }
+
+  findCargoByName(cargoName: string): ICargoItem {
+    return this.cargosBS.value.find((c) => c.name.toLowerCase() === cargoName.toLowerCase());
+  }
+
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+  //////////////////////////////////////////
+
+  // importItemsFromList(itemsNamesList: string[], fromCargo?: boolean) {
+  //   console.log('s');
+
+  //   let destinationCargo: ICargoItem;
+  //   if (fromCargo) {
+  //     let cargoName = itemsNamesList[0];
+  //     itemsNamesList.shift();
+  //     let cargo = this.cargosBS.value.find((c) => c.name === cargoName);
+  //     if (cargo) {
+  //       destinationCargo = cargo;
+  //     } else {
+  //       this.importCargos([cargoName]);
+  //       destinationCargo = this.findCargoByName(cargoName);
+  //     }
+  //   } else {
+  //     // destinationCargo = this.getDefaultCargo();
+  //   }
+
+  //   let importedItems: ISimpleItem[] = [];
+  //   let allNames = this.getAllNames();
+  //   itemsNamesList.forEach((name) => {
+  //     if (
+  //       name !== '' &&
+  //       !allNames.find((i) => i.toLowerCase() === name.toLowerCase())
+  //     ) {
+  //       importedItems.push({
+  //         name: name,
+  //       });
+  //     }
+  //   });
+
+  // let allCargos = this.cargosBS.value;
+  // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
+  // let newItems = [...destinationCargo?.items, ...importedItems];
+  // destinationCargo.items = _.sortBy(_.uniqBy(newItems, 'name'), 'name');
+  // this.cargosBS.next(allCargos);
+  // this.updateForViews();
+
+  // let allCargos = this.cargosBS.value;
+  // let looseItemsCargo = this.getDefaultCargo() ?? new CargoItem();
+  // let newLooseItems = [...looseItemsCargo?.items, ...importedItems];
+  // looseItemsCargo.items = _.sortBy(_.uniqBy(newLooseItems, 'name'), 'name');
+  // this.cargosBS.next(allCargos);
+  // }
+
+  // updateForViews(value?: ICargoItem[]) {
+  //   if (value) {
+  //     this.cargosBS.next(value);
+  //   } else {
+  //     this.cargosBS.next(this.cargosBS.value);
+  //   }
+  // }
+
+  // moveItemToThrashByName(name: string) {
+  //   this.cargosBS.value.forEach((c) => {
+  //     // _.remove(c.items, (item) => item.name === '📦' + name + '📦');
+  //   });
+  // }
+
+  // findItem(name: string): ISimpleItem | null {
+  //   this.cargosBS.value.forEach((c) => {
+  //     // return c.items.find((i) => i.name === name);
+  //   });
+
+  //   return null;
+  // }
+
+  // isCargoItemByName(name: string) {
+  //   return name.startsWith('📦') && name.endsWith('📦');
+  // }
+
+  // getAllItems(): ISimpleItem[] {
+  //   let list: ISimpleItem[] = [];
+  //   // this.cargosBS.value.forEach((c) => (list = list.concat([...c.items])));
+
+  //   return list;
+  // }
+
+  // importCargos(cargosNamesList: string[]) {
+  //   let importedCargos: ICargoItem[] = [];
+
+  //   cargosNamesList.forEach((name) => {
+  //     if (
+  //       name !== '' &&
+  //       !this.getAllNames().find((i) => i.toLowerCase() === name.toLowerCase())
+  //     ) {
+  //       importedCargos.push({
+  //         name: name.toUpperCase(),
+  //         items: [],
+  //       });
+  //     }
+  //   });
+
+  //   let existingCargos = this.cargosBS.value;
+  //   let newCargosList = [...existingCargos, ...importedCargos];
+  //   existingCargos = _.sortBy(_.uniqBy(newCargosList, 'name'), 'name');
+  //   this.cargosBS.next(existingCargos);
+
+  //   this.importCargosAsItems(cargosNamesList);
+  // }
+
+  // importCargosAsItems(cargosNamesList: string[]) {
+  //   let list = cargosNamesList.map((n) => (n = '📦' + n.toUpperCase() + '📦'));
+  //   this.importItemsFromList(list);
+  // }
+
+  // getSortedItems(cargoItems: ISimpleItem[]): ISimpleItem[] {
+  //   let cargos = _.sortBy(
+  //     cargoItems.filter((i) => this.isCargoItemByName(i.name)),
+  //     'name'
+  //   );
+  //   let items = _.sortBy(
+  //     cargoItems.filter((i) => !this.isCargoItemByName(i.name)),
+  //     'name'
+  //   );
+
+  //   return [...cargos, ...items];
+  // }
 }
-
-// const DEFAULT_LOOSEITEMS: ICargoItem[] = [
-//   {
-//     name: 'Primary Loose Items',
-//     items: [
-//       { name: 'nozyk' },
-//       {
-//         name: 'zapalniczka',
-//       },
-//       {
-//         name: 'lyzka',
-//       },
-//       {
-//         name: 'widelec',
-//       },
-//       {
-//         name: 'latarka',
-//       },
-//     ],
-//   },
-//   {
-//     name: 'Secondary Loose Items',
-//     items: [
-//       { name: 'ZNAJDZ MIEJSCE' },
-//       { name: 'UBRANIE JADE' },
-//       { name: 'PLECAK WISPORT' },
-//       { name: 'KIESZEN GOR TYL WISPORT' },
-//       { name: 'WOREK EE' },
-//       { name: 'PLECAK CALLIDA' },
-//       { name: 'reklamowki male wsadz do calidy' },
-//       { name: 'buty haix' },
-//       { name: 'WOREK MAJSTER' },
-//       { name: 'chusteczki zwykle' },
-//       { name: 'flara chemiczna zolta' },
-//       { name: 'APTECZKA MED 1 I LINIA' },
-//       { name: 'czapka zimowa' },
-//       { name: 'bidon w futerale' },
-//       { name: 'czolowka USB' },
-//       { name: 'koc nrt 2' },
-//       { name: 'KOSMETYCZKA CZARNA' },
-//       { name: 'goratex gora' },
-//       { name: 'czapka zimowa - jade' },
-//       { name: 'dlugopis1' },
-//       { name: 'kompas maly2' },
-//       { name: 'WOREK BUTY' },
-//       { name: 'koszulka termo heli2' },
-//       { name: 'goratex dol' },
-//       { name: 'dlugopis2' },
-//       { name: 'krzesiwo' },
-//       { name: 'WOREK EE' },
-//       { name: 'majtki 1' },
-//       { name: 'goratex gora - jade' },
-//       { name: 'notes duzy' },
-//       { name: 'ogrzewacz klata' },
-//       { name: 'WOREK JEDZENIE' },
-//       { name: 'OPCJE???' },
-//       { name: 'mundur dol' },
-//       { name: 'karimata mala zielona1' },
-//       { name: 'notes maly' },
-//       { name: 'ogrzewacz nog' },
-//       { name: 'WOREK MED 2II LINIA' },
-//       { name: 'mundur gora' },
-//       { name: 'ksiazke - ereader ??' },
-//       { name: 'spray na kleszcze' },
-//       { name: 'ogrzewacz rak' },
-//       { name: 'WOREK UBRANIA  ZIELONY' },
-//       { name: 'rekawice czarne skorzane' },
-//       { name: 'noszak' },
-//       { name: 'paliwko 3x' },
-//       { name: 'buty zimowe' },
-//       { name: 'skarpetki cienkie 1' },
-//       { name: 'pila fiskars' },
-//       { name: 'KIESZENI SIATK WISPORT' },
-//       { name: 'scyzoryk' },
-//       { name: 'drugi mundur letni' },
-//       { name: 'zegarek garmin' },
-//       { name: 'przybornik' },
-//       { name: 'beef jerky' },
-//       { name: 'tampony2x' },
-//       { name: 'karimata duza' },
-//       { name: 'CARGO DPM' },
-//       { name: 'komin letni' },
-//       { name: 'rekawice zimowe coyote' },
-//       { name: 'chusteczki nawilzane 15szt 1' },
-//       { name: 'waciki' },
-//       { name: 'klapki pod prysznic' },
-//       { name: 'rekawice zimowe coyote - wkladki' },
-//       { name: 'chusteczki zwykle' },
-//       { name: 'zapalki sztormowe' },
-//       { name: 'krzeselko male skladane' },
-//       { name: 'DO UBRANIA JADE' },
-//       { name: 'sluchawki SONY + etui' },
-//       { name: 'rinbac5' },
-//       { name: 'zapalniczka zwykla2' },
-//       { name: 'maska PGAZ ????' },
-//       { name: '20zl 5x + 50zl 2x' },
-//       { name: 'termos maly ' },
-//       { name: 'polar lidl - w poszewce' },
-//       { name: 'dlugopis 3' },
-//       { name: 'poncho DPM' },
-//       { name: 'WOREK MAJSTER' },
-//       { name: 'ZOSTAWIAM' },
-//       { name: 'dokumenty KW DO' },
-//       { name: 'drut miedziany' },
-//       { name: 'WOREK JEDZENIE' },
-//       { name: 'poszewka moro' },
-//       { name: 'adapter ladowanie garmin' },
-//       { name: 'komin letni' },
-//       { name: 'gumka zielona 2m' },
-//       { name: 'beef jerky ile?' },
-//       { name: 'recznik mikro 2 zielony' },
-//       { name: 'beret/rogatywka?' },
-//       { name: 'komorka realme' },
-//       { name: 'igla nitka guziki' },
-//       { name: 'elektrolity ile?' },
-//       { name: 'softie DOL' },
-//       { name: 'gogle uvex' },
-//       { name: 'rinback 3 w goratex' },
-//       { name: 'kabel realme usb C' },
-//       { name: 'kawa instant 5x' },
-//       { name: 'softie GORA' },
-//       { name: 'kabel USB magnet' },
-//       { name: 'kabelek usb B do telefonu' },
-//       { name: 'snickersy 5x' },
-//       { name: 'spiwor letni' },
-//       { name: 'kalesony MON gora L' },
-//       { name: 'CARGO MALE PT2' },
-//       { name: 'kabelek usb C garmin' },
-//       { name: 'zupki instant ile' },
-//       { name: 'stuptuty? TAK' },
-//       { name: 'koszulka termo perslej1' },
-//       { name: 'beef jerky' },
-//       { name: 'MOLLE W WISPORT' },
-//       { name: 'linijka 10cm' },
-//       { name: 'ladowarka usb B multi' },
-//       { name: 'dlugopis4' },
-//       { name: 'kompas MON' },
-//       { name: 'marker stanley maly2' },
-//       { name: 'KOSMETYCZKA CZARNA' },
-//       { name: 'ocieplacz MON ? NIE' },
-//       { name: 'katomierz' },
-//       { name: 'marker stanley maly1' },
-//       { name: 'microcord 2.5m' },
-//       { name: 'rutinoscrobin' },
-//       { name: 'rekawice taktyczne MFH' },
-//       { name: 'Kleszczolapka' },
-//       { name: 'noz glock' },
-//       { name: 'ochronniki sluchu ze sznurkiem' },
-//       { name: 'golarka elektro' },
-//       { name: 'WOREK BUTY' },
-//       { name: 'skarpetki cienkie 4' },
-//       { name: 'linijka' },
-//       { name: 'paracord 5m' },
-//       { name: 'lusterko male' },
-//       { name: 'chust nawilzane 60szt 3' },
-//       { name: 'spodenki termo' },
-//       { name: 'multitool maly niebieski' },
-//       { name: 'CARGO 9L WISPORT' },
-//       { name: 'powerbank' },
-//       { name: 'mydelko vanish do odplamiania' },
-//       { name: 'pasta braz' },
-//       { name: 'szminki do maskowania??? NIE' },
-//       { name: 'noz maly folder' },
-//       { name: 'KUBEK  TITAN' },
-//       { name: 'sluchawki male douszne' },
-//       { name: 'mydlo szare polowka' },
-//       { name: 'pianka do butow' },
-//       { name: 'termos esbit ??' },
-//       { name: 'ranger bead' },
-//       { name: 'grzalka do wody 230V' },
-//       { name: 'smar olej do nozy' },
-//       { name: 'obcinacz paznokci' },
-//       { name: 'scierka cienka' },
-//       { name: 'ubranie cyw? NIE' },
-//       { name: 'rinbac4' },
-//       { name: 'komin gruby zimowy' },
-//       { name: 'soczewki 2kpl rezerwa' },
-//       { name: 'pasta do zebow' },
-//       { name: 'scierka gruba' },
-//       { name: 'wosk do butow' },
-//       { name: 'snickers 1x' },
-//       { name: 'kominiarka ciepla' },
-//       { name: 'szmatka do okularow' },
-//       { name: 'patyczki do uszu' },
-//       { name: 'szczotka do butow gruba drewno' },
-//       { name: 'zel do czyszczenia butow' },
-//       { name: 'szminka do ust' },
-//       { name: 'komorka lenovoP2' },
-//       { name: 'tajna bron szewca' },
-//       { name: 'psikawka Xylorin12H' },
-//       { name: 'szczoteczka do butow soft' },
-//       { name: 'PAS TAKTYCZNY PT2 - zostawiam' },
-//       { name: 'zapalniczka zarowa1' },
-//       { name: 'ladowarka realme' },
-//       { name: 'tasma izol czarna' },
-//       { name: 'rinback 2' },
-//       { name: 'szczoteczka do butow medium' },
-//       { name: 'CARGO MALE PT2' },
-//       { name: 'zapalniczka zwykla' },
-//       { name: 'latarka olight MON' },
-//       { name: 'trytytki' },
-//       { name: 'soczewki kontaktowe 10kpl' },
-//       { name: 'pasta haix bezbarwna' },
-//       { name: 'shingle4x' },
-//       { name: 'latarka olight MON akcesoria' },
-//       { name: 'ustnik picie' },
-//       { name: 'stopery do uszu' },
-//       { name: 'pasta haix brazowa' },
-//       { name: 'worek zrzutowy' },
-//       { name: 'lunetka vortex' },
-//       { name: 'szczotka do zebow' },
-//       { name: 'UCIECZKOWA CALLIDA' },
-//       { name: 'multitool nextool' },
-//       { name: 'talk do stop' },
-//       { name: 'PIORNIK - zostawiam' },
-//       { name: 'chusteczki nawilzane 60szt 4' },
-//       { name: 'tasma czarna ducttape' },
-//       { name: 'zel pod prysznic' },
-//       { name: 'WOREK MED2 II LINIA' },
-//       { name: 'beret' },
-//       { name: 'papier toaletowy 4' },
-//       { name: 'zeszyt A4 z 16ki' },
-//       { name: 'antybiotyk - macromax' },
-//       { name: 'pas zolnierski' },
-//       { name: 'zlodziejka podwojna' },
-//       { name: 'WOREK MED2 II LINIA PARACHUTIST' },
-//       { name: 'chlorochinaldin - na gardlo' },
-//       { name: 'rogatywka' },
-//       { name: 'WOREK UBRANIA ZIELONY' },
-//       { name: 'ogrzewacze chemiczne' },
-//       { name: 'Kleszczolapka' },
-//       { name: 'kalesony brubeck gora' },
-//       { name: 'plastry rozgrzewajace' },
-//       { name: 'KIESZEN TYL DOL WISPORT' },
-//       { name: 'kalesony brubeck spodnie' },
-//       { name: 'APTECZKA MED1 I LINIA' },
-//       { name: 'plastry ze srebrem na rany' },
-//       { name: 'PLECAK DUZY ZPG906 - zostawiam' },
-//       { name: 'KIESZEN PRZOD WISPORT' },
-//       { name: 'chusteczki nawilzane 60szt 2' },
-//       { name: 'kalesony MON spodnie L' },
-//       { name: 'koc nrt 1' },
-//       { name: 'plastry zelowe na odciski' },
-//       { name: 'KAMZA' },
-//       { name: 'worki strunowe 1.5l kilka' },
-//       { name: 'papier toaletowy 1' },
-//       { name: 'koszulka MON pizama' },
-//       { name: 'Kleszczolapka' },
-//       { name: 'przeciwbolowy b.mocny - ketoprofen' },
-//       { name: 'PAS TAKTYCZNY PT2' },
-//       { name: 'reklamowki cienkie worki' },
-//       { name: 'koszulka termo heli1' },
-//       { name: 'nozyczki' },
-//       { name: 'rinback 1' },
-//       { name: 'PIORNIK' },
-//       { name: 'KUBEK  TITAN' },
-//       { name: 'worki smiecie male' },
-//       { name: 'majtki 2' },
-//       { name: 'octanisept' },
-//       { name: 'theraflu 2x' },
-//       { name: 'kurtka TW' },
-//       { name: 'chusteczki higieniczne' },
-//       { name: 'worki zipbagi' },
-//       { name: 'majtki 3' },
-//       { name: 'plaster szeroki z opatrunkiem3x' },
-//       { name: 'wapno do wody' },
-//       { name: 'ocieplacze kolan' },
-//       { name: 'chusteczki nawilzane z racji S1' },
-//       { name: 'ocieplacz holandia' },
-//       { name: 'plaster zwykly bez opatr' },
-//       { name: 'zel na stluczenia - traumon' },
-//       { name: 'ocieplacze nerek' },
-//       { name: 'lyzkanozwidelec Amelinium' },
-//       { name: 'skarpetki cienkie 2' },
-//       { name: 'plastry luzem' },
-//       { name: 'polar MON zielony - w poszewce' },
-//       { name: 'myjka' },
-//       { name: 'skarpetki cienkie 3' },
-//       { name: 'przeciwbolowe - ibuprom' },
-//       { name: 'RZECZY MALE' },
-//       { name: 'spiwor zimowy' },
-//       { name: 'przyprawy' },
-//       { name: 'skarpety grube 1' },
-//       { name: 'rekawiczki nitrylowe' },
-//       { name: 'karabinki' },
-//       { name: 'skarpety grube 2' },
-//       { name: 'szeroki bandaz ze spinka' },
-//       { name: 'olowek1 +zatyczka' },
-//       { name: 'skarpety grube 3' },
-//       { name: 'wegiel aktywny' },
-//       { name: 'olowek2 +zatyczka' },
-//     ],
-//   },
-// ];
-
-// const DEFAULT_CARGOS: ICargoItem[] = [
-//   {
-//     name: 'PTcargo',
-//     items: [
-//       {
-//         name: 'widelec',
-//       },
-//       {
-//         name: 'latarka',
-//       },
-//     ],
-//   },
-//   {
-//     name: 'worekmaly',
-//     items: [],
-//   },
-//   {
-//     name: 'plecak wisport',
-//     items: [],
-//   },
-// ];
-
-// const DEFAULT_SHELVES: ICargoItem[] = [
-//   {
-//     name: 'pudlo',
-//     items: [
-//       {
-//         name: 'widelec',
-//       },
-//       {
-//         name: 'latarka',
-//       },
-//     ],
-//   },
-//   {
-//     name: 'szafa',
-//     items: [],
-//   },
-//   {
-//     name: 'szuflada',
-//     items: [],
-//   },
-// ];

@@ -3,11 +3,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ng serve",
-      "type": "pwa-chrome",
+      "name": "Launch Edge",
       "request": "launch",
-      "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "type": "msedge",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
     },
     {
       "name": "ng test",
@@ -15,6 +22,31 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html"
+    },
+    {
+      "type": "vscode-edge-devtools.debug",
+      "name": "Open Edge DevTools",
+      "request": "attach",
+      "url": "c:\\Users\\KubaMiszcz\\.vscode\\extensions\\ms-edgedevtools.vscode-edge-devtools-2.1.1\\out\\startpage\\index.html", // Provide your project's url to finish configuring
+      "presentation": {
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Edge Headless and attach DevTools",
+      "configurations": [
+        "Launch Microsoft Edge in headless mode",
+        "Open Edge DevTools"
+      ]
+    },
+    {
+      "name": "Launch Edge and attach DevTools",
+      "configurations": [
+        "Launch Microsoft Edge",
+        "Open Edge DevTools"
+      ]
     }
   ]
 }

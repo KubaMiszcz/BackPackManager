@@ -1,5 +1,6 @@
-import { ISimpleItem, SimpleItem } from './../../models/item';
-import { Component, Input } from '@angular/core';
+import { AppService } from 'src/app/services/app-service.service';
+import { ISimpleItem, SimpleItem } from '../../models/item.model';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-simple-item',
@@ -8,10 +9,12 @@ import { Component, Input } from '@angular/core';
 })
 export class SimpleItemComponent {
   @Input() item: ISimpleItem = new SimpleItem();
+  @Input() isEditionsEnabled = false;
+  @Output() itemDeleted = new EventEmitter();
 
-  constructor() {}
+  constructor(private appService: AppService) {}
 
-  alert(value:string){
+  alert(value: string) {
     alert(value);
   }
 }

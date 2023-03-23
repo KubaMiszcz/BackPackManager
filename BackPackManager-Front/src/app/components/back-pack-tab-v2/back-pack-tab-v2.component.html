@@ -1,7 +1,0 @@
-<div cdkDropListGroup class="d-flex flex-wrap grid">
-    <div *ngFor="let cargo of cargos">
-        <div cdkDrag >
-            <app-cargo-item [cargo]="cargo" (itemDropped)="drop($event)"></app-cargo-item>
-        </div>
-    </div>
-</div>

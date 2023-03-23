@@ -1,5 +1,5 @@
 <div class="xxxcontainer">
-    <nav class="navbar navbar-expand-md bg-body-tertiary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-sm bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -10,33 +10,55 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'backpack-tabV2'" aria-current="page" >BackPackV2</a>
+                        <a class="nav-link active" [routerLink]="'backpack-tab'" aria-current="page">BackPack</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'import-export-tab'" aria-current="page" >ImportExport</a>
+                        <a class="nav-link active" [routerLink]="'import-export-tab'"
+                            aria-current="page">ImportExport</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'cargo-tree-tab'" aria-current="page" >Cargo Tree</a>
+                        <a class="nav-link active" [routerLink]="'cargo-tree-tab'" aria-current="page">Cargo Tree</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="'backpack-tab'" aria-current="page" >BackPack</a>
+                        <button type="button" class="btn btn-sm btn-outline-primary mx-2" (click)="saveData.emit()">
+                            <div class=" form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                (click)="toggleEditions.emit()">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Enable
+                                    Editions</label>
+                                </div>
+                            </button>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-austo mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Dropdown
+                            Options
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <div class="dropdown-item" (click)="savePositions.emit()">Save Positions</div>
+                            </li>
+                            <li>
+                                <div class="dropdown-item" (click)="resetPositions.emit()">Reset positions</div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="dropdown-item">
+                                    adasdas
+                                </div>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
                     </li>
                     <li>
                         <button type="button" class="btn btn-primary mx-2" (click)="saveData.emit()">Save</button>
@@ -46,6 +68,9 @@
                     </li>
                     <li>
                         <button type="button" class="btn btn-danger mx-2" (click)="reInitData.emit()">Clear</button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-primary mx-2" [routerLink]="'help-tab'">🛈Help</button>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">

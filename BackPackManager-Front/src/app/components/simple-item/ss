@@ -1,0 +1,39 @@
+<div class="item">
+    <div class="content d-flesx ">
+        <div class=" left me-auto">
+            <i class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
+            <div class="card-text" [ngClass]="{'pinned' : item.isPinned}">
+                <div>
+                    <span *ngIf="item.isCargo">📦</span>
+                    <span>{{item.name}}</span>
+                    <!-- <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
+                    class="form-control form-control-sm" placeholder="name" aria-label="name"> -->
+                    <span *ngIf="item.isCargo">📦</span>
+                </div>
+            </div>
+        </div>
+        <div class=" right">
+            <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="alert('pin')"></i>
+            <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i>
+            <i *ngIf="isEditionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true"
+                (click)="itemDeleted.emit()"></i>
+        </div>
+
+
+        <!-- <div *ngFor="let item of items" style="width: 45%;">
+            <div class="input-group input-group-sm d-flesx align-items-center">
+                <button class="btn btn-outline-primary" type="button">
+                    <span [ngClass]="{'hidden' : !item.isCargo}">📦</span>
+                </button>
+                <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
+                    class="form-control" placeholder="name" aria-label="name">
+                <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)">
+                    📌</button>
+                <button class="btn btn-outline-danger" type="button" (click)="moveItemToThrash(item)">
+                    🗑️</button>
+            </div>
+        </div> -->
+
+
+    </div>
+</div>
