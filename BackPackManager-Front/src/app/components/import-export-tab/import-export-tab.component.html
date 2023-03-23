@@ -1,20 +1,28 @@
 <div class="col p-2">
     <div class="row pb-2">
         <div class="col">
-            <div class="col input-group">
-                <span class="input-group-text">import items</span>
-                <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
-                <button type="button" class="btn btn-primary import-btn" (click)="batchImportItems()">Batch Import
-                    Items</button>
-                <button type="button" class="btn btn-primary import-btn" (click)="importItems()">Import Items</button>
+            <div class="card">
+                <div class="col input-group">
+                    <span class="input-group-text">Import<br> Items</span>
+                    <textarea [(ngModel)]="itemsInput" class="form-control" aria-label="With textarea"
+                        rows="5"></textarea>
+                    <button type="button" class="btn btn-secondary import-btn" (click)="batchImportItems()">Batch Import
+                        Items</button>
+                    <button type="button" class="btn btn-primary import-btn" (click)="importItems()">Import
+                        Items</button>
+                </div>
             </div>
         </div>
 
         <div class="col">
-            <div class="col input-group">
-                <span class="input-group-text">import cargos</span>
-                <textarea [(ngModel)]="cargosInput" class="form-control" aria-label="With textarea" rows="5"></textarea>
-                <button type="button" class="btn btn-primary import-btn" (click)="importCargos()">Import Cargos</button>
+            <div class="card">
+                <div class="col  input-group">
+                    <span class="input-group-text">Import<br> Cargos</span>
+                    <textarea [(ngModel)]="cargosInput" class="form-control" aria-label="With textarea"
+                        rows="5"></textarea>
+                    <button type="button" class="btn btn-primary import-btn" (click)="importCargos()">Import
+                        Cargos</button>
+                </div>
             </div>
         </div>
     </div>
@@ -26,9 +34,11 @@
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header">
+                <!-- <div class="card-title">
                     All Items
-                </div>
+                </div> -->
+                <div class="card-header">Card title</div>
+
                 <div class="d-flex flex-wrap justify-content-between">
                     <div *ngFor="let item of items" style="width: 45%;">
                         <div class="input-group input-group-sm d-flesx align-items-center">

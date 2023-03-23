@@ -1,6 +1,7 @@
 .cargo-item {
     max-width: fit-content;
     min-width: 15rem;
+    border: #575044 solid 2px;
 
     .card-header {
         display: flex;
@@ -29,10 +30,11 @@
         overflow: hidden;
         display: block;
     }
-
+    
     .example-box {
         padding: 0px 4px;
-        border-bottom: solid 1px #ccc;
+        border-bottom: #575044 solid 1px;
+        // border-bottom: solid 1px #ccc;
         color: rgba(0, 0, 0, 0.87);
         display: flex;
         box-sizing: border-box;
