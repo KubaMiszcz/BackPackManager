@@ -5,31 +5,32 @@
 //     align-items: center;
 // }
 
-.card{
+.card {
     border: solid 2px #575044;
+    border-radius: 8px;
 
-    .card-header{
-font-size: 1.5rem;
-font-weight: 450;
+    .card-header {
+        font-size: 1.5rem;
+        font-weight: 450;
     }
-    
+
     .import-btn {
         width: 5em;
     }
-    
+
     .hidden {
         color: transparent;
     }
-    
+
     .vv {
         font-size: 1em;
         height: 1.5em;
     }
-    
+
     .pinned {
         font-weight: 600;
     }
-    
+
     .red {
         color: red;
     }
