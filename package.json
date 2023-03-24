@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "ng deploy --repo=https://github.com/kubamiszcz/BackPackManager.git --name='kubamiszcz' --email=zielonyeufor@gmail.com --no-silent",
-    "build:prod": "ng build --configuration production --base-href https://kubamiszcz.github.io/BackPackManager/",
+    "build:prod": "ng build --configuration production --base-href /BackPackManager/",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
