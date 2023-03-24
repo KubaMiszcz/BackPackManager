@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production --base-href https://kubamiszcz.github.io/back-pack-manager/",
+    "build:prod": "ng build --configuration production --base-href https://kubamiszcz.github.io/BackPackManager/",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
