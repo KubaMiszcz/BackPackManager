@@ -1,7 +1,6 @@
-<p>cargo-tree-tab works!</p>
 <div>
     <div *ngFor="let cargo of cargos">
-        <div class=""><b>{{cargo.name}}</b></div>
+        <div class=""><b>>{{cargo.name}}</b></div>
         <div *ngFor="let item of cargo.items">
             <div class="ml-2">{{item.name}}</div>
         </div>

@@ -34,4 +34,9 @@ export class AppComponent {
   toggleEditions() {
     this.appService.toggleEditions();
   }
+  
+  exportToClipboard() {
+    this.appService.exportToClipboard();
+  }
+    
 }

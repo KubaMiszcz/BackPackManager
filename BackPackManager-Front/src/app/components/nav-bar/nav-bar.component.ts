@@ -12,4 +12,5 @@ export class NavBarComponent {
   @Output() resetPositions = new EventEmitter();
   @Output() savePositions = new EventEmitter();
   @Output() toggleEditions = new EventEmitter();
+  @Output() exportToClipboard = new EventEmitter();
 }
