@@ -30,6 +30,10 @@ todolists
 ng build --base-href /dev/back-pack-manager/   
 ng deploy --base-href=https://kubamiszcz.github.io/BackPackManager/
 
+// "build:prod": "ng build --configuration production --base-href https://kubamiszcz.github.io/BackPackManager/",
+// "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
+  
+
 
 
 
