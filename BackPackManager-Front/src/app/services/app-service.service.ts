@@ -1,6 +1,12 @@
 import { Point } from '@angular/cdk/drag-drop';
 import { AppData } from '../models/app-data.model';
-import { ISimpleItem, ICargoItem, CargoItem, PointXY } from '../models/item.model';
+import {Clipboard} from '@angular/cdk/clipboard';
+import {
+  ISimpleItem,
+  ICargoItem,
+  CargoItem,
+  PointXY,
+} from '../models/item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { APP_DATA, APP_DEFAULTS } from './appData.json';
@@ -10,13 +16,10 @@ import * as _ from 'lodash';
   providedIn: 'root',
 })
 export class AppService {
-  addNewCargo(destinationCargoName: string) {
-    throw new Error('Method not implemented.');
-  }
   cargosBS = new BehaviorSubject<ICargoItem[]>([]);
   isEditionsEnabledBS = new BehaviorSubject<boolean>(false);
 
-  constructor() {
+  constructor(private clipboard: Clipboard) {
     // let appData = APP_DATA;
     // localStorage.setItem('BackPackManagerData', JSON.stringify(appData));
     this.loadData();
@@ -109,7 +112,20 @@ export class AppService {
   }
 
   findCargoByName(cargoName: string): ICargoItem {
-    return this.cargosBS.value.find((c) => c.name.toLowerCase() === cargoName.toLowerCase());
+    return this.cargosBS.value.find(
+      (c) => c.name.toLowerCase() === cargoName.toLowerCase()
+    );
+  }
+
+  exportToClipboard() {
+    let list = '';
+    this.cargosBS.value.forEach((c) => {
+      list += '>' + c.name.toUpperCase() + '\n';
+      c.items.forEach((i) => (list += i.name + '\n'));
+      list += '\n';
+    });
+
+    this.clipboard.copy(list);
   }
 
   //////////////////////////////////////////

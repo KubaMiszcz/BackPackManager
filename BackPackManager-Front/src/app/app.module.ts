@@ -13,6 +13,7 @@ import { BackPackTabComponent } from './components/back-pack-tab/back-pack-tab.c
 import { ImportExportTabComponent } from './components/import-export-tab/import-export-tab.component';
 import { FormsModule } from '@angular/forms';
 import { HelpTabComponent } from './components/help-tab/help-tab.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -25,7 +26,8 @@ import { HelpTabComponent } from './components/help-tab/help-tab.component';
     CargoTreeTabComponent,
     BackPackTabComponent,
     ImportExportTabComponent,
-    HelpTabComponent
+    HelpTabComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
