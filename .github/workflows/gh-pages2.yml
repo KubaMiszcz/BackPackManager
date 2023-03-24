@@ -33,8 +33,8 @@ jobs:
     - name: Deploy
       if: success()
       # uses: peaceiris/actions-gh-pages@v3
+      run: npm run deploy
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         # publish_dir: dist/back-pack-manager
-        run: npm run deploy
         # enable_jekyll: true
