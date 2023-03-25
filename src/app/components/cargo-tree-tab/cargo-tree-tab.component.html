@@ -1,7 +1,9 @@
-<div>
-    <div *ngFor="let cargo of cargos">
+<div class="card m-2 p-2">
+    <div *ngFor="let cargo of cargos" class="mb-2">
         <div class=""><b>>{{cargo.name}}</b></div>
-        <div *ngFor="let item of cargo.items">
+        <div *ngFor="let item of cargo.items" class="d-flex ms-2">
+            <i *ngIf="!item.isChecked" class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
+            <i *ngIf="item.isChecked" class="fa  fa-check-square-o me-1 checkbox icon" aria-hidden="true"></i>
             <div class="ml-2">{{item.name}}</div>
         </div>
     </div>

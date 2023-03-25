@@ -6,6 +6,7 @@ export interface ISimpleItem {
   name: string;
   isPinned?: boolean;
   isCargo?: boolean;
+  isChecked?: boolean;
   // parentCargo?: ISimpleItem;
   // parentCargo?: Nullable<ISimpleItem>;
   // description: string;
@@ -24,8 +25,8 @@ export class SimpleItem implements ISimpleItem {
 
 
 
-
-export interface ICargoItem extends ISimpleItem {
+export interface ICargoItem {
+  name: string;
   items: ISimpleItem[];
   dragPosition?: PointXY;
   //   capacity: SizeEnum;
@@ -34,7 +35,7 @@ export interface ICargoItem extends ISimpleItem {
 
 export class CargoItem implements ICargoItem {
   name: string = '';
-  items: ISimpleItem[];
+  items: ISimpleItem[] = [];
   dragPosition?: PointXY = { x: 0, y: 0 };
 }
 

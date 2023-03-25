@@ -17,4 +17,12 @@ export class SimpleItemComponent {
   alert(value: string) {
     alert(value);
   }
+
+  togglePinned() {
+    this.item.isPinned = !this.item.isPinned;
+  }
+
+  toggleChecked() {
+    this.item.isChecked = !this.item.isChecked;
+  }
 }
