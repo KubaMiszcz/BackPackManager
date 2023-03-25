@@ -1,6 +1,7 @@
 <div class="item" [ngClass]="{'pinned' : item.isPinned}">
     <div class="content">
-        <i class="fa fa-square-o me-1 checkbox icon" aria-hidden="true"></i>
+        <i *ngIf="!item.isChecked" class="fa fa-square-o me-1 checkbox icon" aria-hidden="true" (click)="toggleChecked()"></i>
+        <i *ngIf="item.isChecked" class="fa  fa-check-square-o me-1 checkbox icon" aria-hidden="true"(click)="toggleChecked()"></i>
         <span *ngIf="item.isCargo">📦</span>
         <span *ngIf="!isEditionsEnabled ">{{item.name}}</span>
         <input *ngIf="isEditionsEnabled" type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
@@ -8,8 +9,8 @@
         <span *ngIf="item.isCargo">📦</span>
     </div>
     <div class="content">
-        <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="alert('pin')"></i>
-        <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i>
+        <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="togglePinned()"></i>
+        <!-- <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i> -->
         <i *ngIf="isEditionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
     </div>
 </div>
