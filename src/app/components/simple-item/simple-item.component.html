@@ -5,11 +5,12 @@
         <span *ngIf="item.isCargo">📦</span>
         <span *ngIf="!isEditionsEnabled ">{{item.name}}</span>
         <input *ngIf="isEditionsEnabled" type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
-            class="input-name form-control form-control-sm" placeholder="name" aria-label="name">
+        class="input-name form-control form-control-sm" placeholder="name" aria-label="name">
         <span *ngIf="item.isCargo">📦</span>
     </div>
     <div class="content">
-        <i class="fa fa-thumb-tack icon" aria-hidden="true" (click)="togglePinned()"></i>
+        <span *ngIf="item.isPinned" (click)="togglePinned()">📌</span>
+        <i *ngIf="!item.isPinned" class="fa fa-thumb-tack icon" aria-hidden="true" (click)="togglePinned()"></i>
         <!-- <i class="fa fa-exclamation-circle icon orange" aria-hidden="true" (click)="alert('warn')"></i> -->
         <i *ngIf="isEditionsEnabled" class="fa fa-trash-o icon red" aria-hidden="true" (click)="itemDeleted.emit()"></i>
     </div>
