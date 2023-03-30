@@ -9,7 +9,7 @@ import {
 } from '../models/item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { APP_DATA, APP_DEFAULTS } from './appData.json';
+import { DEFAULT_APP_DATA, APP_DEFAULTS } from './appData.json';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -33,14 +33,20 @@ export class AppService {
     );
   }
 
-  loadData() {
+  loadData() { 
     let appData = this.getAppDataFromLocalStorage();
 
     if (appData) {
-      this.cargosBS.next(appData.cargos);
+      this.refreshCargosBS();
     } else {
       this.reInitData();
+      this.loadDefaultData();
     }
+  }
+
+  loadDefaultData() {
+    let appData = APP_DEFAULTS;
+    this.refreshCargosBS();
   }
 
   private getAppDataFromLocalStorage() {
