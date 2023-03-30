@@ -34,9 +34,12 @@ export class AppComponent {
   toggleEditions() {
     this.appService.toggleEditions();
   }
-  
+
   exportToClipboard() {
     this.appService.exportToClipboard();
   }
-    
+
+  searchForItem(value: string) {
+    this.appService.searchForItem(value);
+  }
 }

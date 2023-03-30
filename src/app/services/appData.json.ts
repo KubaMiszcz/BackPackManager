@@ -3,6 +3,7 @@ import { AppData } from '../models/app-data.model';
 export const APP_DEFAULTS = {
   DEFAULT_CARGO_NAME: '!LOOSE ITEMS',
   BACKPACKMANAGER_APPDATA: 'BackPackManagerData',
+  MIN_SEARCH_TEXT_LENGTH: 1,
 };
 
 export const DEFAULT_APP_DATA: AppData = {
