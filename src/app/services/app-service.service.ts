@@ -66,7 +66,7 @@ export class AppService {
   }
 
   refreshCargosBS(value?: AppData) {
-    this.cargosBS.next(value.cargos ?? this.cargosBS.value);
+    this.cargosBS.next(value?.cargos ?? this.cargosBS.value);
   }
 
   getAllNames() {
