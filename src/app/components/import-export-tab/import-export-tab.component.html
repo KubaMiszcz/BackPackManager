@@ -41,7 +41,7 @@
                             <button class="btn btn-outline-primary" type="button">
                                 <span [ngClass]="{'hidden' : !item.isCargo}">📦</span>
                             </button>
-                            <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned}"
+                            <input type="text" [(ngModel)]="item.name" [ngClass]="{'pinned' : item.isPinned, 'highlighted' : item.isHighlighted }"
                                 class="form-control" placeholder="name" aria-label="name">
                             <button class="btn btn-outline-warning" type="button" (click)="togglePinItem(item)">
                                 📌</button>
