@@ -9,7 +9,7 @@ import {
 } from '../models/item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { APP_DATA, APP_DEFAULTS } from './appData.json';
+import { DEFAULT_APP_DATA, APP_DEFAULTS } from './appData.json';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -37,10 +37,16 @@ export class AppService {
     let appData = this.getAppDataFromLocalStorage();
 
     if (appData) {
-      this.cargosBS.next(appData.cargos);
+      this.refreshCargosBS(appData);
     } else {
       this.reInitData();
+      // this.loadDefaultData();
     }
+  }
+
+  loadDefaultData() {
+    let appData = APP_DEFAULTS;
+    this.refreshCargosBS();
   }
 
   private getAppDataFromLocalStorage() {
@@ -59,8 +65,8 @@ export class AppService {
     this.saveData();
   }
 
-  refreshCargosBS() {
-    this.cargosBS.next(this.cargosBS.value);
+  refreshCargosBS(value?: AppData) {
+    this.cargosBS.next(value.cargos ?? this.cargosBS.value);
   }
 
   getAllNames() {
@@ -126,6 +132,21 @@ export class AppService {
     });
 
     this.clipboard.copy(list);
+  }
+
+  searchForItem(value: string) {
+    const minSearchLength = APP_DEFAULTS.MIN_SEARCH_TEXT_LENGTH;
+    this.cargosBS.value.forEach(
+      (c) =>
+        c.items.forEach(
+          (i) =>
+            (i.isHighlighted =
+              value.length >= minSearchLength
+                ? i.name.toLowerCase().includes(value.toLowerCase())
+                : false)
+        )
+      // .forEach((item) => (item.isHighlighted = isHighlighted))
+    );
   }
 
   //////////////////////////////////////////

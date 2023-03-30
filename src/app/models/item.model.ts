@@ -7,6 +7,7 @@ export interface ISimpleItem {
   isPinned?: boolean;
   isCargo?: boolean;
   isChecked?: boolean;
+  isHighlighted?: boolean;
   // parentCargo?: ISimpleItem;
   // parentCargo?: Nullable<ISimpleItem>;
   // description: string;

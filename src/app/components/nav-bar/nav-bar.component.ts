@@ -6,6 +6,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {
+  searchText = '';
+
   @Output() saveData = new EventEmitter();
   @Output() loadData = new EventEmitter();
   @Output() reInitData = new EventEmitter();
@@ -13,4 +15,5 @@ export class NavBarComponent {
   @Output() savePositions = new EventEmitter();
   @Output() toggleEditions = new EventEmitter();
   @Output() exportToClipboard = new EventEmitter();
+  @Output() searchForItem = new EventEmitter();
 }
