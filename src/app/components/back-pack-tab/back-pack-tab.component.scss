@@ -1,6 +1,13 @@
-.grid {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: left;
-    place-content: left;
+.example-boundary {
+    // width: 400px;
+    // height: 400px;
+    // max-width: 100%;
+    // border: dotted #ccc 2px;
+
+    .grid {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: left;
+        place-content: left;
+    }
 }

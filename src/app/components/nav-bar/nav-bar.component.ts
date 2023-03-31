@@ -16,4 +16,6 @@ export class NavBarComponent {
   @Output() toggleEditions = new EventEmitter();
   @Output() exportToClipboard = new EventEmitter();
   @Output() searchForItem = new EventEmitter();
+
+  constructor() {}
 }
