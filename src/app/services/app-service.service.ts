@@ -9,7 +9,7 @@ import {
 } from '../models/item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DEFAULT_APP_DATA, APP_DEFAULTS } from './appData.json';
+import { DEFAULT_APP_DATA, APP_DEFAULT_SETTINGS } from './appData.json';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class AppService {
   saveData() {
     let appData: AppData = { cargos: this.cargosBS.value };
     localStorage.setItem(
-      APP_DEFAULTS.BACKPACKMANAGER_APPDATA,
+      APP_DEFAULT_SETTINGS.BACKPACKMANAGER_APPDATA,
       JSON.stringify(appData)
     );
   }
@@ -45,12 +45,12 @@ export class AppService {
   }
 
   loadDefaultData() {
-    let appData = APP_DEFAULTS;
-    this.refreshCargosBS();
+    let appData = DEFAULT_APP_DATA;
+    this.refreshCargosBS(appData);
   }
 
   private getAppDataFromLocalStorage() {
-    let data = localStorage.getItem(APP_DEFAULTS.BACKPACKMANAGER_APPDATA);
+    let data = localStorage.getItem(APP_DEFAULT_SETTINGS.BACKPACKMANAGER_APPDATA);
 
     if (data !== null && data?.length > 0) {
       let appData: AppData = JSON.parse(data);
@@ -61,7 +61,7 @@ export class AppService {
   }
 
   reInitData() {
-    this.cargosBS.next([{ name: APP_DEFAULTS.DEFAULT_CARGO_NAME, items: [] }]);
+    this.cargosBS.next([{ name: APP_DEFAULT_SETTINGS.DEFAULT_CARGO_NAME, items: [] }]);
     this.saveData();
   }
 
@@ -88,9 +88,9 @@ export class AppService {
   getDefaultCargo(): ICargoItem {
     return (
       this.cargosBS.value.find(
-        (c) => c.name === APP_DEFAULTS.DEFAULT_CARGO_NAME
+        (c) => c.name === APP_DEFAULT_SETTINGS.DEFAULT_CARGO_NAME
       ) ?? {
-        name: APP_DEFAULTS.DEFAULT_CARGO_NAME,
+        name: APP_DEFAULT_SETTINGS.DEFAULT_CARGO_NAME,
         items: [],
       }
     );
@@ -101,7 +101,7 @@ export class AppService {
     appData?.cargos.forEach((c) => (c.dragPosition = new PointXY()));
     console.log('ss');
 
-    this.refreshCargosBS();
+    this.refreshCargosBS(appData);
   }
 
   savePositions() {
@@ -135,7 +135,7 @@ export class AppService {
   }
 
   searchForItem(value: string) {
-    const minSearchLength = APP_DEFAULTS.MIN_SEARCH_TEXT_LENGTH;
+    const minSearchLength = APP_DEFAULT_SETTINGS.MIN_SEARCH_TEXT_LENGTH;
     this.cargosBS.value.forEach(
       (c) =>
         c.items.forEach(

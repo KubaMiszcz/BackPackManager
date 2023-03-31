@@ -1,14 +1,16 @@
-<div>
-    <app-nav-bar class="margin-top" 
-        (saveData)="saveData()"
-        (loadData)="loadData()"
-        (reInitData)="reInitData()"
-        (savePositions)="savePositions()"
-        (resetPositions)="resetPositions()"
-        (toggleEditions)="toggleEditions()"
-        (exportToClipboard)="exportToClipboard()"
-        (searchForItem)="searchForItem($event)"
-        ></app-nav-bar>
-    <router-outlet></router-outlet>
+<div class="page-container">
+    <div class="content-wrap">
+        <app-nav-bar class="margin-top" 
+            (saveData)="saveData()"
+            (loadData)="loadData()"
+            (reInitData)="reInitData()"
+            (savePositions)="savePositions()"
+            (resetPositions)="resetPositions()"
+            (toggleEditions)="toggleEditions()"
+            (exportToClipboard)="exportToClipboard()"
+            (searchForItem)="searchForItem($event)"
+            ></app-nav-bar>
+            <router-outlet></router-outlet>
+    </div>
     <app-footer></app-footer>
 </div>

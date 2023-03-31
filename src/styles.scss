@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/font-awesome/scss/font-awesome.scss";
 
 html,
 body {
@@ -10,4 +11,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-@import "../node_modules/font-awesome/scss/font-awesome.scss";
+.page-container {
+    position: relative;
+    min-height: 100vh;
+  }

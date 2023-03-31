@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { ICargoItem } from '../models/item.model';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from './app-service.service';
-import { APP_DEFAULTS } from './appData.json';
+import { APP_DEFAULT_SETTINGS } from './appData.json';
 import * as _ from 'lodash';
 
 @Injectable({
