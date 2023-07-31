@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1680539861595,
+  "timestamp": 1690810113911,
   "index": "/BackPackManager/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/BackPackManager/favicon.ico",
         "/BackPackManager/index.html",
-        "/BackPackManager/main.f1822d113234728d.js",
+        "/BackPackManager/main.3b405616c586e117.js",
         "/BackPackManager/manifest.webmanifest",
         "/BackPackManager/polyfills.43315e646db12581.js",
         "/BackPackManager/runtime.ab9989df88f7f409.js",
@@ -80,8 +80,8 @@
     "/BackPackManager/fontawesome-webfont.cf011583fb81df9f.woff": "28b782240b3e76db824e12c02754a9731a167527",
     "/BackPackManager/fontawesome-webfont.da909aa098b0ee2d.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "/BackPackManager/fontawesome-webfont.e9955780856cf8aa.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
-    "/BackPackManager/index.html": "41f7eed7a0300b1bfdf7cae469e10e4d94269973",
-    "/BackPackManager/main.f1822d113234728d.js": "21c42e1a4047d88f114185d3619edd3470a28d68",
+    "/BackPackManager/index.html": "ac834576ae7532842a600f91706527a8e6212cb0",
+    "/BackPackManager/main.3b405616c586e117.js": "ccdbfb9695134286b748cbc979903df803de01ee",
     "/BackPackManager/manifest.webmanifest": "01c585420afab4e2680f871adb9ed7623fc23c53",
     "/BackPackManager/polyfills.43315e646db12581.js": "490f3dbe9b711a78154ab385a771d2411326b5d0",
     "/BackPackManager/runtime.ab9989df88f7f409.js": "13021875cf1f2784f0554a7b75e5997d7269ab04",
